@@ -17,13 +17,35 @@
       font-family: 'Tajawal', sans-serif;
       direction: rtl;
     }
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .btn-green {
+      width: 100%;
+      background: #16a34a;
+      color: white;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
-<body class="bg-gray-100">
+
+<body class="bg-gray-100 pb-20">
 <div id="root"></div>
 
 <script type="text/babel">
 const { useState, useRef } = React;
+
+/* ===== إعلان ===== */
+const AdBanner = ({ text }) => (
+  <div className="bg-yellow-400 text-black text-center p-3 rounded font-semibold">
+    {text}
+  </div>
+);
 
 const App = () => {
   const [page, setPage] = useState("list");
@@ -49,7 +71,6 @@ const App = () => {
 
   const addProperty = (e) => {
     e.preventDefault();
-
     const p = propertyRef.current;
 
     if (!p.title || !p.price || !p.city) {
@@ -59,27 +80,19 @@ const App = () => {
 
     setProperties(prev => [
       ...prev,
-      {
-        id: Date.now(),
-        ...p
-      }
+      { id: Date.now(), ...p }
     ]);
 
     propertyRef.current = {
-      title: "",
-      price: "",
-      city: "",
-      rooms: "",
-      bathrooms: "",
-      area: "",
-      type: "بيع",
-      description: "",
-      images: []
+      title: "", price: "", city: "", rooms: "",
+      bathrooms: "", area: "", type: "بيع",
+      description: "", images: []
     };
 
     setPage("list");
   };
 
+  /* ===== صفحة الإضافة ===== */
   const AddPage = () => (
     <form onSubmit={addProperty} className="p-4 space-y-3">
       <input className="input" placeholder="عنوان العقار"
@@ -111,30 +124,47 @@ const App = () => {
         onInput={e => propertyRef.current.description = e.target.value}></textarea>
 
       <input type="file" multiple accept="image/*"
-        onChange={e => handleImages(e.target.files)}
-        className="w-full" />
+        onChange={e => handleImages(e.target.files)} />
 
       <button className="btn-green">إضافة العقار</button>
     </form>
   );
 
+  /* ===== صفحة العرض مع الإعلانات ===== */
   const ListPage = () => (
     <div className="p-4 space-y-4">
-      {properties.map(p => (
-        <div key={p.id} className="bg-white rounded shadow p-3">
-          {p.images[0] && (
-            <img src={p.images[0]} className="w-full h-40 object-cover rounded mb-2" />
+
+      {/* إعلان علوي */}
+      <AdBanner text="📢 إعلان ممول: وكالات عقارية وخدمات كراء" />
+
+      {properties.map((p, i) => (
+        <React.Fragment key={p.id}>
+
+          {/* إعلان بين كل 3 عقارات */}
+          {i > 0 && i % 3 === 0 && (
+            <AdBanner text="⭐ إعلان: روّج لعقارك هنا" />
           )}
-          <div className="font-bold">{p.title}</div>
-          <div className="text-blue-600">{p.price} درهم</div>
-          <div className="text-sm text-gray-600">{p.city} – {p.type}</div>
-        </div>
+
+          <div className="bg-white rounded shadow p-3">
+            {p.images[0] && (
+              <img src={p.images[0]}
+                   className="w-full h-40 object-cover rounded mb-2" />
+            )}
+            <div className="font-bold">{p.title}</div>
+            <div className="text-blue-600">{p.price} درهم</div>
+            <div className="text-sm text-gray-600">
+              {p.city} – {p.type}
+            </div>
+          </div>
+
+        </React.Fragment>
       ))}
     </div>
   );
 
   return (
     <div>
+      {/* شريط علوي */}
       <div className="bg-blue-600 text-white p-3 flex justify-between">
         <div>darmarket</div>
         <button onClick={() => setPage(page === "add" ? "list" : "add")}>
@@ -150,22 +180,10 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById("root"));
 </script>
 
-<style>
-.input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-.btn-green {
-  width: 100%;
-  background: #16a34a;
-  color: white;
-  padding: 14px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-</style>
+<!-- إعلان ثابت أسفل الشاشة -->
+<div class="fixed bottom-0 left-0 right-0 bg-blue-700 text-white text-center p-3 font-semibold">
+  📞 إعلان: وكالات عقارية – اتصل الآن
+</div>
 
 </body>
 </html>
