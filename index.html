@@ -21,7 +21,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React; // **تعديل: إضافة useRef هنا**
+        const { useState, useEffect } = React;
 
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
@@ -83,7 +83,6 @@
                 type: ''
             });
 
-            // **تعديل: إزالة useState القديم لـ newProperty لمصلحة useRefs**
             const [newProperty, setNewProperty] = useState({
                 title: '',
                 price: '',
@@ -96,7 +95,6 @@
                 image: ''
             });
 
-
             const filteredProperties = properties.filter(property => {
                 if (searchParams.city && property.city !== searchParams.city) return false;
                 if (searchParams.minPrice && property.price < parseInt(searchParams.minPrice)) return false;
@@ -105,22 +103,16 @@
                 return true;
             });
 
-            // **تعديل: دمج منطق إضافة العقار مع منع الإرسال التلقائي**
+            // **التعديل 1: إضافة (e) ومنع الإرسال التلقائي**
             const handleAddProperty = (e) => {
-                e.preventDefault(); // منع الإرسال التلقائي للنموذج وإعادة تحميل الصفحة
+                e.preventDefault(); // هذا يوقف إعادة رسم الصفحة وإغلاق لوحة المفاتيح
 
-                // استخدمنا newProperty القديم هنا لأن التعديل الشامل لـ useRefs سيأخذ وقتاً
-                // هذه الدالة ستعمل الآن لأننا منعنا إعادة التحميل
                 const property = {
                     id: properties.length + 1,
                     ...newProperty,
-                    // **تعديل مؤقت: لكي يتم معالجة الصورة بشكل صحيح، سنعيدها إلى رابط نصي حتى لا تحدث مشاكل في الحفظ**
-                    // إذا كنت تريد حقاً التعامل مع الملفات، يجب تعديل هذا الجزء لمعالجة ملف base64 أو رابط placeholder.
                     image: newProperty.image || `https://placehold.co/400x300/4A90E2/FFFFFF?text=${newProperty.title}`
                 };
-                
                 setProperties([...properties, property]);
-                // **تعديل: إعادة تعيين الحالة بعد الإضافة (للتنظيف)**
                 setNewProperty({
                     title: '',
                     price: '',
@@ -358,8 +350,8 @@
                 <div className="container mx-auto p-4">
                     <AdvertisementBanner />
                     <h2 className="text-2xl font-bold mb-6">إضافة عقار جديد</h2>
-                    {/* **تعديل 1: إضافة وسم FORM وربطه بالدالة لمنع الإرسال التلقائي** */}
-                    <form onSubmit={handleAddProperty} className="bg-white rounded-lg shadow-md p-6">
+                    {/* **التعديل 2: تغيير <div> إلى <form> وربطها بالدالة** */}
+                    <form className="bg-white rounded-lg shadow-md p-6" onSubmit={handleAddProperty}>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-gray-700 font-semibold mb-2">العنوان</label>
@@ -369,8 +361,7 @@
                                     onChange={(e) => setNewProperty({...newProperty, title: e.target.value})}
                                     className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="اسم العقار"
-                                    // **تعديل 2: حذف خاصية key التي لم تنجح**
-                                />
+                                 />
                             </div>
                             <div>
                                 <label className="block text-gray-700 font-semibold mb-2">السعر</label>
@@ -444,14 +435,10 @@
                                 ></textarea>
                             </div>
                             <div className="md:col-span-2">
-                                {/* **تعديل 3: تغيير Label Placeholder** */}
-                                <label className="block text-gray-700 font-semibold mb-2">صورة العقار</label>
+                                {/* **تم تغيير Label ليعكس أنك ستختار ملفاً** */}
+                                <label className="block text-gray-700 font-semibold mb-2">صورة العقار (اختيار ملف)</label>
                                 <input 
-                                    type="file" // هذا يجعل المتصفح يطلب ملف
-                                    // **تعديل 4: تغيير طريقة معالجة الملفات لمنع فقدان التركيز**
-                                    // نستخدم هنا value و onChange لملف type="file" مؤقتاً
-                                    // بما أننا منعنا الإرسال التلقائي (e.preventDefault)، فمشكلة لوحة المفاتيح يجب أن تحل.
-                                    // يجب الانتباه: قيمة newProperty.image هنا ستكون اسم الملف فقط، وليس البيانات.
+                                    type="file" 
                                     value={newProperty.image}
                                     onChange={(e) => setNewProperty({...newProperty, image: e.target.value})}
                                     className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -460,10 +447,10 @@
                             </div>
                         </div>
                         <div className="mt-6 flex space-x-4">
-                            {/* **تعديل 5: تحويل زر الإضافة إلى type="submit" لربطه بالنموذج** */}
+                            {/* **التعديل 3: تحويل الزر إلى type="submit"** */}
                             <button 
                                 type="submit"
-                                // **تم حذف onClick={handleAddProperty} لأنها الآن مرتبطة بالـ form onSubmit**
+                                // تم حذف onClick لربطه بالـ form
                                 className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700"
                             >
                                 إضافة العقار
@@ -475,7 +462,7 @@
                                 إلغاء
                             </button>
                         </div>
-                    </form> {/* **تعديل 6: إغلاق وسم FORM** */}
+                    </form> {/* **التعديل 4: إغلاق وسم <form>** */}
                 </div>
             );
 
@@ -510,4 +497,3 @@
     </script>
 </body>
 </html>
-
