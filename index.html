@@ -103,8 +103,8 @@
                 return true;
             });
 
-            const handleAddProperty = () => {
-                const property = {
+            const handleAddProperty = (e) => {
+                const property = {e.preventDefault();
                     id: properties.length + 1,
                     ...newProperty,
                     image: newProperty.image || `https://placehold.co/400x300/4A90E2/FFFFFF?text=${newProperty.title}`
@@ -430,10 +430,10 @@
                                     placeholder="وصف العقار..."
                                 ></textarea>
                             </div>
-                            <div className="md:col-span-2">
+                            <form className="bg-white rounded-lg shadow-md p-6" onSubmit={handleAddProperty}>
                                 <label className="block text-gray-700 font-semibold mb-2">صورة العقار (رابط)</label>
                                 <input 
-                                    type="file"
+                                    type="text"
                                     value={newProperty.image}
                                     onChange={(e) => setNewProperty({...newProperty, image: e.target.value})}
                                     className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
