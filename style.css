@@ -1,810 +1,851 @@
-/* أساسيات التصميم */
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --light-color: #ecf0f1;
-    --dark-color: #2c3e50;
-    --gray-color: #95a5a6;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Cairo', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
-    direction: rtl;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* شريط التنقل */
-.navbar {
-    background-color: white;
-    box-shadow: var(--shadow);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.logo i {
-    margin-left: 10px;
-    color: var(--secondary-color);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-right: 25px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--dark-color);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-}
-
-.nav-links a i {
-    margin-left: 8px;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: var(--secondary-color);
-    background-color: rgba(52, 152, 219, 0.1);
-}
-
-.btn-login {
-    background-color: var(--secondary-color);
-    color: white !important;
-    padding: 8px 20px !important;
-}
-
-.btn-login:hover {
-    background-color: #2980b9 !important;
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--primary-color);
-}
-
-/* قسم البطل */
-.hero {
-    background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), 
-                url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    padding: 150px 20px 100px;
-    margin-top: 70px;
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
-}
-
-.btn-hero {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-}
-
-.btn-hero:hover {
-    background-color: #c0392b;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
-}
-
-.btn-hero i {
-    margin-right: 10px;
-}
-
-/* قسم البحث */
-.search-section {
-    padding: 80px 0;
-    background-color: white;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.section-title i {
-    margin-left: 15px;
-    color: var(--secondary-color);
-}
-
-.search-box {
-    background-color: var(--light-color);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-}
-
-.search-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.search-group {
-    flex: 1;
-    min-width: 250px;
-    margin-left: 15px;
-    margin-bottom: 15px;
-}
-
-.search-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--dark-color);
-    display: flex;
-    align-items: center;
-}
-
-.search-group label i {
-    margin-left: 8px;
-}
-
-.search-group select, .search-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.search-group select:focus, .search-group input:focus {
-    outline: none;
-    border-color: var(--secondary-color);
-}
-
-.range-group {
-    min-width: 400px;
-}
-
-.range-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 6px;
-    border: 2px solid #ddd;
-}
-
-.range-values {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    font-weight: 600;
-    color: var(--secondary-color);
-}
-
-.btn-search, .btn-reset {
-    padding: 14px 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: 'Cairo', sans-serif;
-    margin-left: 15px;
-}
-
-.btn-search {
-    background-color: var(--secondary-color);
-    color: white;
-}
-
-.btn-search:hover {
-    background-color: #2980b9;
-}
-
-.btn-reset {
-    background-color: var(--gray-color);
-    color: white;
-}
-
-.btn-reset:hover {
-    background-color: #7f8c8d;
-}
-
-.btn-search i, .btn-reset i {
-    margin-left: 8px;
-}
-
-/* عرض العقارات */
-.properties-section {
-    padding: 80px 0;
-    background-color: #f5f7fa;
-}
-
-.properties-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
-.property-card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.property-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.property-image {
-    height: 200px;
-    background-color: var(--light-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--gray-color);
-    position: relative;
-}
-
-.property-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.property-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-.property-content {
-    padding: 20px;
-}
-
-.property-type {
-    color: var(--secondary-color);
-    font-weight: 600;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.property-type i {
-    margin-left: 8px;
-}
-
-.property-title {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.property-description {
-    color: var(--gray-color);
-    margin-bottom: 15px;
-    line-height: 1.7;
-}
-
-.property-details {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
-.detail-item {
-    text-align: center;
-}
-
-.detail-item i {
-    display: block;
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 5px;
-}
-
-.detail-label {
-    font-size: 0.9rem;
-    color: var(--gray-color);
-}
-
-.detail-value {
-    font-weight: 600;
-    color: var(--dark-color);
-}
-
-.property-price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-}
-
-.property-location {
-    color: var(--gray-color);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.property-location i {
-    margin-left: 8px;
-}
-
-.btn-details {
-    display: block;
-    text-align: center;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-details:hover {
-    background-color: #1a252f;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-}
-
-.pagination-btn {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 600;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-}
-
-.pagination-btn:disabled {
-    background-color: var(--gray-color);
-    cursor: not-allowed;
-}
-
-.pagination-btn:not(:disabled):hover {
-    background-color: #2980b9;
-}
-
-.pagination-btn i {
-    margin: 0 8px;
-}
-
-.page-info {
-    margin: 0 25px;
-    font-weight: 600;
-    color: var(--dark-color);
-}
-
-/* قسم إضافة عقار */
-.add-section {
-    padding: 80px 0;
-    background-color: white;
-}
-
-.add-container {
-    display: flex;
-    align-items: center;
-    background: linear-gradient(to left, #e3f2fd, #f3e5f5);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-}
-
-.add-info {
-    flex: 1;
-    padding: 40px;
-}
-
-.add-info h3 {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 25px;
-}
-
-.add-info ul {
-    list-style: none;
-    margin-bottom: 30px;
-}
-
-.add-info li {
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-}
-
-.add-info li i {
-    margin-left: 10px;
-    color: #2ecc71;
-}
-
-.btn-add {
-    display: inline-block;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 15px 35px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-}
-
-.btn-add:hover {
-    background-color: #2980b9;
-    transform: translateY(-3px);
-}
-
-.btn-add i {
-    margin-right: 10px;
-}
-
-.add-image {
-    flex: 0 0 300px;
-    background-color: var(--secondary-color);
-    color: white;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* الفوتر */
-.footer {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 60px 0 20px;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.footer-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-}
-
-.footer-section h3 i {
-    margin-left: 10px;
-    color: var(--secondary-color);
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 12px;
-}
-
-.footer-section ul a {
-    color: #ddd;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.footer-section ul a:hover {
-    color: var(--secondary-color);
-    padding-right: 5px;
-}
-
-.social-icons {
-    display: flex;
-    margin-top: 20px;
-}
-
-.social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    margin-left: 10px;
-    color: white;
-    transition: var(--transition);
-}
-
-.social-icons a:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ddd;
-    font-size: 0.9rem;
-}
-
-/* النموذج المنبثق */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: white;
-    width: 90%;
-    max-width: 450px;
-    border-radius: 10px;
-    padding: 30px;
-    position: relative;
-    animation: modalFade 0.3s;
-}
-
-@keyframes modalFade {
-    from {opacity: 0; transform: translateY(-30px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
-.close-modal {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: var(--gray-color);
-}
-
-.close-modal:hover {
-    color: var(--accent-color);
-}
-
-.modal-content h2 {
-    color: var(--primary-color);
-    margin-bottom: 25px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content h2 i {
-    margin-left: 10px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--dark-color);
-    display: flex;
-    align-items: center;
-}
-
-.form-group label i {
-    margin-left: 8px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--secondary-color);
-}
-
-.btn-submit {
-    width: 100%;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 6px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-submit:hover {
-    background-color: #2980b9;
-}
-
-.form-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: var(--gray-color);
-}
-
-.form-footer a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.form-footer a:hover {
-    text-decoration: underline;
-}
-
-/* تصميم متجاوب */
-@media (max-width: 992px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- معلومات أساسية -->
+    <title>دار ماركت - أكبر سوق عقاري مغربي</title>
+    <meta name="description" content="ابحث عن عقارك المثالي اليوم في المغرب - أكبر سوق عقاري مغربي يربط البائعين والمشترين">
+    <meta name="keywords" content="عقارات المغرب, شراء عقار, بيع عقار, إيجار عقار, عقارات الدار البيضاء, عقارات مراكش">
+    <meta name="author" content="دار ماركت">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="دار ماركت - أكبر سوق عقاري مغربي">
+    <meta property="og:description" content="ابحث عن عقارك المثالي اليوم في المغرب">
+    <meta property="og:image" content="https://imadxhabja-lang.github.io/Darmarket/og-image.jpg">
+    <meta property="og:url" content="https://imadxhabja-lang.github.io/Darmarket/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="دار ماركت - أكبر سوق عقاري مغربي">
+    <meta name="twitter:description" content="ابحث عن عقارك المثالي اليوم في المغرب">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="دار ماركت">
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    
+    <!-- روابط CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- تحسين SEO -->
+    <link rel="canonical" href="https://imadxhabja-lang.github.io/Darmarket/">
+    <link rel="alternate" hreflang="ar" href="https://imadxhabja-lang.github.io/Darmarket/">
+    <link rel="alternate" hreflang="fr" href="https://imadxhabja-lang.github.io/Darmarket/fr/">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "دار ماركت",
+      "description": "أكبر سوق عقاري مغربي",
+      "url": "https://imadxhabja-lang.github.io/Darmarket/",
+      "logo": "https://imadxhabja-lang.github.io/Darmarket/icons/icon-512x512.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "الدار البيضاء",
+        "addressCountry": "المغرب"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+212-612-345-678",
+        "contactType": "دعم العملاء"
+      }
+    }
+    </script>
+</head>
+<body>
+    <!-- شريط التحميل -->
+    <div id="loading" class="loading">
+        <div class="loader">
+            <i class="fas fa-home"></i>
+            <span>جار التحميل...</span>
+        </div>
+    </div>
+    
+    <!-- شريط التنقل المحسن -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <span>دار ماركت</span>
+                <span class="beta-badge">BETA</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="active nav-link" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a></li>
+                <li><a href="#properties" class="nav-link" data-page="properties">
+                    <i class="fas fa-building"></i> <span>العقارات</span>
+                </a></li>
+                <li><a href="#search" class="nav-link" data-page="search">
+                    <i class="fas fa-search"></i> <span>بحث متقدم</span>
+                </a></li>
+                <li><a href="#add" class="nav-link" data-page="add">
+                    <i class="fas fa-plus-circle"></i> <span>أضف عقار</span>
+                </a></li>
+                <li><a href="#contact" class="nav-link" data-page="contact">
+                    <i class="fas fa-phone"></i> <span>اتصل بنا</span>
+                </a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="btn-notification" id="notification-btn" aria-label="الإشعارات">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">0</span>
+                </button>
+                <button class="btn-login" id="login-toggle">
+                    <i class="fas fa-user"></i>
+                    <span>تسجيل الدخول</span>
+                </button>
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- القائمة المنسدلة للمستخدم -->
+        <div class="user-dropdown" id="user-dropdown">
+            <div class="dropdown-content">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <strong>زائر</strong>
+                        <small>سجل الدخول للوصول لجميع الميزات</small>
+                    </div>
+                </div>
+                <hr>
+                <a href="#favorites" class="dropdown-item">
+                    <i class="fas fa-heart"></i> المفضلة
+                </a>
+                <a href="#my-properties" class="dropdown-item">
+                    <i class="fas fa-home"></i> عقاراتي
+                </a>
+                <a href="#messages" class="dropdown-item">
+                    <i class="fas fa-envelope"></i> الرسائل
+                </a>
+                <hr>
+                <a href="#settings" class="dropdown-item">
+                    <i class="fas fa-cog"></i> الإعدادات
+                </a>
+                <a href="#help" class="dropdown-item">
+                    <i class="fas fa-question-circle"></i> المساعدة
+                </a>
+                <button class="dropdown-item logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- القائمة الجانبية للجوال -->
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <span>دار ماركت</span>
+            </div>
+            <button class="close-sidebar" id="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
+            <a href="#home" class="sidebar-link active">
+                <i class="fas fa-home"></i> الرئيسية
+            </a>
+            <a href="#properties" class="sidebar-link">
+                <i class="fas fa-building"></i> العقارات
+            </a>
+            <a href="#search" class="sidebar-link">
+                <i class="fas fa-search"></i> بحث متقدم
+            </a>
+            <a href="#add" class="sidebar-link">
+                <i class="fas fa-plus-circle"></i> أضف عقار
+            </a>
+            <a href="#contact" class="sidebar-link">
+                <i class="fas fa-phone"></i> اتصل بنا
+            </a>
+            <hr>
+            <a href="#login" class="sidebar-link">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </a>
+            <a href="#register" class="sidebar-link">
+                <i class="fas fa-user-plus"></i> إنشاء حساب
+            </a>
+        </div>
+    </div>
+    
+    <!-- المحتوى الرئيسي -->
+    <main id="app-content">
+        <!-- قسم الهيرو -->
+        <section class="hero-section" id="home">
+            <div class="hero-background"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        ابحث عن <span class="highlight">عقارك المثالي</span> اليوم في المغرب
+                    </h1>
+                    <p class="hero-subtitle">
+                        أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد
+                        <br>
+                        <small>جميع الأسعار بالدرهم المغربي 💰</small>
+                    </p>
+                    
+                    <div class="hero-search">
+                        <div class="search-input-group">
+                            <input type="text" 
+                                   id="quick-search" 
+                                   placeholder="ابحث عن فيلا، شقة، أرض..." 
+                                   autocomplete="off">
+                            <button class="search-btn" id="quick-search-btn">
+                                <i class="fas fa-search"></i> بحث
+                            </button>
+                        </div>
+                        <div class="search-suggestions" id="search-suggestions"></div>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-home"></i>
+                            <div>
+                                <span class="stat-number" id="total-properties">1,248</span>
+                                <span class="stat-label">عقار متاح</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="stat-number" id="total-users">5,621</span>
+                                <span class="stat-label">مستخدم نشط</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-handshake"></i>
+                            <div>
+                                <span class="stat-number" id="total-deals">892</span>
+                                <span class="stat-label">صفقة ناجحة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- موجات القسم -->
+            <div class="wave wave-top"></div>
+            <div class="wave wave-bottom"></div>
+        </section>
+        
+        <!-- قسم المميزات -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">لماذا تختار <span class="highlight">دار ماركت</span>؟</h2>
+                <p class="section-subtitle">نوفر لك أفضل تجربة للبحث والعثور على العقار المناسب</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>آمن وموثوق</h3>
+                        <p>جميع العقارات مراجعة ومؤكدة من قبل فريقنا لضمان مصداقية المعلومات</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>بحث ذكي</h3>
+                        <p>نظام بحث متقدم يمكنك من العثور على العقار المناسب بسرعة وسهولة</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>دعم فني 24/7</h3>
+                        <p>فريق دعم فني متاح على مدار الساعة للإجابة على استفساراتك</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>تطبيق متجاوب</h3>
+                        <p>تصميم متكامل يعمل على جميع الأجهزة والهواتف الذكية</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم العقارات -->
+        <section class="properties-section" id="properties">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">عقارات <span class="highlight">مميزة</span></h2>
+                    <div class="section-controls">
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                        <select class="sort-select" id="sort-properties">
+                            <option value="newest">الأحدث أولاً</option>
+                            <option value="price-low">السعر: منخفض إلى مرتفع</option>
+                            <option value="price-high">السعر: مرتفع إلى منخفض</option>
+                            <option value="area">المساحة: كبيرة إلى صغيرة</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="properties-container" id="properties-container">
+                    <!-- سيتم ملء العقارات بواسطة JavaScript -->
+                    <div class="loading-properties">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جارٍ تحميل العقارات...</p>
+                    </div>
+                </div>
+                
+                <div class="load-more-container">
+                    <button class="btn-load-more" id="load-more">
+                        <i class="fas fa-sync-alt"></i> تحميل المزيد
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم البحث المتقدم -->
+        <section class="advanced-search-section" id="search">
+            <div class="container">
+                <h2 class="section-title">بحث <span class="highlight">متقدم</span></h2>
+                <p class="section-subtitle">استخدم أدوات البحث المتقدمة للعثور على العقار المثالي</p>
+                
+                <div class="search-form-container">
+                    <!-- نموذج البحث سيتم إضافته بواسطة JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم الدعوة للإضافة -->
+        <section class="cta-section" id="add">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>هل تريد بيع أو تأجير عقارك؟</h2>
+                    <p>انشر إعلانك مجاناً على دار ماركت ووصل لألاف المشترين المهتمين</p>
+                    <div class="cta-buttons">
+                        <a href="add-property.html" class="btn-cta-primary">
+                            <i class="fas fa-plus-circle"></i> أضف عقار مجاناً
+                        </a>
+                        <a href="#how-it-works" class="btn-cta-secondary">
+                            <i class="fas fa-play-circle"></i> شاهد كيف يعمل
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم الاتصال -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2 class="section-title">اتصل <span class="highlight">بنا</span></h2>
+                        <p class="contact-description">
+                            نحن هنا لمساعدتك! لا تتردد في التواصل معنا لأي استفسار
+                        </p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h4>الهاتف</h4>
+                                    <p>+212 612 345 678</p>
+                                    <small>متاح من الساعة 8 صباحاً إلى 6 مساءاً</small>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4>البريد الإلكتروني</h4>
+                                    <p>imadxhabja@gmail.com</p>
+                                    <small>الرد خلال 24 ساعة</small>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h4>العنوان</h4>
+                                    <p>الدار البيضاء، المغرب</p>
+                                    <small>المقر الرئيسي</small>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <h4>ساعات العمل</h4>
+                                    <p>الإثنين - الجمعة: 8 ص - 6 م</p>
+                                    <p>السبت: 9 ص - 2 م</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="contact-form">
+                            <h3>أرسل رسالة</h3>
+                            
+                            <div class="form-group">
+                                <label for="contact-name">
+                                    <i class="fas fa-user"></i> الاسم الكامل
+                                </label>
+                                <input type="text" id="contact-name" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-email">
+                                        <i class="fas fa-envelope"></i> البريد الإلكتروني
+                                    </label>
+                                    <input type="email" id="contact-email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contact-phone">
+                                        <i class="fas fa-phone"></i> الهاتف
+                                    </label>
+                                    <input type="tel" id="contact-phone">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject">
+                                    <i class="fas fa-tag"></i> الموضوع
+                                </label>
+                                <select id="contact-subject">
+                                    <option value="">اختر الموضوع</option>
+                                    <option value="استفسار">استفسار عام</option>
+                                    <option value="دعم">دعم فني</option>
+                                    <option value="إعلان">استفسار عن الإعلان</option>
+                                    <option value="شراكة">فرص شراكة</option>
+                                    <option value="شكوى">شكوى أو اقتراح</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">
+                                    <i class="fas fa-comment"></i> الرسالة
+                                </label>
+                                <textarea id="contact-message" rows="5" required></textarea>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <button type="submit" class="btn-submit">
+                                    <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                                </button>
+                                <p class="form-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    سنرد على رسالتك في أقرب وقت ممكن
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم الخريطة -->
+        <section class="map-section">
+            <div class="container">
+                <h2 class="section-title">العقارات على <span class="highlight">الخريطة</span></h2>
+                <div class="map-container">
+                    <div class="map-placeholder" id="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>خريطة تفاعلية للعقارات</p>
+                        <small>سيتم تحميل الخريطة قريباً</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-home"></i>
+                        <span>دار ماركت</span>
+                    </div>
+                    <p class="footer-description">
+                        أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد.
+                        نوفر منصة آمنة وسهلة الاستخدام للعثور على العقار المثالي.
+                    </p>
+                    <div class="app-download">
+                        <p>حمل تطبيقنا</p>
+                        <div class="app-buttons">
+                            <a href="#" class="app-btn play-store">
+                                <i class="fab fa-google-play"></i>
+                                <div>
+                                    <small>احصل عليه من</small>
+                                    <span>Google Play</span>
+                                </div>
+                            </a>
+                            <a href="#" class="app-btn app-store">
+                                <i class="fab fa-apple"></i>
+                                <div>
+                                    <small>حمله من</small>
+                                    <span>App Store</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#properties">تصفح العقارات</a></li>
+                        <li><a href="#search">بحث متقدم</a></li>
+                        <li><a href="#add">أضف عقار</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#blog">المدونة</a></li>
+                        <li><a href="#faq">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>خدماتنا</h4>
+                    <ul class="footer-links">
+                        <li><a href="#buy">شراء عقار</a></li>
+                        <li><a href="#rent">إيجار عقار</a></li>
+                        <li><a href="#sell">بيع عقار</a></li>
+                        <li><a href="#commercial">عقارات تجارية</a></li>
+                        <li><a href="#lands">الأراضي</a></li>
+                        <li><a href="#valuation">تقييم العقارات</a></li>
+                        <li><a href="#consultation">استشارات عقارية</a></li>
+                        <li><a href="#legal">خدمات قانونية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>النشرة البريدية</h4>
+                    <p class="newsletter-description">
+                        اشترك في نشرتنا البريدية لتصلك آخر العروض والعقارات الجديدة
+                    </p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" 
+                                   placeholder="بريدك الإلكتروني" 
+                                   required>
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="newsletter-consent" required>
+                            <label for="newsletter-consent">
+                                أوافق على تلقي العروض والرسائل الإخبارية
+                            </label>
+                        </div>
+                    </form>
+                    
+                    <div class="payment-methods">
+                        <p>طرق الدفع المقبولة</p>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>© <span id="current-year">2023</span> دار ماركت. جميع الحقوق محفوظة.</p>
+                    <p class="footer-meta">
+                        آخر تحديث: <span id="last-update">ديسمبر 2023</span>
+                    </p>
+                </div>
+                
+                <div class="footer-legal">
+                    <a href="#privacy">سياسة الخصوصية</a>
+                    <a href="#terms">شروط الاستخدام</a>
+                    <a href="#cookies">سياسة الكوكيز</a>
+                    <a href="#sitemap">خريطة الموقع</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- زر العودة للأعلى -->
+        <button class="back-to-top" id="back-to-top">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </footer>
+    
+    <!-- النماذج المنبثقة -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    
+    <!-- نموذج تسجيل الدخول -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="modal-close" data-modal="login-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="login">تسجيل الدخول</button>
+                <button class="tab-btn" data-tab="register">إنشاء حساب</button>
+            </div>
+            
+            <div class="tab-content active" id="login-tab">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fas fa-envelope"></i> البريد الإلكتروني
+                        </label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fas fa-lock"></i> كلمة المرور
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="login-password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember-me">
+                            <span>تذكرني</span>
+                        </label>
+                        <a href="#forgot-password" class="forgot-password">
+                            نسيت كلمة المرور؟
+                        </a>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </button>
+                    
+                    <div class="social-login">
+                        <p>أو سجل الدخول باستخدام</p>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                            <button type="button" class="social-btn google">
+                                <i class="fab fa-google"></i> Google
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="register-tab">
+                <form id="register-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="register-firstname">
+                                <i class="fas fa-user"></i> الاسم الأول
+                            </label>
+                            <input type="text" id="register-firstname" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-lastname">
+                                <i class="fas fa-user"></i> الاسم الأخير
+                            </label>
+                            <input type="text" id="register-lastname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">
+                            <i class="fas fa-envelope"></i> البريد الإلكتروني
+                        </label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-phone">
+                            <i class="fas fa-phone"></i> رقم الهاتف
+                        </label>
+                        <input type="tel" id="register-phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">
+                            <i class="fas fa-lock"></i> كلمة المرور
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="register-password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="password-hint">يجب أن تحتوي على 8 أحرف على الأقل</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-confirm">
+                            <i class="fas fa-lock"></i> تأكيد كلمة المرور
+                        </label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" id="register-terms" required>
+                        <label for="register-terms">
+                            أوافق على <a href="#terms">شروط الاستخدام</a> و <a href="#privacy">سياسة الخصوصية</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-user-plus"></i> إنشاء حساب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نموذج الإشعارات -->
+    <div class="modal" id="notifications-modal">
+        <div class="modal-content">
+            <button class="modal-close" data-modal="notifications-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                <button class="btn-mark-all-read" id="mark-all-read">
+                    تعيين الكل كمقروء
+                </button>
+            </div>
+            
+            <div class="notifications-list" id="notifications-list">
+                <div class="notification-empty">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>لا توجد إشعارات جديدة</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- رسالة تأكيد -->
+    <div class="toast-container" id="toast-container"></div>
+    
+    <!-- ملفات JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- تسجيل Service Worker -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('sw.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
     }
     
-    .nav-links.active {
-        display: flex;
-    }
+    // إظهار إشعار تثبيت PWA
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // عرض زر التثبيت بعد 5 ثواني
+        setTimeout(() => {
+            showInstallPromotion();
+        }, 5000);
+    });
     
-    .nav-links li {
-        margin: 10px 0;
+    function showInstallPromotion() {
+        const installToast = document.createElement('div');
+        installToast.className = 'toast install-toast';
+        installToast.innerHTML = `
+            <div class="toast-content">
+                <i class="fas fa-download"></i>
+                <div>
+                    <strong>ثبت تطبيق دار ماركت</strong>
+                    <p>احصل على تجربة أفضل وتلقى الإشعارات</p>
+                </div>
+            </div>
+            <div class="toast-actions">
+                <button class="btn-toast install-btn">تثبيت</button>
+                <button class="btn-toast cancel-btn">لاحقاً</button>
+            </div>
+        `;
+        
+        document.getElementById('toast-container').appendChild(installToast);
+        
+        installToast.querySelector('.install-btn').addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('تم قبول تثبيت التطبيق');
+                }
+                deferredPrompt = null;
+            });
+            installToast.remove();
+        });
+        
+        installToast.querySelector('.cancel-btn').addEventListener('click', () => {
+            installToast.remove();
+        });
+        
+        // إزالة الإشعار تلقائياً بعد 10 ثواني
+        setTimeout(() => {
+            if (installToast.parentNode) {
+                installToast.remove();
+            }
+        }, 10000);
     }
-    
-    .menu-toggle {
-        display: block;
-    }
-    
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    
-    .add-container {
-        flex-direction: column;
-    }
-    
-    .add-image {
-        width: 100%;
-        flex: none;
-        height: 200px;
-    }
-    
-    .range-group {
-        min-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero {
-        padding: 120px 20px 80px;
-    }
-    
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-content p {
-        font-size: 1.2rem;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
-    
-    .search-row {
-        flex-direction: column;
-    }
-    
-    .search-group {
-        margin-left: 0;
-        margin-bottom: 20px;
-    }
-    
-    .properties-container {
-        grid-template-columns: 1fr;
-    }
-  }
+    </script>
+</body>
+</html>
