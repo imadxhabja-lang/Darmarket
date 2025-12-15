@@ -1,202 +1,95 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>darmarket2 - السوق العقاري المغربي</title>
-    
-    <!-- PWA -->
-    <meta name="theme-color" content="#1abc9c">
-    <link rel="manifest" href="/Darmarket/manifest.json">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="https://i.ibb.co/SwVN7NNf/logo.png">
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f5f5f5; color: #333; line-height: 1.6; }
-        
-        /* التنقل */
-        nav { background: #2c3e50; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-image { height: 50px; border-radius: 8px; }
-        .brand-name { font-size: 1.5rem; color: #1abc9c; font-weight: bold; }
-        .nav-links { display: flex; list-style: none; gap: 1.5rem; }
-        .nav-links a { color: white; text-decoration: none; padding: 5px 10px; }
-        .nav-links a:hover { color: #1abc9c; }
-        
-        /* الأقسام */
-        section { max-width: 1200px; margin: 1rem auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .hero { background: linear-gradient(rgba(44,62,80,0.9), rgba(44,62,80,0.9)); color: white; text-align: center; padding: 4rem 2rem; margin-top: 0; }
-        h1 { font-size: 2.2rem; margin-bottom: 1rem; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #1abc9c; padding-bottom: 10px; margin-bottom: 1.5rem; }
-        
-        /* الأزرار */
-        .cta-button { display: inline-block; background: #1abc9c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin-top: 1rem; font-weight: bold; }
-        button { background: #2c3e50; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; }
-        button:hover { background: #1a252f; }
-        
-        /* النماذج */
-        .search-form, .add-listing-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .form-group { display: flex; flex-direction: column; }
-        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 5px; }
-        
-        /* العقارات */
-        .listings-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .property-card { border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
-        .property-image { height: 180px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666; }
-        .property-details { padding: 1.2rem; }
-        .property-price { color: #e74c3c; font-size: 1.3rem; font-weight: bold; margin: 10px 0; }
-        
-        /* Footer */
-        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem; margin-top: 2rem; }
-        
-        /* متجاوب */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 1rem; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            section { margin: 1rem; padding: 1.5rem; }
-        }
-        
-        /* زر حذف أحمر */
-        .delete-btn { background: #e74c3c !important; padding: 6px 12px !important; font-size: 0.9rem !important; }
-        .delete-btn:hover { background: #c0392b !important; }
-    </style>
+    <!-- ... كل كود الhead تبقى كما هي ... -->
 </head>
 <body>
-    <!-- شريط التنقل -->
-    <nav>
-        <a href="#home" class="logo-container">
-            <img src="https://i.ibb.co/SwVN7NNf/logo.png" alt="شعار darmarket2" class="logo-image">
-            <span class="brand-name">darmarket2</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#home">🏠 الرئيسية</a></li>
-            <li><a href="#add-listing">➕ إضافة عقار</a></li>
-            <li><a href="#listings">📋 إعلانات</a></li>
-            <li><a href="#contact">📞 اتصل بنا</a></li>
-        </ul>
-    </nav>
+    <!-- ... كل كود الbody تبقى كما هي ... -->
     
-    <!-- الصفحة الرئيسية -->
-    <section id="home" class="hero">
-        <h1>ابحث عن عقارك المثالي اليوم في المغرب</h1>
-        <p>أكبر سوق عقاري مغربي - جميع الأسعار بالدرهم المغربي 💰</p>
-        <a href="#listings" class="cta-button">تصفح العقارات</a>
-    </section>
-    
-    <!-- البحث -->
-    <section id="search">
-        <h2>🔍 ابحث عن عقار</h2>
-        <form class="search-form" id="propertySearchForm">
-            <div class="form-group">
-                <label>نوع الصفقة</label>
-                <select id="dealType">
-                    <option value="">الكل</option>
-                    <option value="بيع">بيع</option>
-                    <option value="إيجار">إيجار</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>المدينة</label>
-                <input type="text" id="location" placeholder="أدخل المدينة">
-            </div>
-            <button type="submit">🔎 بحث</button>
-        </form>
-    </section>
-    
-    <!-- قائمة العقارات -->
-    <section id="listings">
-        <h2>🏡 عقارات مميزة</h2>
-        <div class="listings-container" id="listingsContainer">
-            <!-- سيتم تعبئته بالعقارات -->
-        </div>
-    </section>
-    
-    <!-- إضافة عقار -->
-    <section id="add-listing">
-        <h2>📝 أضف عقارك</h2>
-        <form class="add-listing-form" id="addPropertyForm">
-            <div class="form-group">
-                <label>عنوان العقار</label>
-                <input type="text" id="propertyTitle" placeholder="مثال: فيلا في مراكش" required>
-            </div>
-            <div class="form-group">
-                <label>نوع الصفقة</label>
-                <select id="propertyDealType" required>
-                    <option value="">اختر</option>
-                    <option value="بيع">بيع</option>
-                    <option value="إيجار">إيجار</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>المدينة</label>
-                <input type="text" id="propertyLocation" placeholder="المدينة" required>
-            </div>
-            <div class="form-group">
-                <label>السعر (د.م.)</label>
-                <input type="number" id="propertyPrice" placeholder="السعر" required>
-            </div>
-            <div class="form-group" style="grid-column: 1/-1;">
-                <label>الوصف</label>
-                <textarea id="propertyDescription" rows="3" placeholder="وصف العقار..." required></textarea>
-            </div>
-            <div class="form-group" style="grid-column: 1/-1;">
-                <label>📷 صورة العقار (اختياري)</label>
-                <input type="file" id="propertyImages" accept="image/*">
-                <small style="color: #666;">يمكنك رفع صورة واحدة</small>
-            </div>
-            <button type="submit" style="grid-column: 1/-1; background: #e67e22;">✅ إضافة العقار</button>
-        </form>
-    </section>
-    
-    <!-- اتصل بنا -->
-    <section id="contact">
-        <h2>📞 اتصل بنا</h2>
-        <p>📱 الهاتف: +212 612 345 678</p>
-        <p>📧 البريد الشخصي: imadxhabja@gmail.com</p>
-        <p>📍 الدار البيضاء، المغرب</p>
-        
-        <div style="margin-top: 1.5rem;">
-            <a href="https://wa.me/212612345678" style="background: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin: 5px; display: inline-block;">💬 واتساب</a>
-            <a href="mailto:imadxhabja@gmail.com" style="background: #d44638; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin: 5px; display: inline-block;">📩 إيميل</a>
-        </div>
-    </section>
-    
-    <!-- تذييل الصفحة -->
-    <footer>
-        <p>© 2023 darmarket2 - السوق العقاري المغربي</p>
-        <p style="margin-top: 10px; color: #1abc9c;">imadxhabja@gmail.com</p>
-    </footer>
-    
-    <!-- JavaScript -->
     <script>
-        // بيانات العقارات
-        let properties = [
-            {
-                id: 1,
-                title: "فيلا فاخرة في مراكش",
-                description: "5 غرف نوم، مسبح، حديقة خاصة",
-                price: 4200000,
-                location: "مراكش",
-                type: "بيع",
-                date: "16/12/2025",
-                image: null
-            },
-            {
-                id: 2,
-                title: "شقة حديثة في الدار البيضاء",
-                description: "3 غرف نوم، صالة، مطبخ مفتوح",
-                price: 12500,
-                location: "الدار البيضاء",
-                type: "إيجار",
-                date: "16/12/2025",
-                image: null
-            }
-        ];
-        
-        // تخزين الصورة المرفوعة
+        // بيانات العقارات - تبدأ فارغة وتُحمّل من التخزين
+        let properties = [];
         let currentImage = null;
+        
+        // ========== نظام التخزين المحلي ==========
+        const STORAGE_KEY = 'darmarket2_properties_v2';
+        
+        function saveProperties() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
+                console.log('💾 تم حفظ', properties.length, 'عقارات');
+            } catch (e) {
+                console.error('❌ خطأ في الحفظ:', e);
+            }
+        }
+        
+        function loadProperties() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    // التأكد من وجود بيانات أساسية
+                    properties = parsed.filter(p => p && p.title && p.price);
+                    console.log('📂 تم تحميل', properties.length, 'عقارات');
+                    
+                    // إذا لم يكن هناك عقارات، أضف الأمثلة الافتراضية
+                    if (properties.length === 0) {
+                        properties = [
+                            {
+                                id: 1,
+                                title: "فيلا فاخرة في مراكش",
+                                description: "5 غرف نوم، مسبح، حديقة خاصة",
+                                price: 4200000,
+                                location: "مراكش",
+                                type: "بيع",
+                                date: new Date().toLocaleDateString('ar-MA'),
+                                image: null
+                            },
+                            {
+                                id: 2,
+                                title: "شقة حديثة في الدار البيضاء",
+                                description: "3 غرف نوم، صالة، مطبخ مفتوح",
+                                price: 12500,
+                                location: "الدار البيضاء",
+                                type: "إيجار",
+                                date: new Date().toLocaleDateString('ar-MA'),
+                                image: null
+                            }
+                        ];
+                        saveProperties();
+                    }
+                } else {
+                    // إذا لا يوجد حفظ سابق، أضف الأمثلة
+                    properties = [
+                        {
+                            id: 1,
+                            title: "فيلا فاخرة في مراكش",
+                            description: "5 غرف نوم، مسبح، حديقة خاصة",
+                            price: 4200000,
+                            location: "مراكش",
+                            type: "بيع",
+                            date: new Date().toLocaleDateString('ar-MA'),
+                            image: null
+                        },
+                        {
+                            id: 2,
+                            title: "شقة حديثة في الدار البيضاء",
+                            description: "3 غرف نوم، صالة، مطبخ مفتوح",
+                            price: 12500,
+                            location: "الدار البيضاء",
+                            type: "إيجار",
+                            date: new Date().toLocaleDateString('ar-MA'),
+                            image: null
+                        }
+                    ];
+                    saveProperties();
+                }
+            } catch (e) {
+                console.error('❌ خطأ في التحميل:', e);
+                properties = [];
+            }
+        }
+        // ========== نهاية نظام التخزين ==========
         
         // رفع الصورة
         document.getElementById('propertyImages').addEventListener('change', function(e) {
@@ -205,6 +98,7 @@
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     currentImage = event.target.result;
+                    console.log('📸 تم تحميل صورة');
                 };
                 reader.readAsDataURL(file);
             }
@@ -213,6 +107,18 @@
         // عرض العقارات
         function displayProperties() {
             const container = document.getElementById('listingsContainer');
+            
+            if (properties.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <div style="font-size: 4rem;">🏠</div>
+                        <h3 style="margin: 1rem 0;">لا توجد عقارات متاحة حالياً</h3>
+                        <p>كن أول من يضيف عقاراً!</p>
+                    </div>
+                `;
+                return;
+            }
+            
             container.innerHTML = properties.map(property => `
                 <div class="property-card" data-id="${property.id}">
                     <div class="property-image">
@@ -242,6 +148,9 @@
                     </div>
                 </div>
             `).join('');
+            
+            // حفظ بعد كل تحديث
+            saveProperties();
         }
         
         // حذف عقار
@@ -257,13 +166,25 @@
         document.getElementById('addPropertyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // التحقق من البيانات
+            const title = document.getElementById('propertyTitle').value.trim();
+            const type = document.getElementById('propertyDealType').value;
+            const location = document.getElementById('propertyLocation').value.trim();
+            const price = document.getElementById('propertyPrice').value;
+            const description = document.getElementById('propertyDescription').value.trim();
+            
+            if (!title || !type || !location || !price || !description) {
+                alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
             const newProperty = {
                 id: Date.now(),
-                title: document.getElementById('propertyTitle').value,
-                type: document.getElementById('propertyDealType').value,
-                location: document.getElementById('propertyLocation').value,
-                price: parseInt(document.getElementById('propertyPrice').value),
-                description: document.getElementById('propertyDescription').value,
+                title: title,
+                type: type,
+                location: location,
+                price: parseInt(price),
+                description: description,
                 date: new Date().toLocaleDateString('ar-MA'),
                 image: currentImage
             };
@@ -302,6 +223,8 @@
         
         // تهيئة
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 بدء تحميل الموقع...');
+            loadProperties();
             displayProperties();
             
             // تسجيل Service Worker
@@ -317,7 +240,9 @@
                     Notification.requestPermission();
                 }, 3000);
             }
+            
+            console.log('✅ تم تحميل', properties.length, 'عقارات');
         });
     </script>
 </body>
-            </html>
+</html>
