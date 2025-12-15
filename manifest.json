@@ -1,3 +1,4 @@
+
 {
   "name": "darmarket2 - السوق العقاري المغربي",
   "short_name": "darmarket2",
@@ -18,5 +19,7 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "categories": ["business", "shopping"],
+  "scope": "/Darmarket/"
 }
