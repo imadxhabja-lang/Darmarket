@@ -57,6 +57,10 @@
             .nav-links { flex-wrap: wrap; justify-content: center; }
             section { margin: 1rem; padding: 1.5rem; }
         }
+        
+        /* زر حذف أحمر */
+        .delete-btn { background: #e74c3c !important; padding: 6px 12px !important; font-size: 0.9rem !important; }
+        .delete-btn:hover { background: #c0392b !important; }
     </style>
 </head>
 <body>
@@ -137,7 +141,12 @@
                 <label>الوصف</label>
                 <textarea id="propertyDescription" rows="3" placeholder="وصف العقار..." required></textarea>
             </div>
-            <button type="submit" style="grid-column: 1/-1;">✅ إضافة العقار</button>
+            <div class="form-group" style="grid-column: 1/-1;">
+                <label>📷 صورة العقار (اختياري)</label>
+                <input type="file" id="propertyImages" accept="image/*">
+                <small style="color: #666;">يمكنك رفع صورة واحدة</small>
+            </div>
+            <button type="submit" style="grid-column: 1/-1; background: #e67e22;">✅ إضافة العقار</button>
         </form>
     </section>
     
@@ -171,7 +180,8 @@
                 price: 4200000,
                 location: "مراكش",
                 type: "بيع",
-                date: "16/12/2025"
+                date: "16/12/2025",
+                image: null
             },
             {
                 id: 2,
@@ -180,33 +190,67 @@
                 price: 12500,
                 location: "الدار البيضاء",
                 type: "إيجار",
-                date: "16/12/2025"
+                date: "16/12/2025",
+                image: null
             }
         ];
+        
+        // تخزين الصورة المرفوعة
+        let currentImage = null;
+        
+        // رفع الصورة
+        document.getElementById('propertyImages').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    currentImage = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
         
         // عرض العقارات
         function displayProperties() {
             const container = document.getElementById('listingsContainer');
             container.innerHTML = properties.map(property => `
-                <div class="property-card">
+                <div class="property-card" data-id="${property.id}">
                     <div class="property-image">
-                        <span>صورة ${property.title.split(' ')[0]}</span>
+                        ${property.image ? 
+                            `<img src="${property.image}" alt="${property.title}" style="width:100%; height:100%; object-fit:cover; border-radius: 8px 8px 0 0;">` : 
+                            `<span style="font-size: 3rem;">${property.type === 'بيع' ? '🏠' : '🏢'}</span>`
+                        }
                     </div>
                     <div class="property-details">
-                        <h3>${property.title}</h3>
-                        <p>${property.description}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                            <h3 style="margin: 0;">${property.title}</h3>
+                            <button onclick="deleteProperty(${property.id})" class="delete-btn">
+                                🗑️ حذف
+                            </button>
+                        </div>
+                        <p style="color: #555; margin-bottom: 10px;">${property.description}</p>
                         <div class="property-price">
                             ${property.type === 'إيجار' ? property.price.toLocaleString() + ' د.م./شهرياً' : property.price.toLocaleString() + ' د.م.'}
                         </div>
-                        <div style="margin-top: 10px;">
+                        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                             <span style="background: #1abc9c; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.9rem;">
                                 ${property.type}
                             </span>
-                            <span style="color: #666; margin-right: 10px;">📅 ${property.date}</span>
+                            <span style="color: #666;">📍 ${property.location}</span>
+                            <span style="color: #666;">📅 ${property.date}</span>
                         </div>
                     </div>
                 </div>
             `).join('');
+        }
+        
+        // حذف عقار
+        function deleteProperty(id) {
+            if (confirm('هل أنت متأكد من حذف هذا العقار؟')) {
+                properties = properties.filter(property => property.id !== id);
+                displayProperties();
+                alert('✅ تم حذف العقار');
+            }
         }
         
         // إضافة عقار جديد
@@ -220,20 +264,40 @@
                 location: document.getElementById('propertyLocation').value,
                 price: parseInt(document.getElementById('propertyPrice').value),
                 description: document.getElementById('propertyDescription').value,
-                date: new Date().toLocaleDateString('ar-MA')
+                date: new Date().toLocaleDateString('ar-MA'),
+                image: currentImage
             };
             
             properties.unshift(newProperty);
             displayProperties();
             
-            alert('✅ تم إضافة العقار بنجاح!');
+            // إعادة تعيين النموذج
             this.reset();
+            currentImage = null;
+            document.getElementById('propertyImages').value = '';
+            
+            alert('✅ تم إضافة العقار بنجاح!');
+            
+            // إشعار إذا سمح
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('🏠 عقار جديد!', {
+                    body: `تم إضافة "${newProperty.title}"`,
+                    icon: 'https://i.ibb.co/SwVN7NNf/logo.png'
+                });
+            }
         });
         
         // البحث
         document.getElementById('propertySearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('🔍 سيتم تطبيق البحث قريباً...');
+            const dealType = document.getElementById('dealType').value;
+            const location = document.getElementById('location').value;
+            
+            if (dealType || location) {
+                alert(`🔍 سيتم البحث عن:\n${dealType ? 'النوع: ' + dealType + '\n' : ''}${location ? 'المدينة: ' + location : ''}`);
+            } else {
+                alert('⚠️ الرجاء إدخال بيانات للبحث');
+            }
         });
         
         // تهيئة
@@ -246,7 +310,14 @@
                     .then(() => console.log('✅ Service Worker مسجل'))
                     .catch(err => console.log('❌ خطأ:', err));
             }
+            
+            // طلب إذن الإشعارات
+            if ('Notification' in window && Notification.permission === 'default') {
+                setTimeout(() => {
+                    Notification.requestPermission();
+                }, 3000);
+            }
         });
     </script>
 </body>
-</html>
+            </html>
