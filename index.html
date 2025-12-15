@@ -1,70 +1,574 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- ... كل كود الhead تبقى كما هي ... -->
-</head>
-<body>
-    <!-- ... كل كود الbody تبقى كما هي ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>darmarket2 - السوق العقاري المغربي</title>
     
-    <script>
-        // بيانات العقارات - تبدأ فارغة وتُحمّل من التخزين
-        let properties = [];
-        let currentImage = null;
+    <!-- تطبيق PWA -->
+    <meta name="theme-color" content="#1abc9c">
+    <link rel="manifest" href="/Darmarket/manifest.json">
+    <link rel="icon" href="https://i.ibb.co/SwVN7NNf/logo.png">
+    
+    <style>
+        /* أساسيات */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background: #f5f5f5; 
+            color: #333; 
+            line-height: 1.6; 
+        }
         
-        // ========== نظام التخزين المحلي ==========
-        const STORAGE_KEY = 'darmarket2_properties_v2';
+        /* شريط التنقل */
+        nav {
+            background: #2c3e50;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
         
-        function saveProperties() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
-                console.log('💾 تم حفظ', properties.length, 'عقارات');
-            } catch (e) {
-                console.error('❌ خطأ في الحفظ:', e);
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        
+        .logo-image {
+            height: 50px;
+            width: 50px;
+            border-radius: 10px;
+            border: 2px solid #1abc9c;
+        }
+        
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1abc9c;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+            color: #1abc9c;
+        }
+        
+        /* الأقسام الرئيسية */
+        section {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        
+        /* الصفحة الرئيسية */
+        .hero {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 0;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* الأزرار */
+        .cta-button {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #16a085;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 188, 156, 0.3);
+        }
+        
+        /* العناوين */
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1abc9c;
+            font-size: 1.8rem;
+        }
+        
+        /* النماذج */
+        .search-form, .add-listing-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        input, select, textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.1);
+        }
+        
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* قائمة العقارات */
+        .listings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .property-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #1abc9c;
+        }
+        
+        .property-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-details {
+            padding: 1.5rem;
+        }
+        
+        .property-details h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .property-details p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .property-price {
+            color: #e74c3c;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .property-type {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* زر الحذف */
+        .delete-btn {
+            background: #e74c3c !important;
+            padding: 8px 15px !important;
+            margin-top: 10px;
+        }
+        
+        .delete-btn:hover {
+            background: #c0392b !important;
+        }
+        
+        /* قسم الاتصال */
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        
+        .email-btn {
+            background: #d44638;
+            color: white;
+        }
+        
+        /* التذييل */
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: right;
+        }
+        
+        /* متجاوب */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .listings-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                justify-content: center;
             }
         }
         
-        function loadProperties() {
+        @media (max-width: 480px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .brand-name {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav>
+        <a href="#home" class="logo-container">
+            <img src="https://i.ibb.co/SwVN7NNf/logo.png" alt="شعار darmarket2" class="logo-image">
+            <span class="brand-name">darmarket2</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">🏠 الرئيسية</a></li>
+            <li><a href="#add-listing">➕ إضافة عقار</a></li>
+            <li><a href="#listings">📋 إعلانات</a></li>
+            <li><a href="#contact">📞 اتصل بنا</a></li>
+        </ul>
+    </nav>
+    
+    <!-- الصفحة الرئيسية -->
+    <section id="home" class="hero">
+        <h1>ابحث عن عقارك المثالي اليوم في المغرب</h1>
+        <p>أكبر سوق عقاري مغربي - جميع الأسعار بالدرهم المغربي 💰</p>
+        <a href="#listings" class="cta-button">تصفح العقارات</a>
+    </section>
+    
+    <!-- البحث -->
+    <section id="search">
+        <h2>🔍 ابحث عن عقار</h2>
+        <form class="search-form" id="propertySearchForm">
+            <div class="form-group">
+                <label>نوع الصفقة</label>
+                <select id="dealType">
+                    <option value="">الكل</option>
+                    <option value="بيع">بيع</option>
+                    <option value="إيجار">إيجار</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>المدينة</label>
+                <input type="text" id="location" placeholder="أدخل المدينة">
+            </div>
+            <div class="form-group">
+                <label>السعر الأقصى (د.م.)</label>
+                <input type="number" id="maxPrice" placeholder="مثال: 500000">
+            </div>
+            <button type="submit">🔎 بحث</button>
+        </form>
+    </section>
+    
+    <!-- قائمة العقارات -->
+    <section id="listings">
+        <h2>🏡 عقارات مميزة</h2>
+        <div class="listings-container" id="listingsContainer">
+            <!-- سيتم تعبئته بالعقارات -->
+        </div>
+    </section>
+    
+    <!-- إضافة عقار -->
+    <section id="add-listing">
+        <h2>📝 أضف عقارك</h2>
+        <form class="add-listing-form" id="addPropertyForm">
+            <div class="form-group">
+                <label>عنوان العقار</label>
+                <input type="text" id="propertyTitle" placeholder="مثال: فيلا فاخرة في حي الرياض، مراكش" required>
+            </div>
+            
+            <div class="form-group">
+                <label>نوع الصفقة</label>
+                <select id="propertyDealType" required>
+                    <option value="">اختر نوع الصفقة</option>
+                    <option value="بيع">بيع</option>
+                    <option value="إيجار">إيجار</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>المدينة</label>
+                <input type="text" id="propertyLocation" placeholder="المدينة، الحي" required>
+            </div>
+            
+            <div class="form-group">
+                <label>السعر (د.م.)</label>
+                <input type="number" id="propertyPrice" placeholder="مثال: 1500000 للبيع أو 5000 للإيجار شهرياً" required>
+            </div>
+            
+            <div class="form-group" style="grid-column: 1/-1;">
+                <label>الوصف</label>
+                <textarea id="propertyDescription" rows="4" placeholder="أدخل وصفاً مفصلاً للعقار (المساحة، عدد الغرف، الخدمات المتوفرة، المزايا، ...)" required></textarea>
+            </div>
+            
+            <div class="form-group" style="grid-column: 1/-1;">
+                <label>📷 صورة العقار (اختياري)</label>
+                <input type="file" id="propertyImages" accept="image/*">
+                <small style="color: #666; display: block; margin-top: 5px;">يمكنك رفع صورة واحدة للعقار</small>
+            </div>
+            
+            <button type="submit" style="grid-column: 1/-1; background: #e67e22;">✅ إضافة العقار</button>
+        </form>
+    </section>
+    
+    <!-- اتصل بنا -->
+    <section id="contact">
+        <h2>📞 اتصل بنا</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div>
+                <p>📱 الهاتف: +212 612 345 678</p>
+                <p>📧 البريد الشخصي: imadxhabja@gmail.com</p>
+                <p>📍 العنوان: الدار البيضاء، المغرب</p>
+            </div>
+            <div>
+                <p>⏰ ساعات العمل:</p>
+                <p>الإثنين - الجمعة: 8 ص - 6 م</p>
+                <p>السبت: 9 ص - 2 م</p>
+                <p style="margin-top: 10px; color: #1abc9c; font-weight: bold;">
+                    📬 الرد خلال 24 ساعة
+                </p>
+            </div>
+        </div>
+        
+        <div class="contact-buttons">
+            <a href="https://wa.me/212612345678" class="contact-btn whatsapp-btn" target="_blank">
+                💬 واتساب
+            </a>
+            <a href="mailto:imadxhabja@gmail.com" class="contact-btn email-btn">
+                📩 إرسال إيميل
+            </a>
+        </div>
+    </section>
+    
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3 style="color: #1abc9c; margin-bottom: 1rem;">darmarket2</h3>
+                <p>السوق العقاري المغربي الأول</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">
+                    جميع الأسعار بالدرهم المغربي
+                </p>
+            </div>
+            
+            <div>
+                <h3 style="color: #1abc9c; margin-bottom: 1rem;">تواصل معنا</h3>
+                <p>📱 +212 612 345 678</p>
+                <p>📧 imadxhabja@gmail.com</p>
+            </div>
+            
+            <div>
+                <h3 style="color: #1abc9c; margin-bottom: 1rem;">روابط سريعة</h3>
+                <p><a href="#home" style="color: white;">🏠 الرئيسية</a></p>
+                <p><a href="#add-listing" style="color: white;">➕ إضافة عقار</a></p>
+                <p><a href="#listings" style="color: white;">📋 العقارات</a></p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>© 2023 darmarket2 - جميع الحقوق محفوظة</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">
+                تم التطوير خصيصاً للسوق العقاري المغربي
+            </p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // ==================== نظام إدارة العقارات ====================
+        
+        // بيانات العقارات (تخزين محلي)
+        let properties = [];
+        let currentImage = null;
+        
+        // مفتاح التخزين المحلي
+        const STORAGE_KEY = 'darmarket2_properties_v3';
+        
+        // ========== وظائف التخزين ==========
+        
+        // حفظ العقارات في التخزين المحلي
+        function savePropertiesToStorage() {
             try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    // التأكد من وجود بيانات أساسية
-                    properties = parsed.filter(p => p && p.title && p.price);
-                    console.log('📂 تم تحميل', properties.length, 'عقارات');
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
+                console.log('💾 تم حفظ ' + properties.length + ' عقاراً');
+            } catch (error) {
+                console.error('❌ خطأ في الحفظ:', error);
+            }
+        }
+        
+        // تحميل العقارات من التخزين المحلي
+        function loadPropertiesFromStorage() {
+            try {
+                const savedData = localStorage.getItem(STORAGE_KEY);
+                
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
                     
-                    // إذا لم يكن هناك عقارات، أضف الأمثلة الافتراضية
-                    if (properties.length === 0) {
-                        properties = [
-                            {
-                                id: 1,
-                                title: "فيلا فاخرة في مراكش",
-                                description: "5 غرف نوم، مسبح، حديقة خاصة",
-                                price: 4200000,
-                                location: "مراكش",
-                                type: "بيع",
-                                date: new Date().toLocaleDateString('ar-MA'),
-                                image: null
-                            },
-                            {
-                                id: 2,
-                                title: "شقة حديثة في الدار البيضاء",
-                                description: "3 غرف نوم، صالة، مطبخ مفتوح",
-                                price: 12500,
-                                location: "الدار البيضاء",
-                                type: "إيجار",
-                                date: new Date().toLocaleDateString('ar-MA'),
-                                image: null
-                            }
-                        ];
-                        saveProperties();
+                    // التأكد من صحة البيانات
+                    if (Array.isArray(parsedData)) {
+                        properties = parsedData.filter(property => 
+                            property && 
+                            property.id && 
+                            property.title && 
+                            property.price
+                        );
+                        
+                        console.log('📂 تم تحميل ' + properties.length + ' عقاراً');
                     }
-                } else {
-                    // إذا لا يوجد حفظ سابق، أضف الأمثلة
+                }
+                
+                // إذا لم يكن هناك بيانات، أضف أمثلة
+                if (properties.length === 0) {
                     properties = [
                         {
                             id: 1,
                             title: "فيلا فاخرة في مراكش",
-                            description: "5 غرف نوم، مسبح، حديقة خاصة",
+                            description: "فيلا جديدة تتكون من 5 غرف نوم وصالتين وحديقة خاصة مع مسبح. مساحة 350م².",
                             price: 4200000,
                             location: "مراكش",
                             type: "بيع",
@@ -74,7 +578,7 @@
                         {
                             id: 2,
                             title: "شقة حديثة في الدار البيضاء",
-                            description: "3 غرف نوم، صالة، مطبخ مفتوح",
+                            description: "شقة جديدة بمساحة 120م² تتكون من 3 غرف نوم وصالة مع مطبخ مفتوح.",
                             price: 12500,
                             location: "الدار البيضاء",
                             type: "إيجار",
@@ -82,35 +586,61 @@
                             image: null
                         }
                     ];
-                    saveProperties();
+                    
+                    savePropertiesToStorage();
                 }
-            } catch (e) {
-                console.error('❌ خطأ في التحميل:', e);
+                
+            } catch (error) {
+                console.error('❌ خطأ في التحميل:', error);
                 properties = [];
             }
         }
-        // ========== نهاية نظام التخزين ==========
         
-        // رفع الصورة
-        document.getElementById('propertyImages').addEventListener('change', function(e) {
-            const file = e.target.files[0];
+        // ========== معالجة الصور ==========
+        
+        // رفع صورة العقار
+        document.getElementById('propertyImages').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
             if (file) {
+                // التحقق من حجم الصورة (2MB كحد أقصى)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('⚠️ حجم الصورة كبير جداً. الحد الأقصى 2MB');
+                    this.value = '';
+                    currentImage = null;
+                    return;
+                }
+                
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    currentImage = event.target.result;
-                    console.log('📸 تم تحميل صورة');
+                
+                reader.onload = function(e) {
+                    currentImage = e.target.result;
+                    console.log('📸 تم تحميل صورة العقار');
                 };
+                
+                reader.onerror = function() {
+                    alert('❌ حدث خطأ في قراءة الصورة');
+                    currentImage = null;
+                };
+                
                 reader.readAsDataURL(file);
             }
         });
         
-        // عرض العقارات
+        // ========== عرض العقارات ==========
+        
+        // عرض جميع العقارات
         function displayProperties() {
             const container = document.getElementById('listingsContainer');
             
+            if (!container) {
+                console.error('❌ عنصر قائمة العقارات غير موجود');
+                return;
+            }
+            
             if (properties.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 3rem; color: #666;">
+                    <div style="text-align: center; padding: 3rem; color: #666; grid-column: 1/-1;">
                         <div style="font-size: 4rem;">🏠</div>
                         <h3 style="margin: 1rem 0;">لا توجد عقارات متاحة حالياً</h3>
                         <p>كن أول من يضيف عقاراً!</p>
@@ -123,73 +653,90 @@
                 <div class="property-card" data-id="${property.id}">
                     <div class="property-image">
                         ${property.image ? 
-                            `<img src="${property.image}" alt="${property.title}" style="width:100%; height:100%; object-fit:cover; border-radius: 8px 8px 0 0;">` : 
-                            `<span style="font-size: 3rem;">${property.type === 'بيع' ? '🏠' : '🏢'}</span>`
+                            `<img src="${property.image}" alt="${property.title}" 
+                                 style="width:100%; height:100%; object-fit:cover;">` : 
+                            `<span style="font-size: 3rem; color: #666;">
+                                ${property.type === 'بيع' ? '🏠' : '🏢'}
+                            </span>`
                         }
                     </div>
+                    
                     <div class="property-details">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
-                            <h3 style="margin: 0;">${property.title}</h3>
-                            <button onclick="deleteProperty(${property.id})" class="delete-btn">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <h3>${property.title}</h3>
+                            <button onclick="deleteProperty(${property.id})" 
+                                    class="delete-btn" 
+                                    style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
                                 🗑️ حذف
                             </button>
                         </div>
-                        <p style="color: #555; margin-bottom: 10px;">${property.description}</p>
+                        
+                        <p>${property.description}</p>
+                        
                         <div class="property-price">
-                            ${property.type === 'إيجار' ? property.price.toLocaleString() + ' د.م./شهرياً' : property.price.toLocaleString() + ' د.م.'}
+                            ${property.type === 'إيجار' ? 
+                                property.price.toLocaleString() + ' د.م./شهرياً' : 
+                                property.price.toLocaleString() + ' د.م.'
+                            }
                         </div>
-                        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span style="background: #1abc9c; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.9rem;">
-                                ${property.type}
+                        
+                        <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                            <span class="property-type">${property.type}</span>
+                            <span style="color: #666;">
+                                📍 ${property.location}
                             </span>
-                            <span style="color: #666;">📍 ${property.location}</span>
-                            <span style="color: #666;">📅 ${property.date}</span>
+                            <span style="color: #666;">
+                                📅 ${property.date}
+                            </span>
                         </div>
                     </div>
                 </div>
             `).join('');
             
-            // حفظ بعد كل تحديث
-            saveProperties();
+            // حفظ التغييرات تلقائياً
+            savePropertiesToStorage();
         }
         
-        // حذف عقار
-        function deleteProperty(id) {
-            if (confirm('هل أنت متأكد من حذف هذا العقار؟')) {
-                properties = properties.filter(property => property.id !== id);
-                displayProperties();
-                alert('✅ تم حذف العقار');
-            }
-        }
+        // ========== إضافة عقار جديد ==========
         
-        // إضافة عقار جديد
-        document.getElementById('addPropertyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // معالجة إضافة عقار جديد
+        document.getElementById('addPropertyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
             
-            // التحقق من البيانات
+            // جمع البيانات من النموذج
             const title = document.getElementById('propertyTitle').value.trim();
             const type = document.getElementById('propertyDealType').value;
             const location = document.getElementById('propertyLocation').value.trim();
             const price = document.getElementById('propertyPrice').value;
             const description = document.getElementById('propertyDescription').value.trim();
             
+            // التحقق من البيانات المطلوبة
             if (!title || !type || !location || !price || !description) {
                 alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
                 return;
             }
             
+            if (isNaN(price) || Number(price) <= 0) {
+                alert('⚠️ الرجاء إدخال سعر صحيح');
+                return;
+            }
+            
+            // إنشاء كائن العقار الجديد
             const newProperty = {
-                id: Date.now(),
+                id: Date.now(), // معرف فريد
                 title: title,
                 type: type,
                 location: location,
-                price: parseInt(price),
+                price: Number(price),
                 description: description,
                 date: new Date().toLocaleDateString('ar-MA'),
                 image: currentImage
             };
             
+            // إضافة العقار إلى القائمة
             properties.unshift(newProperty);
+            
+            // تحديث العرض
             displayProperties();
             
             // إعادة تعيين النموذج
@@ -197,52 +744,129 @@
             currentImage = null;
             document.getElementById('propertyImages').value = '';
             
-            alert('✅ تم إضافة العقار بنجاح!');
+            // رسالة نجاح
+            alert('✅ تم إضافة العقار بنجاح!\n\n' +
+                  'العنوان: ' + title + '\n' +
+                  'السعر: ' + price.toLocaleString() + ' د.م.');
             
-            // إشعار إذا سمح
+            // التمرير إلى قائمة العقارات
+            document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+            
+            // إشعار (إذا كان المستخدم سمح)
             if ('Notification' in window && Notification.permission === 'granted') {
                 new Notification('🏠 عقار جديد!', {
-                    body: `تم إضافة "${newProperty.title}"`,
+                    body: 'تم إضافة عقار: ' + title,
                     icon: 'https://i.ibb.co/SwVN7NNf/logo.png'
                 });
             }
         });
         
-        // البحث
-        document.getElementById('propertySearchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const dealType = document.getElementById('dealType').value;
-            const location = document.getElementById('location').value;
+        // ========== حذف عقار ==========
+        
+        // حذف عقار
+        function deleteProperty(propertyId) {
+            if (confirm('هل أنت متأكد من حذف هذا العقار؟\n\nهذا الإجراء لا يمكن التراجع عنه.')) {
+                const initialLength = properties.length;
+                properties = properties.filter(property => property.id !== propertyId);
+                
+                if (properties.length < initialLength) {
+                    displayProperties();
+                    alert('✅ تم حذف العقار بنجاح');
+                } else {
+                    alert('⚠️ لم يتم العثور على العقار');
+                }
+            }
+        }
+        
+        // ========== البحث ==========
+        
+        // معالجة البحث
+        document.getElementById('propertySearchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
             
-            if (dealType || location) {
-                alert(`🔍 سيتم البحث عن:\n${dealType ? 'النوع: ' + dealType + '\n' : ''}${location ? 'المدينة: ' + location : ''}`);
+            const dealType = document.getElementById('dealType').value;
+            const location = document.getElementById('location').value.trim().toLowerCase();
+            const maxPrice = document.getElementById('maxPrice').value;
+            
+            let searchMessage = '🔍 معايير البحث:\n';
+            
+            if (dealType) searchMessage += '• النوع: ' + dealType + '\n';
+            if (location) searchMessage += '• المدينة: ' + location + '\n';
+            if (maxPrice) searchMessage += '• السعر الأقصى: ' + Number(maxPrice).toLocaleString() + ' د.م.\n';
+            
+            if (!dealType && !location && !maxPrice) {
+                alert('⚠️ الرجاء إدخال معايير للبحث');
+                return;
+            }
+            
+            // فلترة العقارات بناءً على معايير البحث
+            const filteredProperties = properties.filter(property => {
+                if (dealType && property.type !== dealType) return false;
+                if (location && !property.location.toLowerCase().includes(location)) return false;
+                if (maxPrice && property.price > Number(maxPrice)) return false;
+                return true;
+            });
+            
+            if (filteredProperties.length > 0) {
+                // عرض النتائج
+                const tempProperties = properties;
+                properties = filteredProperties;
+                displayProperties();
+                properties = tempProperties;
+                
+                alert(searchMessage + '\nتم العثور على ' + filteredProperties.length + ' عقاراً');
             } else {
-                alert('⚠️ الرجاء إدخال بيانات للبحث');
+                alert(searchMessage + '\n❌ لم يتم العثور على عقارات مطابقة');
             }
         });
         
-        // تهيئة
+        // ========== تهيئة التطبيق ==========
+        
+        // عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 بدء تحميل الموقع...');
-            loadProperties();
+            console.log('🚀 بدء تحميل تطبيق darmarket2...');
+            
+            // تحميل العقارات المحفوظة
+            loadPropertiesFromStorage();
+            
+            // عرض العقارات
             displayProperties();
             
-            // تسجيل Service Worker
+            // تسجيل Service Worker لتطبيق PWA
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/Darmarket/sw.js')
-                    .then(() => console.log('✅ Service Worker مسجل'))
-                    .catch(err => console.log('❌ خطأ:', err));
+                    .then(registration => {
+                        console.log('✅ Service Worker مسجل:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('❌ فشل تسجيل Service Worker:', error);
+                    });
             }
             
             // طلب إذن الإشعارات
             if ('Notification' in window && Notification.permission === 'default') {
                 setTimeout(() => {
-                    Notification.requestPermission();
-                }, 3000);
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            console.log('🔔 تم تفعيل الإشعارات');
+                        }
+                    });
+                }, 2000);
             }
             
-            console.log('✅ تم تحميل', properties.length, 'عقارات');
+            console.log('✅ تم تحميل التطبيق بنجاح');
+            console.log('📊 عدد العقارات: ' + properties.length);
         });
+        
+        // ========== وظائف مساعدة ==========
+        
+        // تحديث تلقائي للعقارات كل 30 ثانية (اختياري)
+        setInterval(() => {
+            if (properties.length > 0) {
+                savePropertiesToStorage();
+            }
+        }, 30000);
+        
     </script>
 </body>
-</html>
+    </html>
