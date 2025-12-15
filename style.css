@@ -1,851 +1,1799 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* ملف التصميم الرئيسي لدار ماركت */
+:root {
+    /* الألوان الرئيسية */
+    --primary-color: #2c3e50;
+    --primary-dark: #1a252f;
+    --primary-light: #34495e;
     
-    <!-- معلومات أساسية -->
-    <title>دار ماركت - أكبر سوق عقاري مغربي</title>
-    <meta name="description" content="ابحث عن عقارك المثالي اليوم في المغرب - أكبر سوق عقاري مغربي يربط البائعين والمشترين">
-    <meta name="keywords" content="عقارات المغرب, شراء عقار, بيع عقار, إيجار عقار, عقارات الدار البيضاء, عقارات مراكش">
-    <meta name="author" content="دار ماركت">
+    --secondary-color: #3498db;
+    --secondary-dark: #2980b9;
+    --secondary-light: #5dade2;
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="دار ماركت - أكبر سوق عقاري مغربي">
-    <meta property="og:description" content="ابحث عن عقارك المثالي اليوم في المغرب">
-    <meta property="og:image" content="https://imadxhabja-lang.github.io/Darmarket/og-image.jpg">
-    <meta property="og:url" content="https://imadxhabja-lang.github.io/Darmarket/">
-    <meta property="og:type" content="website">
+    --accent-color: #e74c3c;
+    --accent-dark: #c0392b;
+    --accent-light: #ec7063;
     
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="دار ماركت - أكبر سوق عقاري مغربي">
-    <meta name="twitter:description" content="ابحث عن عقارك المثالي اليوم في المغرب">
+    /* ألوان محايدة */
+    --light-color: #ecf0f1;
+    --light-gray: #bdc3c7;
+    --medium-gray: #95a5a6;
+    --dark-gray: #7f8c8d;
+    --dark-color: #2c3e50;
     
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3498db">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="دار ماركت">
-    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    /* ألوان النص */
+    --text-primary: #2c3e50;
+    --text-secondary: #34495e;
+    --text-light: #7f8c8d;
+    --text-inverse: #ffffff;
     
-    <!-- روابط CSS -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    /* ألوان الخلفية */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-dark: #2c3e50;
+    --bg-light: #ecf0f1;
     
-    <!-- تحسين SEO -->
-    <link rel="canonical" href="https://imadxhabja-lang.github.io/Darmarket/">
-    <link rel="alternate" hreflang="ar" href="https://imadxhabja-lang.github.io/Darmarket/">
-    <link rel="alternate" hreflang="fr" href="https://imadxhabja-lang.github.io/Darmarket/fr/">
+    /* الظلال */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "RealEstateAgent",
-      "name": "دار ماركت",
-      "description": "أكبر سوق عقاري مغربي",
-      "url": "https://imadxhabja-lang.github.io/Darmarket/",
-      "logo": "https://imadxhabja-lang.github.io/Darmarket/icons/icon-512x512.png",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "الدار البيضاء",
-        "addressCountry": "المغرب"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+212-612-345-678",
-        "contactType": "دعم العملاء"
-      }
+    /* الأنيميشن */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* الزوايا */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+    
+    /* التباعد */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+}
+
+/* إعادة التعيين */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+/* إخفاء شريط التحميل */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity var(--transition-normal);
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    text-align: center;
+}
+
+.loader i {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: var(--space-md);
+    animation: bounce 1s infinite;
+}
+
+.loader span {
+    display: block;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* شريط التنقل */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    transition: all var(--transition-normal);
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.logo i {
+    color: var(--secondary-color);
+    font-size: 1.8rem;
+}
+
+.beta-badge {
+    background: var(--accent-color);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    margin-right: var(--space-xs);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--space-lg);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    font-weight: 600;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--secondary-color);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.btn-notification {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.btn-notification:hover {
+    color: var(--secondary-color);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.notification-count {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--accent-color);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-login:hover {
+    background: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: var(--space-sm);
+}
+
+/* قسم الهيرو */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    overflow: hidden;
+    margin-top: 70px;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+    opacity: 0.3;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: var(--space-3xl) var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-lg);
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--accent-light);
+    position: relative;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-light);
+    border-radius: var(--radius-full);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: var(--space-2xl);
+    opacity: 0.9;
+}
+
+.hero-search {
+    max-width: 600px;
+    margin: 0 auto var(--space-2xl);
+}
+
+.search-input-group {
+    display: flex;
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.search-input-group input {
+    flex: 1;
+    border: none;
+    padding: var(--space-lg);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.search-input-group input::placeholder {
+    color: var(--text-light);
+}
+
+.search-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0 var(--space-2xl);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.search-btn:hover {
+    background: var(--secondary-dark);
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    margin-top: var(--space-sm);
+    display: none;
+}
+
+.search-suggestions.active {
+    display: block;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    min-width: 200px;
+}
+
+.stat-item i {
+    font-size: 2rem;
+    color: var(--accent-light);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* الأقسام العامة */
+section {
+    padding: var(--space-3xl) 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-2xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* موجات القسم */
+.wave {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+    pointer-events: none;
+}
+
+.wave-top {
+    top: 0;
+    transform: rotate(180deg);
+}
+
+.wave-bottom {
+    bottom: 0;
+}
+
+/* قسم المميزات */
+.features-section {
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+}
+
+.feature-card {
+    background: var(--bg-primary);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* قسم العقارات */
+.properties-section {
+    background: var(--bg-primary);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+}
+
+.section-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.view-toggle {
+    display: flex;
+    background: var(--bg-secondary);
+    padding: var(--space-xs);
+    border-radius: var(--radius-md);
+}
+
+.view-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.view-btn.active,
+.view-btn:hover {
+    background: var(--bg-primary);
+    color: var(--secondary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.sort-select {
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.properties-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.loading-properties {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--text-light);
+}
+
+.loading-properties i {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    color: var(--secondary-color);
+}
+
+.btn-load-more {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--radius-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0 auto;
+}
+
+.btn-load-more:hover {
+    background: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-load-more:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* قسم البحث المتقدم */
+.advanced-search-section {
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.search-form-container {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+    margin-top: var(--space-2xl);
+}
+
+/* قسم الدعوة للإضافة */
+.cta-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-lg);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-2xl);
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.btn-cta-primary,
+.btn-cta-secondary {
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--radius-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transition: all var(--transition-normal);
+}
+
+.btn-cta-primary {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+}
+
+.btn-cta-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-cta-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-cta-secondary:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* قسم الاتصال */
+.contact-section {
+    background: var(--bg-primary);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+}
+
+.contact-info {
+    padding: var(--space-xl);
+}
+
+.contact-description {
+    color: var(--text-light);
+    margin-bottom: var(--space-2xl);
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.contact-method {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+}
+
+.contact-method i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-top: var(--space-xs);
+}
+
+.contact-method h4 {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+}
+
+.contact-method p {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+}
+
+.contact-method small {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.social-link.facebook { background: #1877f2; }
+.social-link.twitter { background: #1da1f2; }
+.social-link.instagram { background: #e4405f; }
+.social-link.linkedin { background: #0a66c2; }
+.social-link.whatsapp { background: #25d366; }
+
+.contact-form-container {
+    background: var(--bg-secondary);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+}
+
+.contact-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xl);
+    color: var(--text-primary);
+}
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--space-md);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.form-footer {
+    margin-top: var(--space-2xl);
+}
+
+.btn-submit {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--radius-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-submit:hover {
+    background: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-note {
+    text-align: center;
+    color: var(--text-light);
+    margin-top: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+/* قسم الخريطة */
+.map-section {
+    background: var(--bg-secondary);
+}
+
+.map-container {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    height: 500px;
+    margin-top: var(--space-2xl);
+    position: relative;
+}
+
+.map-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-light));
+    color: var(--text-light);
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    margin-bottom: var(--space-lg);
+    color: var(--secondary-color);
+}
+
+.map-placeholder p {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+}
+
+/* الفوتر */
+.main-footer {
+    background: var(--bg-dark);
+    color: white;
+    padding: var(--space-3xl) 0 var(--space-xl);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+}
+
+.footer-logo i {
+    color: var(--secondary-color);
+}
+
+.footer-description {
+    color: var(--light-gray);
+    margin-bottom: var(--space-xl);
+    line-height: 1.8;
+}
+
+.app-download p {
+    margin-bottom: var(--space-md);
+    color: var(--light-gray);
+}
+
+.app-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.app-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: var(--primary-light);
+    color: white;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.app-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.app-btn i {
+    font-size: 1.8rem;
+}
+
+.app-btn div {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-btn small {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.footer-col h4 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-lg);
+    color: white;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: var(--space-sm);
+}
+
+.footer-links a {
+    color: var(--light-gray);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    display: block;
+    padding: var(--space-xs) 0;
+}
+
+.footer-links a:hover {
+    color: white;
+    padding-right: var(--space-sm);
+}
+
+.newsletter-form {
+    margin-bottom: var(--space-xl);
+}
+
+.input-group {
+    display: flex;
+    background: var(--primary-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-md);
+}
+
+.input-group input {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: var(--space-md);
+    color: white;
+    font-family: 'Cairo', sans-serif;
+}
+
+.input-group input::placeholder {
+    color: var(--light-gray);
+}
+
+.input-group button {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0 var(--space-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.input-group button:hover {
+    background: var(--secondary-dark);
+}
+
+.form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.form-check input {
+    margin-top: 3px;
+}
+
+.form-check label {
+    font-size: 0.9rem;
+    color: var(--light-gray);
+    line-height: 1.4;
+}
+
+.form-check a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.form-check a:hover {
+    text-decoration: underline;
+}
+
+.payment-methods p {
+    color: var(--light-gray);
+    margin-bottom: var(--space-md);
+}
+
+.payment-icons {
+    display: flex;
+    gap: var(--space-lg);
+    font-size: 2rem;
+    color: var(--light-gray);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--primary-light);
+    padding-top: var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+}
+
+.footer-copyright p {
+    color: var(--light-gray);
+    margin-bottom: var(--space-xs);
+}
+
+.footer-meta {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.footer-legal {
+    display: flex;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.footer-legal a {
+    color: var(--light-gray);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.footer-legal a:hover {
+    color: white;
+}
+
+/* زر العودة للأعلى */
+.back-to-top {
+    position: fixed;
+    bottom: var(--space-xl);
+    left: var(--space-xl);
+    width: 50px;
+    height: 50px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--secondary-dark);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* النماذج المنبثقة */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 2001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-content {
+    padding: var(--space-2xl);
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--accent-color);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.modal-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--light-gray);
+    margin-bottom: var(--space-xl);
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: var(--space-md);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transition: transform var(--transition-fast);
+}
+
+.tab-btn.active {
+    color: var(--secondary-color);
+}
+
+.tab-btn.active::after {
+    transform: scaleX(1);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    width: auto;
+}
+
+.forgot-password {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.social-login {
+    margin-top: var(--space-xl);
+    text-align: center;
+}
+
+.social-login p {
+    color: var(--text-light);
+    margin-bottom: var(--space-md);
+}
+
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.social-btn.facebook {
+    color: #1877f2;
+    border-color: #1877f2;
+}
+
+.social-btn.google {
+    color: #db4437;
+    border-color: #db4437;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.password-hint {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-top: var(--space-xs);
+}
+
+/* نموذج الإشعارات */
+.notifications-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-empty {
+    text-align: center;
+    padding: var(--space-2xl);
+    color: var(--text-light);
+}
+
+.notification-empty i {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.btn-mark-all-read {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.btn-mark-all-read:hover {
+    background: rgba(52, 152, 219, 0.1);
+}
+
+/* رسائل Toast */
+.toast-container {
+    position: fixed;
+    top: var(--space-xl);
+    left: var(--space-xl);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 400px;
+}
+
+.toast {
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideInLeft 0.3s ease;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.toast i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.toast-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.btn-toast {
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-sm);
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.install-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.cancel-btn {
+    background: var(--light-gray);
+    color: white;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
     }
-    </script>
-</head>
-<body>
-    <!-- شريط التحميل -->
-    <div id="loading" class="loading">
-        <div class="loader">
-            <i class="fas fa-home"></i>
-            <span>جار التحميل...</span>
-        </div>
-    </div>
-    
-    <!-- شريط التنقل المحسن -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-home"></i>
-                <span>دار ماركت</span>
-                <span class="beta-badge">BETA</span>
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="#home" class="active nav-link" data-page="home">
-                    <i class="fas fa-home"></i> <span>الرئيسية</span>
-                </a></li>
-                <li><a href="#properties" class="nav-link" data-page="properties">
-                    <i class="fas fa-building"></i> <span>العقارات</span>
-                </a></li>
-                <li><a href="#search" class="nav-link" data-page="search">
-                    <i class="fas fa-search"></i> <span>بحث متقدم</span>
-                </a></li>
-                <li><a href="#add" class="nav-link" data-page="add">
-                    <i class="fas fa-plus-circle"></i> <span>أضف عقار</span>
-                </a></li>
-                <li><a href="#contact" class="nav-link" data-page="contact">
-                    <i class="fas fa-phone"></i> <span>اتصل بنا</span>
-                </a></li>
-            </ul>
-            
-            <div class="nav-actions">
-                <button class="btn-notification" id="notification-btn" aria-label="الإشعارات">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-count">0</span>
-                </button>
-                <button class="btn-login" id="login-toggle">
-                    <i class="fas fa-user"></i>
-                    <span>تسجيل الدخول</span>
-                </button>
-                <div class="menu-toggle" id="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </div>
-        
-        <!-- القائمة المنسدلة للمستخدم -->
-        <div class="user-dropdown" id="user-dropdown">
-            <div class="dropdown-content">
-                <div class="user-info">
-                    <i class="fas fa-user-circle"></i>
-                    <div>
-                        <strong>زائر</strong>
-                        <small>سجل الدخول للوصول لجميع الميزات</small>
-                    </div>
-                </div>
-                <hr>
-                <a href="#favorites" class="dropdown-item">
-                    <i class="fas fa-heart"></i> المفضلة
-                </a>
-                <a href="#my-properties" class="dropdown-item">
-                    <i class="fas fa-home"></i> عقاراتي
-                </a>
-                <a href="#messages" class="dropdown-item">
-                    <i class="fas fa-envelope"></i> الرسائل
-                </a>
-                <hr>
-                <a href="#settings" class="dropdown-item">
-                    <i class="fas fa-cog"></i> الإعدادات
-                </a>
-                <a href="#help" class="dropdown-item">
-                    <i class="fas fa-question-circle"></i> المساعدة
-                </a>
-                <button class="dropdown-item logout-btn" id="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                </button>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- القائمة الجانبية للجوال -->
-    <div class="mobile-sidebar" id="mobile-sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <i class="fas fa-home"></i>
-                <span>دار ماركت</span>
-            </div>
-            <button class="close-sidebar" id="close-sidebar">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="sidebar-content">
-            <a href="#home" class="sidebar-link active">
-                <i class="fas fa-home"></i> الرئيسية
-            </a>
-            <a href="#properties" class="sidebar-link">
-                <i class="fas fa-building"></i> العقارات
-            </a>
-            <a href="#search" class="sidebar-link">
-                <i class="fas fa-search"></i> بحث متقدم
-            </a>
-            <a href="#add" class="sidebar-link">
-                <i class="fas fa-plus-circle"></i> أضف عقار
-            </a>
-            <a href="#contact" class="sidebar-link">
-                <i class="fas fa-phone"></i> اتصل بنا
-            </a>
-            <hr>
-            <a href="#login" class="sidebar-link">
-                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-            </a>
-            <a href="#register" class="sidebar-link">
-                <i class="fas fa-user-plus"></i> إنشاء حساب
-            </a>
-        </div>
-    </div>
-    
-    <!-- المحتوى الرئيسي -->
-    <main id="app-content">
-        <!-- قسم الهيرو -->
-        <section class="hero-section" id="home">
-            <div class="hero-background"></div>
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        ابحث عن <span class="highlight">عقارك المثالي</span> اليوم في المغرب
-                    </h1>
-                    <p class="hero-subtitle">
-                        أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد
-                        <br>
-                        <small>جميع الأسعار بالدرهم المغربي 💰</small>
-                    </p>
-                    
-                    <div class="hero-search">
-                        <div class="search-input-group">
-                            <input type="text" 
-                                   id="quick-search" 
-                                   placeholder="ابحث عن فيلا، شقة، أرض..." 
-                                   autocomplete="off">
-                            <button class="search-btn" id="quick-search-btn">
-                                <i class="fas fa-search"></i> بحث
-                            </button>
-                        </div>
-                        <div class="search-suggestions" id="search-suggestions"></div>
-                    </div>
-                    
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-home"></i>
-                            <div>
-                                <span class="stat-number" id="total-properties">1,248</span>
-                                <span class="stat-label">عقار متاح</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-users"></i>
-                            <div>
-                                <span class="stat-number" id="total-users">5,621</span>
-                                <span class="stat-label">مستخدم نشط</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-handshake"></i>
-                            <div>
-                                <span class="stat-number" id="total-deals">892</span>
-                                <span class="stat-label">صفقة ناجحة</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- موجات القسم -->
-            <div class="wave wave-top"></div>
-            <div class="wave wave-bottom"></div>
-        </section>
-        
-        <!-- قسم المميزات -->
-        <section class="features-section">
-            <div class="container">
-                <h2 class="section-title">لماذا تختار <span class="highlight">دار ماركت</span>؟</h2>
-                <p class="section-subtitle">نوفر لك أفضل تجربة للبحث والعثور على العقار المناسب</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>آمن وموثوق</h3>
-                        <p>جميع العقارات مراجعة ومؤكدة من قبل فريقنا لضمان مصداقية المعلومات</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-search-dollar"></i>
-                        </div>
-                        <h3>بحث ذكي</h3>
-                        <p>نظام بحث متقدم يمكنك من العثور على العقار المناسب بسرعة وسهولة</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3>دعم فني 24/7</h3>
-                        <p>فريق دعم فني متاح على مدار الساعة للإجابة على استفساراتك</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>تطبيق متجاوب</h3>
-                        <p>تصميم متكامل يعمل على جميع الأجهزة والهواتف الذكية</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم العقارات -->
-        <section class="properties-section" id="properties">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">عقارات <span class="highlight">مميزة</span></h2>
-                    <div class="section-controls">
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid">
-                                <i class="fas fa-th"></i>
-                            </button>
-                            <button class="view-btn" data-view="list">
-                                <i class="fas fa-list"></i>
-                            </button>
-                        </div>
-                        <select class="sort-select" id="sort-properties">
-                            <option value="newest">الأحدث أولاً</option>
-                            <option value="price-low">السعر: منخفض إلى مرتفع</option>
-                            <option value="price-high">السعر: مرتفع إلى منخفض</option>
-                            <option value="area">المساحة: كبيرة إلى صغيرة</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="properties-container" id="properties-container">
-                    <!-- سيتم ملء العقارات بواسطة JavaScript -->
-                    <div class="loading-properties">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>جارٍ تحميل العقارات...</p>
-                    </div>
-                </div>
-                
-                <div class="load-more-container">
-                    <button class="btn-load-more" id="load-more">
-                        <i class="fas fa-sync-alt"></i> تحميل المزيد
-                    </button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم البحث المتقدم -->
-        <section class="advanced-search-section" id="search">
-            <div class="container">
-                <h2 class="section-title">بحث <span class="highlight">متقدم</span></h2>
-                <p class="section-subtitle">استخدم أدوات البحث المتقدمة للعثور على العقار المثالي</p>
-                
-                <div class="search-form-container">
-                    <!-- نموذج البحث سيتم إضافته بواسطة JavaScript -->
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم الدعوة للإضافة -->
-        <section class="cta-section" id="add">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>هل تريد بيع أو تأجير عقارك؟</h2>
-                    <p>انشر إعلانك مجاناً على دار ماركت ووصل لألاف المشترين المهتمين</p>
-                    <div class="cta-buttons">
-                        <a href="add-property.html" class="btn-cta-primary">
-                            <i class="fas fa-plus-circle"></i> أضف عقار مجاناً
-                        </a>
-                        <a href="#how-it-works" class="btn-cta-secondary">
-                            <i class="fas fa-play-circle"></i> شاهد كيف يعمل
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم الاتصال -->
-        <section class="contact-section" id="contact">
-            <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h2 class="section-title">اتصل <span class="highlight">بنا</span></h2>
-                        <p class="contact-description">
-                            نحن هنا لمساعدتك! لا تتردد في التواصل معنا لأي استفسار
-                        </p>
-                        
-                        <div class="contact-methods">
-                            <div class="contact-method">
-                                <i class="fas fa-phone"></i>
-                                <div>
-                                    <h4>الهاتف</h4>
-                                    <p>+212 612 345 678</p>
-                                    <small>متاح من الساعة 8 صباحاً إلى 6 مساءاً</small>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-method">
-                                <i class="fas fa-envelope"></i>
-                                <div>
-                                    <h4>البريد الإلكتروني</h4>
-                                    <p>imadxhabja@gmail.com</p>
-                                    <small>الرد خلال 24 ساعة</small>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-method">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div>
-                                    <h4>العنوان</h4>
-                                    <p>الدار البيضاء، المغرب</p>
-                                    <small>المقر الرئيسي</small>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-method">
-                                <i class="fas fa-clock"></i>
-                                <div>
-                                    <h4>ساعات العمل</h4>
-                                    <p>الإثنين - الجمعة: 8 ص - 6 م</p>
-                                    <p>السبت: 9 ص - 2 م</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="social-links">
-                            <a href="#" class="social-link facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-link twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="social-link linkedin">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="social-link whatsapp">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form-container">
-                        <form id="contact-form" class="contact-form">
-                            <h3>أرسل رسالة</h3>
-                            
-                            <div class="form-group">
-                                <label for="contact-name">
-                                    <i class="fas fa-user"></i> الاسم الكامل
-                                </label>
-                                <input type="text" id="contact-name" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="contact-email">
-                                        <i class="fas fa-envelope"></i> البريد الإلكتروني
-                                    </label>
-                                    <input type="email" id="contact-email" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="contact-phone">
-                                        <i class="fas fa-phone"></i> الهاتف
-                                    </label>
-                                    <input type="tel" id="contact-phone">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="contact-subject">
-                                    <i class="fas fa-tag"></i> الموضوع
-                                </label>
-                                <select id="contact-subject">
-                                    <option value="">اختر الموضوع</option>
-                                    <option value="استفسار">استفسار عام</option>
-                                    <option value="دعم">دعم فني</option>
-                                    <option value="إعلان">استفسار عن الإعلان</option>
-                                    <option value="شراكة">فرص شراكة</option>
-                                    <option value="شكوى">شكوى أو اقتراح</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="contact-message">
-                                    <i class="fas fa-comment"></i> الرسالة
-                                </label>
-                                <textarea id="contact-message" rows="5" required></textarea>
-                            </div>
-                            
-                            <div class="form-footer">
-                                <button type="submit" class="btn-submit">
-                                    <i class="fas fa-paper-plane"></i> إرسال الرسالة
-                                </button>
-                                <p class="form-note">
-                                    <i class="fas fa-info-circle"></i>
-                                    سنرد على رسالتك في أقرب وقت ممكن
-                                </p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم الخريطة -->
-        <section class="map-section">
-            <div class="container">
-                <h2 class="section-title">العقارات على <span class="highlight">الخريطة</span></h2>
-                <div class="map-container">
-                    <div class="map-placeholder" id="map-placeholder">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <p>خريطة تفاعلية للعقارات</p>
-                        <small>سيتم تحميل الخريطة قريباً</small>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- الفوتر -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <i class="fas fa-home"></i>
-                        <span>دار ماركت</span>
-                    </div>
-                    <p class="footer-description">
-                        أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد.
-                        نوفر منصة آمنة وسهلة الاستخدام للعثور على العقار المثالي.
-                    </p>
-                    <div class="app-download">
-                        <p>حمل تطبيقنا</p>
-                        <div class="app-buttons">
-                            <a href="#" class="app-btn play-store">
-                                <i class="fab fa-google-play"></i>
-                                <div>
-                                    <small>احصل عليه من</small>
-                                    <span>Google Play</span>
-                                </div>
-                            </a>
-                            <a href="#" class="app-btn app-store">
-                                <i class="fab fa-apple"></i>
-                                <div>
-                                    <small>حمله من</small>
-                                    <span>App Store</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>روابط سريعة</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#properties">تصفح العقارات</a></li>
-                        <li><a href="#search">بحث متقدم</a></li>
-                        <li><a href="#add">أضف عقار</a></li>
-                        <li><a href="#contact">اتصل بنا</a></li>
-                        <li><a href="#about">من نحن</a></li>
-                        <li><a href="#blog">المدونة</a></li>
-                        <li><a href="#faq">الأسئلة الشائعة</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>خدماتنا</h4>
-                    <ul class="footer-links">
-                        <li><a href="#buy">شراء عقار</a></li>
-                        <li><a href="#rent">إيجار عقار</a></li>
-                        <li><a href="#sell">بيع عقار</a></li>
-                        <li><a href="#commercial">عقارات تجارية</a></li>
-                        <li><a href="#lands">الأراضي</a></li>
-                        <li><a href="#valuation">تقييم العقارات</a></li>
-                        <li><a href="#consultation">استشارات عقارية</a></li>
-                        <li><a href="#legal">خدمات قانونية</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>النشرة البريدية</h4>
-                    <p class="newsletter-description">
-                        اشترك في نشرتنا البريدية لتصلك آخر العروض والعقارات الجديدة
-                    </p>
-                    <form class="newsletter-form" id="newsletter-form">
-                        <div class="input-group">
-                            <input type="email" 
-                                   placeholder="بريدك الإلكتروني" 
-                                   required>
-                            <button type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" id="newsletter-consent" required>
-                            <label for="newsletter-consent">
-                                أوافق على تلقي العروض والرسائل الإخبارية
-                            </label>
-                        </div>
-                    </form>
-                    
-                    <div class="payment-methods">
-                        <p>طرق الدفع المقبولة</p>
-                        <div class="payment-icons">
-                            <i class="fab fa-cc-visa"></i>
-                            <i class="fab fa-cc-mastercard"></i>
-                            <i class="fab fa-cc-paypal"></i>
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    <p>© <span id="current-year">2023</span> دار ماركت. جميع الحقوق محفوظة.</p>
-                    <p class="footer-meta">
-                        آخر تحديث: <span id="last-update">ديسمبر 2023</span>
-                    </p>
-                </div>
-                
-                <div class="footer-legal">
-                    <a href="#privacy">سياسة الخصوصية</a>
-                    <a href="#terms">شروط الاستخدام</a>
-                    <a href="#cookies">سياسة الكوكيز</a>
-                    <a href="#sitemap">خريطة الموقع</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- زر العودة للأعلى -->
-        <button class="back-to-top" id="back-to-top">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-    </footer>
-    
-    <!-- النماذج المنبثقة -->
-    <div class="modal-overlay" id="modal-overlay"></div>
-    
-    <!-- نموذج تسجيل الدخول -->
-    <div class="modal" id="login-modal">
-        <div class="modal-content">
-            <button class="modal-close" data-modal="login-modal">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="login">تسجيل الدخول</button>
-                <button class="tab-btn" data-tab="register">إنشاء حساب</button>
-            </div>
-            
-            <div class="tab-content active" id="login-tab">
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">
-                            <i class="fas fa-envelope"></i> البريد الإلكتروني
-                        </label>
-                        <input type="email" id="login-email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="login-password">
-                            <i class="fas fa-lock"></i> كلمة المرور
-                        </label>
-                        <div class="password-input">
-                            <input type="password" id="login-password" required>
-                            <button type="button" class="toggle-password">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="remember-me">
-                            <span>تذكرني</span>
-                        </label>
-                        <a href="#forgot-password" class="forgot-password">
-                            نسيت كلمة المرور؟
-                        </a>
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-                    </button>
-                    
-                    <div class="social-login">
-                        <p>أو سجل الدخول باستخدام</p>
-                        <div class="social-buttons">
-                            <button type="button" class="social-btn facebook">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </button>
-                            <button type="button" class="social-btn google">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="tab-content" id="register-tab">
-                <form id="register-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="register-firstname">
-                                <i class="fas fa-user"></i> الاسم الأول
-                            </label>
-                            <input type="text" id="register-firstname" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="register-lastname">
-                                <i class="fas fa-user"></i> الاسم الأخير
-                            </label>
-                            <input type="text" id="register-lastname" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="register-email">
-                            <i class="fas fa-envelope"></i> البريد الإلكتروني
-                        </label>
-                        <input type="email" id="register-email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="register-phone">
-                            <i class="fas fa-phone"></i> رقم الهاتف
-                        </label>
-                        <input type="tel" id="register-phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="register-password">
-                            <i class="fas fa-lock"></i> كلمة المرور
-                        </label>
-                        <div class="password-input">
-                            <input type="password" id="register-password" required>
-                            <button type="button" class="toggle-password">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <small class="password-hint">يجب أن تحتوي على 8 أحرف على الأقل</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="register-confirm">
-                            <i class="fas fa-lock"></i> تأكيد كلمة المرور
-                        </label>
-                        <input type="password" id="register-confirm" required>
-                    </div>
-                    
-                    <div class="form-check">
-                        <input type="checkbox" id="register-terms" required>
-                        <label for="register-terms">
-                            أوافق على <a href="#terms">شروط الاستخدام</a> و <a href="#privacy">سياسة الخصوصية</a>
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-user-plus"></i> إنشاء حساب
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <!-- نموذج الإشعارات -->
-    <div class="modal" id="notifications-modal">
-        <div class="modal-content">
-            <button class="modal-close" data-modal="notifications-modal">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="modal-header">
-                <h3><i class="fas fa-bell"></i> الإشعارات</h3>
-                <button class="btn-mark-all-read" id="mark-all-read">
-                    تعيين الكل كمقروء
-                </button>
-            </div>
-            
-            <div class="notifications-list" id="notifications-list">
-                <div class="notification-empty">
-                    <i class="fas fa-bell-slash"></i>
-                    <p>لا توجد إشعارات جديدة</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- رسالة تأكيد -->
-    <div class="toast-container" id="toast-container"></div>
-    
-    <!-- ملفات JavaScript -->
-    <script src="app.js"></script>
-    
-    <!-- تسجيل Service Worker -->
-    <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('sw.js')
-                .then(function(registration) {
-                    console.log('ServiceWorker registration successful');
-                })
-                .catch(function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-        });
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* القائمة الجانبية للجوال */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-xl);
+    z-index: 2002;
+    transition: right var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-sidebar.active {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.close-sidebar:hover {
+    color: var(--accent-color);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: var(--space-lg);
+    overflow-y: auto;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    transition: all var(--transition-fast);
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--secondary-color);
+}
+
+.sidebar-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* القائمة المنسدلة للمستخدم */
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    left: var(--space-lg);
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    min-width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: 1001;
+}
+
+.user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content {
+    padding: var(--space-lg);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.user-info i {
+    font-size: 3rem;
+    color: var(--text-light);
+}
+
+.user-info div {
+    flex: 1;
+}
+
+.user-info strong {
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+
+.user-info small {
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    text-align: right;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-secondary);
+    color: var(--secondary-color);
+}
+
+.dropdown-item.logout-btn {
+    color: var(--accent-color);
+}
+
+.dropdown-item.logout-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--light-gray);
+    margin: var(--space-lg) 0;
+}
+
+/* التصميم المتجاوب */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 2.8rem;
     }
     
-    // إظهار إشعار تثبيت PWA
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        // عرض زر التثبيت بعد 5 ثواني
-        setTimeout(() => {
-            showInstallPromotion();
-        }, 5000);
-    });
-    
-    function showInstallPromotion() {
-        const installToast = document.createElement('div');
-        installToast.className = 'toast install-toast';
-        installToast.innerHTML = `
-            <div class="toast-content">
-                <i class="fas fa-download"></i>
-                <div>
-                    <strong>ثبت تطبيق دار ماركت</strong>
-                    <p>احصل على تجربة أفضل وتلقى الإشعارات</p>
-                </div>
-            </div>
-            <div class="toast-actions">
-                <button class="btn-toast install-btn">تثبيت</button>
-                <button class="btn-toast cancel-btn">لاحقاً</button>
-            </div>
-        `;
-        
-        document.getElementById('toast-container').appendChild(installToast);
-        
-        installToast.querySelector('.install-btn').addEventListener('click', () => {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('تم قبول تثبيت التطبيق');
-                }
-                deferredPrompt = null;
-            });
-            installToast.remove();
-        });
-        
-        installToast.querySelector('.cancel-btn').addEventListener('click', () => {
-            installToast.remove();
-        });
-        
-        // إزالة الإشعار تلقائياً بعد 10 ثواني
-        setTimeout(() => {
-            if (installToast.parentNode) {
-                installToast.remove();
-            }
-        }, 10000);
+    .stat-item {
+        min-width: 180px;
     }
-    </script>
-</body>
-</html>
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .search-input-group {
+        flex-direction: column;
+    }
+    
+    .search-input-group input {
+        padding: var(--space-md);
+    }
+    
+    .search-btn {
+        padding: var(--space-md);
+        justify-content: center;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+    
+    .stat-item {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .section-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .properties-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+    
+    .back-to-top {
+        bottom: var(--space-md);
+        left: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .modal {
+        width: 95%;
+    }
+}
+
+/* طباعة */
+@media print {
+    .navbar,
+    .footer,
+    .back-to-top,
+    .modal-overlay,
+    .modal,
+    .toast-container {
+        display: none !important;
+    }
+    
+    body {
+        color: black;
+        background: white;
+    }
+    
+    .hero-section {
+        min-height: auto;
+        margin-top: 0;
+    }
+    
+    section {
+        page-break-inside: avoid;
+    }
+    }
