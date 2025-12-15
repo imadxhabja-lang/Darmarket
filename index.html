@@ -180,6 +180,12 @@
             margin-top: 0.5rem;
         }
         
+        input[type="file"] {
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+        }
+        
         button {
             background: #2c3e50;
             color: white;
@@ -224,6 +230,13 @@
             align-items: center;
             justify-content: center;
             color: #7f8c8d;
+            position: relative;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .property-details {
@@ -304,9 +317,91 @@
             section { padding: 1.5rem; margin: 1rem; }
             .listings-container { grid-template-columns: 1fr; }
         }
+        
+        /* تسميات الأسعار */
+        .price-label {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border-right: 3px solid #1abc9c;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        /* أزرار التواصل */
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-btn {
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+        }
+        
+        .gmail-btn {
+            background: #d44638;
+        }
+        
+        .official-btn {
+            background: #2c3e50;
+        }
+        
+        /* العائمة للواتساب */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .whatsapp-float:hover {
+            background: #128C7E;
+        }
     </style>
 </head>
 <body>
+    <!-- زر الواتساب العائم -->
+    <a href="https://wa.me/212612345678" target="_blank" class="whatsapp-float">
+        💬
+    </a>
+    
     <div id="installBanner">
         <div>
             <strong>📱 تثبيت تطبيق darmarket2</strong>
@@ -340,6 +435,7 @@
     
     <section id="search">
         <h2>🔍 ابحث عن عقار</h2>
+        <div class="price-label">جميع الأسعار بالدرهم المغربي (د.م.)</div>
         <form class="search-form" id="propertySearchForm">
             <div class="form-group">
                 <label>نوع الصفقة</label>
@@ -363,64 +459,130 @@
     
     <section id="listings">
         <h2>🏡 عقارات مميزة</h2>
+        <div class="price-label">جميع الأسعار معروضة بالدرهم المغربي (د.م.)</div>
         <div class="listings-container" id="listingsContainer"></div>
     </section>
     
     <section id="add-listing">
         <h2>📝 أضف عقارك</h2>
+        <div class="price-label">جميع الأسعار بالدرهم المغربي (د.م.)</div>
         <form class="add-listing-form" id="addPropertyForm">
             <div class="form-group">
-                <label>عنوان العقار</label>
-                <input type="text" id="propertyTitle" required>
+                <label>🏷️ عنوان العقار</label>
+                <input type="text" id="propertyTitle" placeholder="مثال: فيلا فاخرة في حي الرياض، مراكش" required>
             </div>
+            
             <div class="form-group">
-                <label>نوع الصفقة</label>
+                <label>💼 نوع الصفقة</label>
                 <select id="propertyDealType" required>
                     <option value="">اختر نوع الصفقة</option>
                     <option value="بيع">بيع</option>
                     <option value="إيجار">إيجار</option>
                 </select>
             </div>
+            
             <div class="form-group">
-                <label>الموقع</label>
-                <input type="text" id="propertyLocation" required>
+                <label>📍 الموقع</label>
+                <input type="text" id="propertyLocation" placeholder="المدينة، الحي، الشارع" required>
             </div>
+            
             <div class="form-group">
-                <label>السعر (د.م.)</label>
-                <input type="number" id="propertyPrice" required>
+                <label>💰 السعر (د.م.)</label>
+                <input type="number" id="propertyPrice" placeholder="مثال: 1500000 للبيع أو 5000 للإيجار شهرياً" required>
             </div>
+            
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label>الوصف</label>
-                <textarea id="propertyDescription" rows="4" required></textarea>
+                <label>📄 وصف العقار</label>
+                <textarea id="propertyDescription" rows="4" placeholder="أدخل وصفاً مفصلاً للعقار (المساحة، عدد الغرف، الخدمات المتوفرة، المزايا، ...)" required></textarea>
             </div>
-            <button type="submit" style="grid-column: 1 / -1;">✅ إضافة العقار</button>
+            
+            <!-- حقل رفع الصور -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>📷 رفع صور العقار</label>
+                <input type="file" id="propertyImages" multiple accept="image/*">
+                <small style="color: #666; display: block; margin-top: 5px;">
+                    يمكنك رفع حتى 5 صور (الحجم الأقصى 2MB لكل صورة)
+                </small>
+            </div>
+            
+            <button type="submit" style="grid-column: 1 / -1; background: #e67e22;">✅ إضافة العقار</button>
         </form>
     </section>
     
     <section id="contact">
         <h2>📞 اتصل بنا</h2>
-        <p>📱 الهاتف: +212 612 345 678</p>
-        <p>📧 البريد: info@darmarket2.ma</p>
-        <p>📍 العنوان: الدار البيضاء، المغرب</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div>
+                <p>📱 الهاتف: +212 612 345 678</p>
+                <p>📧 البريد الرسمي: info@darmarket2.ma</p>
+                <p>📩 البريد الشخصي: imadxhabja@gmail.com</p>
+                <p>📍 العنوان: الدار البيضاء، المغرب</p>
+            </div>
+            <div>
+                <p>⏰ ساعات العمل:</p>
+                <p>الإثنين - الجمعة: 8ص - 6م</p>
+                <p>السبت: 9ص - 2م</p>
+                <p style="margin-top: 1rem; color: #1abc9c; font-weight: bold;">
+                    📬 الرد خلال 24 ساعة
+                </p>
+            </div>
+        </div>
+        
+        <!-- أزرار التواصل -->
+        <div class="contact-buttons">
+            <a href="https://wa.me/212612345678" target="_blank" class="contact-btn whatsapp-btn">
+                💬 واتساب
+            </a>
+            
+            <a href="mailto:imadxhabja@gmail.com" class="contact-btn gmail-btn">
+                📩 Gmail الشخصي
+            </a>
+            
+            <a href="mailto:info@darmarket2.ma" class="contact-btn official-btn">
+                📧 البريد الرسمي
+            </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 1rem;">
+            <p style="color: #666; font-size: 0.9rem;">
+                اضغط على أي زر للتواصل المباشر
+            </p>
+        </div>
     </section>
     
     <footer>
         <div class="footer-content">
             <div>
+                <img src="https://i.ibb.co/SwVN7NNf/logo.png" alt="شعار darmarket2" style="height: 50px; margin-bottom: 1rem;">
                 <h3>darmarket2</h3>
                 <p>السوق العقاري المغربي الأول</p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #1abc9c;">
+                    📧 imadxhabja@gmail.com
+                </p>
             </div>
             <div>
                 <h3>روابط سريعة</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li><a href="#home" style="color: white;">الرئيسية</a></li>
-                    <li><a href="#add-listing" style="color: white;">إضافة عقار</a></li>
-                    <li><a href="#listings" style="color: white;">العقارات</a></li>
+                    <li><a href="#home" style="color: white; text-decoration: none;">🏠 الرئيسية</a></li>
+                    <li><a href="#add-listing" style="color: white; text-decoration: none;">➕ إضافة عقار</a></li>
+                    <li><a href="#listings" style="color: white; text-decoration: none;">📋 العقارات</a></li>
+                    <li><a href="#contact" style="color: white; text-decoration: none;">📞 اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>تواصل معنا</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>📱 واتساب: +212 612 345 678</li>
+                    <li>📧 الرسمي: info@darmarket2.ma</li>
+                    <li>📩 الشخصي: imadxhabja@gmail.com</li>
                 </ul>
             </div>
         </div>
         <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
             <p>© 2023 darmarket2 - جميع الحقوق محفوظة</p>
+            <p style="margin-top: 5px; font-size: 0.9rem; color: #aaa;">
+                تصميم وتطوير: imadxhabja@gmail.com
+            </p>
         </div>
     </footer>
     
@@ -610,6 +772,13 @@
         window.addEventListener('offline', () => {
             console.log('⚠️ غير متصل بالإنترنت');
         });
+        
+        // Copy email to clipboard
+        function copyEmail() {
+            navigator.clipboard.writeText('imadxhabja@gmail.com').then(() => {
+                alert('✅ تم نسخ البريد الإلكتروني: imadxhabja@gmail.com');
+            });
+        }
     </script>
 </body>
-        </html>
+                </html>
