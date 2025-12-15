@@ -3,213 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دار ماركت - أكبر سوق عقاري مغربي</title>
-    <link rel="stylesheet" href="style.css">
+    <title>غير متصل - دار ماركت</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            direction: rtl;
+        }
+        
+        .offline-container {
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .offline-icon {
+            font-size: 80px;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .offline-features {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: right;
+        }
+        
+        .offline-features h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .offline-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .offline-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .offline-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .offline-features i {
+            color: #2ecc71;
+        }
+        
+        .btn-retry {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-retry:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .connection-status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(231, 76, 60, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(231, 76, 60, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 600px) {
+            .offline-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .offline-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- شريط التنقل -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-home"></i>
-                <span>دار ماركت</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
-                <li><a href="#search"><i class="fas fa-search"></i> بحث متقدم</a></li>
-                <li><a href="#add"><i class="fas fa-plus-circle"></i> أضف عقار</a></li>
-                <li><a href="#contact"><i class="fas fa-phone"></i> اتصل بنا</a></li>
-                <li><a href="#" class="btn-login"><i class="fas fa-user"></i> تسجيل الدخول</a></li>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+        
+        <h1>أنت غير متصل بالإنترنت</h1>
+        
+        <p>عذراً، يبدو أن اتصال الإنترنت الخاص بك قد انقطع. تحتاج إلى اتصال إنترنت لاستخدام دار ماركت.</p>
+        
+        <div class="offline-features">
+            <h3>ماذا يمكنك فعلاً:</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> تحقق من اتصال WiFi أو بيانات الجوال</li>
+                <li><i class="fas fa-check"></i> أعد تحميل الصفحة عندما تعود الاتصال</li>
+                <li><i class="fas fa-check"></i> اتصل بمزود الخدمة إذا استمرت المشكلة</li>
+                <li><i class="fas fa-check"></i> استخدم تطبيقنا للوصول للمحتوى المخزن</li>
             </ul>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
-    </nav>
-
-    <!-- قسم البطل -->
-    <header class="hero" id="home">
-        <div class="hero-content">
-            <h1>ابحث عن عقارك المثالي اليوم في المغرب</h1>
-            <p>أكبر سوق عقاري مغربي - جميع الأسعار بالدرهم المغربي 💰</p>
-            <a href="#properties" class="btn-hero">تصفح العقارات <i class="fas fa-arrow-down"></i></a>
+        
+        <div class="connection-status">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>جاري البحث عن اتصال إنترنت...</span>
         </div>
-    </header>
-
-    <!-- قسم البحث -->
-    <section class="search-section" id="search">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-search"></i> ابحث عن عقارك المثالي</h2>
-            <div class="search-box">
-                <div class="search-row">
-                    <div class="search-group">
-                        <label><i class="fas fa-map-marker-alt"></i> المدينة</label>
-                        <select id="city-select">
-                            <option value="">جميع المدن</option>
-                            <option value="الدار البيضاء">الدار البيضاء</option>
-                            <option value="مراكش">مراكش</option>
-                            <option value="الرباط">الرباط</option>
-                            <option value="فاس">فاس</option>
-                            <option value="طنجة">طنجة</option>
-                        </select>
-                    </div>
-                    <div class="search-group">
-                        <label><i class="fas fa-home"></i> نوع العقار</label>
-                        <select id="type-select">
-                            <option value="">جميع الأنواع</option>
-                            <option value="فيلا">فيلا</option>
-                            <option value="شقة">شقة</option>
-                            <option value="دار">دار تقليدية</option>
-                            <option value="محل">محل تجاري</option>
-                            <option value="أرض">أرض</option>
-                        </select>
-                    </div>
-                    <div class="search-group">
-                        <label><i class="fas fa-tag"></i> نوع العملية</label>
-                        <select id="operation-select">
-                            <option value="">الكل</option>
-                            <option value="بيع">بيع</option>
-                            <option value="إيجار">إيجار</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="search-row">
-                    <div class="search-group range-group">
-                        <label><i class="fas fa-money-bill-wave"></i> نطاق السعر (د.م)</label>
-                        <div class="range-container">
-                            <input type="range" id="price-range" min="0" max="10000000" value="10000000" step="500000">
-                            <div class="range-values">
-                                <span id="min-price">0</span>
-                                <span id="max-price">10,000,000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-group">
-                        <label><i class="fas fa-expand-arrows-alt"></i> المساحة (م²)</label>
-                        <input type="number" id="area-input" placeholder="أدني مساحة" min="0">
-                    </div>
-                    <div class="search-group">
-                        <label><i class="fas fa-bed"></i> الغرف</label>
-                        <select id="rooms-select">
-                            <option value="">أي عدد</option>
-                            <option value="1">1+</option>
-                            <option value="2">2+</option>
-                            <option value="3">3+</option>
-                            <option value="4">4+</option>
-                            <option value="5">5+</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="btn-search" id="search-btn">
-                    <i class="fas fa-search"></i> بحث عن عقارات
-                </button>
-                <button class="btn-reset" id="reset-btn">
-                    <i class="fas fa-redo"></i> إعادة تعيين
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- عرض العقارات -->
-    <section class="properties-section" id="properties">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-star"></i> عقارات مميزة</h2>
-            <div class="properties-container" id="properties-container">
-                <!-- سيتم ملئ العقارات ديناميكياً عبر JavaScript -->
-            </div>
-            <div class="pagination">
-                <button class="pagination-btn" id="prev-btn" disabled><i class="fas fa-chevron-right"></i> السابق</button>
-                <span class="page-info" id="page-info">الصفحة 1 من 2</span>
-                <button class="pagination-btn" id="next-btn">التالي <i class="fas fa-chevron-left"></i></button>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم إضافة عقار -->
-    <section class="add-section" id="add">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-plus-circle"></i> أضف عقارك</h2>
-            <div class="add-container">
-                <div class="add-info">
-                    <h3>بيع أو أجر عقارك بسهولة</h3>
-                    <ul>
-                        <li><i class="fas fa-check"></i> عرض مجاني لمدة 30 يوم</li>
-                        <li><i class="fas fa-check"></i> وصول لأكثر من 50,000 مشتري</li>
-                        <li><i class="fas fa-check"></i> دعم فني متواصل</li>
-                        <li><i class="fas fa-check"></i> إحصائيات مفصلة عن زوار إعلانك</li>
-                    </ul>
-                    <a href="add-property.html" class="btn-add">أضف عقارك الآن <i class="fas fa-arrow-left"></i></a>
-                </div>
-                <div class="add-image">
-                    <i class="fas fa-home fa-5x"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- اتصل بنا -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-home"></i> دار ماركت</h3>
-                    <p>أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3><i class="fas fa-link"></i> روابط سريعة</h3>
-                    <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#search">البحث عن عقار</a></li>
-                        <li><a href="#add">أضف عقار</a></li>
-                        <li><a href="#contact">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3><i class="fas fa-phone"></i> اتصل بنا</h3>
-                    <p><i class="fas fa-phone"></i> الهاتف: +212 612 345 678</p>
-                    <p><i class="fas fa-envelope"></i> البريد: imadxhabja@gmail.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> العنوان: الدار البيضاء، المغرب</p>
-                    <p><i class="fas fa-clock"></i> ساعات العمل:</p>
-                    <p>الإثنين - الجمعة: 8 ص - 6 م</p>
-                    <p>السبت: 9 ص - 2 م</p>
-                    <p><i class="fas fa-history"></i> الرد خلال 24 ساعة</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2023 دار ماركت. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- نموذج تسجيل الدخول (مخفى) -->
-    <div class="modal" id="login-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2><i class="fas fa-user"></i> تسجيل الدخول</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
-                    <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
-                    <input type="password" placeholder="أدخل كلمة المرور" required>
-                </div>
-                <button type="submit" class="btn-submit">تسجيل الدخول</button>
-                <p class="form-footer">ليس لديك حساب؟ <a href="#" id="register-link">سجل الآن</a></p>
-            </form>
-        </div>
+        
+        <button class="btn-retry" id="retry-btn">
+            <i class="fas fa-redo"></i> إعادة المحاولة
+        </button>
     </div>
-
-    <script src="properties.js"></script>
-    <script src="script.js"></script>
+    
+    <script>
+        document.getElementById('retry-btn').addEventListener('click', function() {
+            if (navigator.onLine) {
+                window.history.back();
+            } else {
+                location.reload();
+            }
+        });
+        
+        // مراقبة حالة الاتصال
+        window.addEventListener('online', function() {
+            window.location.href = '/';
+        });
+    </script>
 </body>
                 </html>
