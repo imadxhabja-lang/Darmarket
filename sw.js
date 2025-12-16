@@ -1,179 +1,518 @@
-// اسم الـ cache
-const CACHE_NAME = 'darmarket-v2.0.0';
-
-// الملفات التي سيتم تخزينها في cache
-const STATIC_FILES = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/icons/icon-72x72.png',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap'
+// بيانات وهمية للعقارات
+const propertiesData = [
+    {
+        id: 1,
+        name: "شقة فاخرة في حي السلام",
+        city: "الرياض",
+        district: "حي السلام",
+        price: "850,000",
+        type: "شقة",
+        transaction: "بيع",
+        area: "150",
+        rooms: "3",
+        bathrooms: "2",
+        description: "شقة فاخرة في موقع مميز، طابق ثالث، مكيفة بالكامل، تشطيب سوبر لوكس، دورات مياه إيطالي، مطبخ مجهز بالكامل.",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 2,
+        name: "فيلا مستقلة في حي النخيل",
+        city: "جدة",
+        district: "حي النخيل",
+        price: "2,500,000",
+        type: "فيلا",
+        transaction: "بيع",
+        area: "450",
+        rooms: "5",
+        bathrooms: "4",
+        description: "فيلا فاخرة على شارع رئيسي، حديقة خاصة، مسبح، غرفة سائق، غرفة خادمة، مواقف لسيارتين.",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 3,
+        name: "شقة للإيجار في حي العليا",
+        city: "الرياض",
+        district: "حي العليا",
+        price: "45,000",
+        type: "شقة",
+        transaction: "كراء",
+        area: "180",
+        rooms: "3",
+        bathrooms: "2",
+        description: "شقة للإيجار السنوي في حي العليا، طابق عاشر، إطلالة رائعة، تشطيب فاخر، غرفة معيشة واسعة.",
+        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 4,
+        name: "محل تجاري في حي الخبر",
+        city: "الخبر",
+        district: "حي الخبر",
+        price: "1,200,000",
+        type: "محل تجاري",
+        transaction: "بيع",
+        area: "120",
+        rooms: "1",
+        bathrooms: "1",
+        description: "محل تجاري على شارع رئيسي، مناسب لمشاريع متنوعة، مدخلين، كهرباء ثلاثية الطور، حمام داخلي.",
+        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 5,
+        name: "شقة دوبلكس في حي الروضة",
+        city: "مكة",
+        district: "حي الروضة",
+        price: "1,500,000",
+        type: "شقة",
+        transaction: "بيع",
+        area: "220",
+        rooms: "4",
+        bathrooms: "3",
+        description: "شقة دوبلكس فاخرة، دورين، صالة واسعة، مطبخ مفتوح، 4 غرف نوم ماستر، مواقف داخلية.",
+        image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 6,
+        name: "فيلا للكراء في حي الصحافة",
+        city: "الرياض",
+        district: "حي الصحافة",
+        price: "120,000",
+        type: "فيلا",
+        transaction: "كراء",
+        area: "380",
+        rooms: "4",
+        bathrooms: "3",
+        description: "فيلا للكراء السنوي، مدخل خاص، حديقة خلفية، غرفة سائق، غرفة خادمة، نظام أمني متكامل.",
+        image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    }
 ];
 
-// تثبيت Service Worker
-self.addEventListener('install', event => {
-  console.log('[Service Worker] التثبيت');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[Service Worker] تخزين الملفات في cache');
-        return cache.addAll(STATIC_FILES);
-      })
-      .then(() => self.skipWaiting())
-  );
+// المتغيرات العامة
+let displayedProperties = 4;
+let currentFilter = 'all';
+
+// تهيئة التطبيق عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // تهيئة القائمة الهامبرغر
+    initMobileMenu();
+    
+    // عرض العقارات
+    displayProperties();
+    
+    // تهيئة الفلاتر
+    initFilters();
+    
+    // تهيئة زر البحث
+    initSearch();
+    
+    // تهيئة زر تحميل المزيد
+    initLoadMore();
+    
+    // تسجيل Service Worker
+    registerServiceWorker();
+    
+    // تهيئة PWA
+    initPWA();
+    
+    // تهيئة النموذج المنبثق
+    initModal();
 });
 
-// تفعيل Service Worker
-self.addEventListener('activate', event => {
-  console.log('[Service Worker] التفعيل');
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[Service Worker] حذف cache قديم:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
-  );
-});
-
-// اعتراض الطلبات
-self.addEventListener('fetch', event => {
-  // تجاهل طلبات POST
-  if (event.request.method !== 'GET') return;
-
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // إذا وجد الملف في cache
-        if (response) {
-          console.log('[Service Worker] Serving from cache:', event.request.url);
-          return response;
-        }
-
-        // إذا لم يجده في cache، يجلب من الشبكة
-        console.log('[Service Worker] جلب من الشبكة:', event.request.url);
-        return fetch(event.request)
-          .then(networkResponse => {
-            // التحقق من أن الرد صالح للتخزين
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-              return networkResponse;
-            }
-
-            // نسخ الرد وتخزينه في cache
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return networkResponse;
-          })
-          .catch(error => {
-            console.log('[Service Worker] فشل الجلب:', error);
-            
-            // إذا كان الطلب لصفحة HTML، عرض صفحة بديلة
-            if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/offline.html');
-            }
-            
-            // عرض رسالة خطأ بسيطة للأنواع الأخرى
-            return new Response('عذراً، أنت غير متصل بالإنترنت', {
-              status: 503,
-              statusText: 'Service Unavailable',
-              headers: new Headers({
-                'Content-Type': 'text/plain; charset=utf-8'
-              })
+// تهيئة القائمة الهامبرغر للجوال
+function initMobileMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            menuToggle.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+        
+        // إغلاق القائمة عند النقر على رابط
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
-          });
-      })
-  );
-});
-
-// استقبال رسائل من الصفحة الرئيسية
-self.addEventListener('message', event => {
-  if (event.data.action === 'skipWaiting') {
-    self.skipWaiting();
-  }
-});
-
-// مزامنة الخلفية
-self.addEventListener('sync', event => {
-  if (event.tag === 'sync-properties') {
-    event.waitUntil(syncProperties());
-  }
-});
-
-// دالة المزامنة
-function syncProperties() {
-  console.log('[Service Worker] مزامنة البيانات');
-  // هنا يمكنك إضافة كود لمزامنة البيانات مع الخادم
-  return Promise.resolve();
+        });
+    }
 }
 
-// إشعارات push
-self.addEventListener('push', event => {
-  console.log('[Service Worker] إشعار push مستلم');
-  
-  const options = {
-    body: event.data ? event.data.text() : 'إشعار جديد من دار ماركت',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
-    vibrate: [200, 100, 200],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
-    actions: [
-      {
-        action: 'explore',
-        title: 'استعرض',
-        icon: '/icons/explore-icon.png'
-      },
-      {
-        action: 'close',
-        title: 'إغلاق',
-        icon: '/icons/close-icon.png'
-      }
-    ]
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('دار ماركت', options)
-  );
-});
-
-// النقر على الإشعارات
-self.addEventListener('notificationclick', event => {
-  console.log('[Service Worker] نقر على الإشعار:', event.notification.tag);
-  
-  event.notification.close();
-
-  if (event.action === 'close') {
-    return;
-  }
-
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true })
-      .then(clientList => {
-        if (clientList.length > 0) {
-          let client = clientList[0];
-          for (let i = 0; i < clientList.length; i++) {
-            if (clientList[i].focused) {
-              client = clientList[i];
-            }
-          }
-          return client.focus();
+// عرض العقارات في الصفحة
+function displayProperties() {
+    const propertiesList = document.getElementById('propertiesList');
+    if (!propertiesList) return;
+    
+    propertiesList.innerHTML = '';
+    
+    // تصفية العقارات حسب الفلتر الحالي
+    let filteredProperties = propertiesData;
+    if (currentFilter !== 'all') {
+        if (currentFilter === 'rent') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'كراء');
+        } else if (currentFilter === 'sale') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'بيع');
+        } else if (currentFilter === 'villa') {
+            filteredProperties = propertiesData.filter(property => property.type === 'فيلا');
+        } else if (currentFilter === 'apartment') {
+            filteredProperties = propertiesData.filter(property => property.type === 'شقة');
         }
-        return clients.openWindow('/');
-      })
-  );
-});
+    }
+    
+    // عرض العدد المطلوب من العقارات
+    const propertiesToShow = filteredProperties.slice(0, displayedProperties);
+    
+    if (propertiesToShow.length === 0) {
+        propertiesList.innerHTML = '<div class="no-properties"><p>لا توجد عقارات متاحة حالياً</p></div>';
+        return;
+    }
+    
+    propertiesToShow.forEach(property => {
+        const propertyCard = createPropertyCard(property);
+        propertiesList.appendChild(propertyCard);
+    });
+}
+
+// إنشاء بطاقة عقار
+function createPropertyCard(property) {
+    const card = document.createElement('div');
+    card.className = 'property-card';
+    card.dataset.id = property.id;
+    
+    const typeClass = property.transaction === 'كراء' ? 'rent' : 'sale';
+    
+    card.innerHTML = `
+        <div class="property-image">
+            <img src="${property.image}" alt="${property.name}">
+        </div>
+        <div class="property-info">
+            <h3>${property.name}</h3>
+            <div class="property-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>${property.district} - ${property.city}</span>
+            </div>
+            <div class="property-price">${property.price} ${property.transaction === 'كراء' ? 'ريال/سنوياً' : 'ريال'}</div>
+            <div class="property-features">
+                <span><i class="fas fa-ruler-combined"></i> ${property.area} م²</span>
+                <span><i class="fas fa-bed"></i> ${property.rooms} غرف</span>
+                <span><i class="fas fa-bath"></i> ${property.bathrooms} حمام</span>
+            </div>
+            <div class="property-type ${typeClass}">${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}</div>
+            <button class="details-btn" data-id="${property.id}">
+                <i class="fas fa-info-circle"></i> التفاصيل
+            </button>
+        </div>
+    `;
+    
+    // إضافة مستمع الحدث لزر التفاصيل
+    const detailsBtn = card.querySelector('.details-btn');
+    detailsBtn.addEventListener('click', function() {
+        showPropertyDetails(property.id);
+    });
+    
+    return card;
+}
+
+// تهيئة الفلاتر
+function initFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // إزالة النشاط من جميع الأزرار
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // إضافة النشاط للزر المحدد
+            this.classList.add('active');
+            
+            // تحديث الفلتر الحالي
+            currentFilter = this.dataset.filter;
+            
+            // إعادة تعيين عدد العقارات المعروضة
+            displayedProperties = 4;
+            
+            // عرض العقارات المصفاة
+            displayProperties();
+            
+            // تحديث زر تحميل المزيد
+            updateLoadMoreButton();
+        });
+    });
+}
+
+// تهيئة البحث
+function initSearch() {
+    const searchBtn = document.getElementById('searchBtn');
+    const citySelect = document.getElementById('citySelect');
+    
+    if (searchBtn && citySelect) {
+        searchBtn.addEventListener('click', function() {
+            const selectedCity = citySelect.value;
+            
+            if (!selectedCity) {
+                alert('الرجاء اختيار مدينة للبحث');
+                return;
+            }
+            
+            // في تطبيق حقيقي، هنا سيتم إرسال طلب البحث إلى الخادم
+            // الآن، سنعرض رسالة بسيطة
+            alert(`سيتم البحث عن العقارات في مدينة ${selectedCity}. في التطبيق الكامل، سيتم تحميل النتائج من الخادم.`);
+            
+            // تحديث الفلتر الحالي لعرض عقارات المدينة المحددة
+            // (في هذا الإصدار البسيط، نعرض جميع العقارات)
+            currentFilter = 'all';
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === 'all') {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            displayedProperties = 4;
+            displayProperties();
+            updateLoadMoreButton();
+        });
+    }
+}
+
+// تهيئة زر تحميل المزيد
+function initLoadMore() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            // زيادة عدد العقارات المعروضة
+            displayedProperties += 4;
+            
+            // عرض العقارات الجديدة
+            displayProperties();
+            
+            // تحديث حالة الزر
+            updateLoadMoreButton();
+        });
+    }
+}
+
+// تحديث زر تحميل المزيد
+function updateLoadMoreButton() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (!loadMoreBtn) return;
+    
+    // تصفية العقارات حسب الفلتر الحالي
+    let filteredProperties = propertiesData;
+    if (currentFilter !== 'all') {
+        if (currentFilter === 'rent') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'كراء');
+        } else if (currentFilter === 'sale') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'بيع');
+        } else if (currentFilter === 'villa') {
+            filteredProperties = propertiesData.filter(property => property.type === 'فيلا');
+        } else if (currentFilter === 'apartment') {
+            filteredProperties = propertiesData.filter(property => property.type === 'شقة');
+        }
+    }
+    
+    // إخفاء الزر إذا تم عرض جميع العقارات
+    if (displayedProperties >= filteredProperties.length) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'block';
+    }
+}
+
+// عرض تفاصيل العقار في نافذة منبثقة
+function showPropertyDetails(propertyId) {
+    const property = propertiesData.find(p => p.id === propertyId);
+    if (!property) return;
+    
+    const modal = document.getElementById('propertyModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    if (!modal || !modalBody) return;
+    
+    const typeClass = property.transaction === 'كراء' ? 'rent' : 'sale';
+    
+    modalBody.innerHTML = `
+        <div class="property-details">
+            <div class="details-image">
+                <img src="${property.image}" alt="${property.name}">
+            </div>
+            <h2>${property.name}</h2>
+            <div class="details-info">
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-map-marker-alt"></i> الموقع:</span>
+                    <span class="info-value">${property.district} - ${property.city}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-money-bill-wave"></i> السعر:</span>
+                    <span class="info-value price">${property.price} ${property.transaction === 'كراء' ? 'ريال/سنوياً' : 'ريال'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-home"></i> نوع العقار:</span>
+                    <span class="info-value">${property.type}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-exchange-alt"></i> نوع العملية:</span>
+                    <span class="info-value ${typeClass}">${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-ruler-combined"></i> المساحة:</span>
+                    <span class="info-value">${property.area} متر مربع</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-bed"></i> الغرف:</span>
+                    <span class="info-value">${property.rooms} غرفة</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label"><i class="fas fa-bath"></i> الحمامات:</span>
+                    <span class="info-value">${property.bathrooms} حمام</span>
+                </div>
+            </div>
+            <div class="details-description">
+                <h3><i class="fas fa-file-alt"></i> الوصف:</h3>
+                <p>${property.description}</p>
+            </div>
+            <div class="details-contact">
+                <h3><i class="fas fa-phone"></i> للتواصل:</h3>
+                <p>للاستفسار عن هذا العقار، يرجى التواصل على الرقم: <strong>+966 500 000 000</strong></p>
+                <button class="contact-btn">
+                    <i class="fas fa-phone-alt"></i> اتصل الآن
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // إضافة مستمع للأحداث لزر الاتصال
+    const contactBtn = modalBody.querySelector('.contact-btn');
+    if (contactBtn) {
+        contactBtn.addEventListener('click', function() {
+            alert('في التطبيق الكامل، سيتم الاتصال برقم المعلن مباشرة.');
+        });
+    }
+    
+    // عرض النافذة المنبثقة
+    modal.style.display = 'flex';
+}
+
+// تهيئة النافذة المنبثقة
+function initModal() {
+    const modal = document.getElementById('propertyModal');
+    const closeModal = document.getElementById('closeModal');
+    
+    if (modal && closeModal) {
+        // إغلاق النافذة عند النقر على زر الإغلاق
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // إغلاق النافذة عند النقر خارج المحتوى
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // إغلاق النافذة عند الضغط على زر Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
+        });
+    }
+}
+
+// تسجيل Service Worker
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker مسجل بنجاح:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('فشل تسجيل Service Worker:', error);
+                });
+        });
+    }
+}
+
+// تهيئة PWA
+function initPWA() {
+    const installBtn = document.getElementById('installBtn');
+    const installLink = document.getElementById('installLink');
+    const pwaStatus = document.getElementById('pwaStatus');
+    
+    // كشف إذا كان التطبيق مثبتاً كـ PWA
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        if (pwaStatus) {
+            pwaStatus.innerHTML = 'التطبيق مثبت كـ PWA';
+        }
+        if (installBtn) {
+            installBtn.style.display = 'none';
+        }
+        return;
+    }
+    
+    // كشف حدث beforeinstallprompt
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // منع المتصفح من عرض الرسالة التلقائية
+        e.preventDefault();
+        
+        // حفظ الحدث لاستخدامه لاحقاً
+        deferredPrompt = e;
+        
+        // عرض زر التثبيت
+        if (installBtn) {
+            installBtn.style.display = 'flex';
+        }
+        
+        if (pwaStatus) {
+            pwaStatus.innerHTML = 'التطبيق جاهز للتثبيت - <a href="#" id="installLinkText">تثبيت التطبيق</a>';
+            
+            const installLinkText = document.getElementById('installLinkText');
+            if (installLinkText) {
+                installLinkText.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showInstallPrompt();
+                });
+            }
+        }
+    });
+    
+    // دالة لعرض رسالة التثبيت
+    function showInstallPrompt() {
+        if (!deferredPrompt) return;
+        
+        deferredPrompt.prompt();
+        
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('وافق المستخدم على تثبيت التطبيق');
+                if (installBtn) installBtn.style.display = 'none';
+                if (pwaStatus) pwaStatus.innerHTML = 'تم تثبيت التطبيق بنجاح';
+            } else {
+                console.log('رفض المستخدم تثبيت التطبيق');
+            }
+            
+            deferredPrompt = null;
+        });
+    }
+    
+    // إضافة مستمع الأحداث لزر التثبيت
+    if (installBtn) {
+        installBtn.addEventListener('click', showInstallPrompt);
+    }
+    
+    if (installLink) {
+        installLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showInstallPrompt();
+        });
+    }
+      }
