@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="منصة DarMarket للعقارات - بيع وكراء العقارات">
+    <meta name="description" content="منصة DarMarket للعقارات المغربية - بيع وكراء العقارات بالدرهم المغربي">
     <meta name="theme-color" content="#4a6fa5">
-    <title>DarMarket - منصة العقارات</title>
+    <title>DarMarket - منصة العقارات المغربية</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icons/icon-72x72.png" type="image/png">
     <link rel="apple-touch-icon" href="icons/icon-152x152.png">
     
-    <!-- مكتبة أيقونات بسيطة -->
+    <!-- مكتبة أيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-home"></i> DarMarket</h1>
+                    <h1><i class="fas fa-home"></i> DarMarket <span class="morocco-flag"></span></h1>
                 </div>
                 
                 <!-- زر القائمة للجوال -->
@@ -50,7 +50,6 @@
     <!-- مساحة إعلانية علوية -->
     <div class="ad-container top-ad">
         <div class="ad-placeholder" id="adTop">
-            <!-- سيتم إضافة الإعلانات هنا برمجياً -->
             <div class="ad-label">إعلان</div>
             <p>مساحة إعلانية - 728×90</p>
             <p class="ad-info">(هذه مساحة للإعلانات، يمكنك استبدال هذا المحتوى بكود الإعلان الخاص بك)</p>
@@ -61,8 +60,8 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h2 class="hero-title">اعثر على منزل أحلامك</h2>
-                <p class="hero-description">منصة DarMarket تقدم لك أفضل العقارات للبيع والكراء في مختلف المدن. ابحث عن العقار الذي يناسب احتياجاتك وميزانيتك.</p>
+                <h2 class="hero-title">اعثر على منزل أحلامك في المغرب</h2>
+                <p class="hero-description">منصة DarMarket تقدم لك أفضل العقارات للبيع والكراء في جميع مدن المغرب. ابحث عن العقار الذي يناسب احتياجاتك وميزانيتك بالدرهم المغربي.</p>
                 
                 <!-- شريط البحث -->
                 <div class="search-bar">
@@ -70,13 +69,15 @@
                         <i class="fas fa-city"></i>
                         <select id="citySelect">
                             <option value="">اختر المدينة</option>
-                            <option value="الرياض">الرياض</option>
-                            <option value="جدة">جدة</option>
-                            <option value="مكة">مكة</option>
-                            <option value="المدينة">المدينة المنورة</option>
-                            <option value="الدمام">الدمام</option>
-                            <option value="الخبر">الخبر</option>
-                            <option value="الطائف">الطائف</option>
+                            <option value="الدار البيضاء">الدار البيضاء</option>
+                            <option value="الرباط">الرباط</option>
+                            <option value="مراكش">مراكش</option>
+                            <option value="فاس">فاس</option>
+                            <option value="طنجة">طنجة</option>
+                            <option value="أكادير">أكادير</option>
+                            <option value="مكناس">مكناس</option>
+                            <option value="وجدة">وجدة</option>
+                            <option value="تطوان">تطوان</option>
                         </select>
                     </div>
                     <button class="search-btn" id="searchBtn">
@@ -90,12 +91,12 @@
                         <p>عقار متاح</p>
                     </div>
                     <div class="stat">
-                        <h3>50+</h3>
-                        <p>مدينة</p>
+                        <h3>25+</h3>
+                        <p>مدينة مغربية</p>
                     </div>
                     <div class="stat">
                         <h3>850+</h3>
-                        <p>عميلة ناجحة</p>
+                        <p>عملية ناجحة</p>
                     </div>
                 </div>
             </div>
@@ -105,8 +106,8 @@
     <!-- قسم العقارات -->
     <section class="properties-section" id="properties">
         <div class="container">
-            <h2 class="section-title">العقارات المتاحة</h2>
-            <p class="section-subtitle">استعرض أحدث العقارات المضافة إلى منصتنا</p>
+            <h2 class="section-title">العقارات المتاحة في المغرب</h2>
+            <p class="section-subtitle">استعرض أحدث العقارات المضافة إلى منصتنا - جميع الأسعار بالدرهم المغربي</p>
             
             <!-- فلاتر البحث -->
             <div class="filters">
@@ -115,6 +116,7 @@
                 <button class="filter-btn" data-filter="sale">للبيع</button>
                 <button class="filter-btn" data-filter="villa">فيلا</button>
                 <button class="filter-btn" data-filter="apartment">شقة</button>
+                <button class="filter-btn" data-filter="riad">رياض</button>
             </div>
             
             <!-- مساحة إعلانية بينية -->
@@ -152,8 +154,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3><i class="fas fa-home"></i> DarMarket</h3>
-                    <p>منصة عقارية متكاملة تهدف لتسهيل عملية البحث عن العقارات المناسبة للبيع والكراء في جميع أنحاء الوطن العربي.</p>
+                    <h3><i class="fas fa-home"></i> DarMarket <span class="morocco-flag"></span></h3>
+                    <p>أول منصة عقارية مغربية متكاملة تهدف لتسهيل عملية البحث عن العقارات المناسبة للبيع والكراء في جميع أنحاء المغرب.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -176,7 +178,7 @@
                 <div class="footer-section">
                     <h3>خدماتنا</h3>
                     <ul>
-                        <li><a href="#">عرض العقارات</a></li>
+                        <li><a href="#">عرض العقارات المغربية</a></li>
                         <li><a href="#">إدارة العقارات</a></li>
                         <li><a href="#">تقييم العقارات</a></li>
                         <li><a href="#">استشارات عقارية</a></li>
@@ -187,368 +189,30 @@
                 <div class="footer-section">
                     <h3>اتصل بنا</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
-                        <li><i class="fas fa-phone"></i> +966 500 000 000</li>
-                        <li><i class="fas fa-envelope"></i> info@darmarket.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> الدار البيضاء، المغرب</li>
+                        <li><i class="fas fa-phone"></i> +212 600 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@darmarket.ma</li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; DarMarket 2023 | تصميم وتطوير كـ PWA</p>
+                <p>جميع الحقوق محفوظة &copy; DarMarket 2023 | منصة عقارية مغربية</p>
                 <p class="pwa-status" id="pwaStatus">التطبيق غير مثبت - <a href="#" id="installLink">تثبيت التطبيق</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- نموذج تفاصيل العقار (يظهر كنافذة منبثقة) -->
+    <!-- نموذج تفاصيل العقار -->
     <div class="modal" id="propertyModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
             <div class="modal-body" id="modalBody">
-                <!-- سيتم ملء محتوى العقار هنا بواسطة JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- تحميل JavaScript -->
-    <script src="script.js"></script>
-</body>
-    </html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة عقار - DarMarket</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icons/icon-72x72.png" type="image/png">
-    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="index.html">
-                        <h1><i class="fas fa-home"></i> DarMarket</h1>
-                    </a>
-                </div>
-                
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <nav class="nav-menu" id="navMenu">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
-                        <li><a href="index.html#properties"><i class="fas fa-building"></i> العقارات</a></li>
-                        <li><a href="add-property.html" class="active"><i class="fas fa-plus-circle"></i> أضف عقار</a></li>
-                        <li><a href="index.html#about"><i class="fas fa-info-circle"></i> من نحن</a></li>
-                        <li><a href="index.html#contact"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- مساحة إعلانية علوية -->
-    <div class="ad-container top-ad">
-        <div class="ad-placeholder">
-            <div class="ad-label">إعلان</div>
-            <p>مساحة إعلانية - 728×90</p>
-            <p class="ad-info">(هذه مساحة للإعلانات، يمكنك استبدال هذا المحتوى بكود الإعلان الخاص بك)</p>
-        </div>
-    </div>
-
-    <!-- قسم إضافة عقار -->
-    <section class="add-property-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">إضافة عقار جديد</h2>
-                <p class="section-subtitle">املأ النموذج أدناه لإضافة عقارك إلى منصة DarMarket</p>
-            </div>
-            
-            <div class="form-container">
-                <form id="propertyForm">
-                    <div class="form-group">
-                        <label for="propertyName"><i class="fas fa-home"></i> اسم العقار</label>
-                        <input type="text" id="propertyName" placeholder="أدخل اسم العقار" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="propertyType"><i class="fas fa-building"></i> نوع العقار</label>
-                            <select id="propertyType" required>
-                                <option value="">اختر نوع العقار</option>
-                                <option value="شقة">شقة</option>
-                                <option value="فيلا">فيلا</option>
-                                <option value="منزل">منزل</option>
-                                <option value="أرض">أرض</option>
-                                <option value="محل تجاري">محل تجاري</option>
-                                <option value="مكتب">مكتب</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="transactionType"><i class="fas fa-exchange-alt"></i> نوع العملية</label>
-                            <select id="transactionType" required>
-                                <option value="">نوع العملية</option>
-                                <option value="بيع">بيع</option>
-                                <option value="كراء">كراء</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city"><i class="fas fa-city"></i> المدينة</label>
-                            <select id="city" required>
-                                <option value="">اختر المدينة</option>
-                                <option value="الرياض">الرياض</option>
-                                <option value="جدة">جدة</option>
-                                <option value="مكة">مكة</option>
-                                <option value="المدينة">المدينة المنورة</option>
-                                <option value="الدمام">الدمام</option>
-                                <option value="الخبر">الخبر</option>
-                                <option value="الطائف">الطائف</option>
-                                <option value="أخرى">أخرى</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="district"><i class="fas fa-map-marker-alt"></i> الحي</label>
-                            <input type="text" id="district" placeholder="اسم الحي" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="price"><i class="fas fa-money-bill-wave"></i> السعر</label>
-                            <input type="number" id="price" placeholder="أدخل السعر" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="area"><i class="fas fa-ruler-combined"></i> المساحة (م²)</label>
-                            <input type="number" id="area" placeholder="المساحة بالمتر المربع">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rooms"><i class="fas fa-bed"></i> عدد الغرف</label>
-                        <select id="rooms">
-                            <option value="غير محدد">غير محدد</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5+">5+</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="description"><i class="fas fa-file-alt"></i> وصف العقار</label>
-                        <textarea id="description" rows="4" placeholder="أدخل وصفاً مفصلاً للعقار"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-images"></i> رفع صور العقار</label>
-                        <div class="upload-area" id="uploadArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>انقر لرفع الصور أو اسحبها هنا</p>
-                            <p class="upload-info">الحد الأقصى 5 صور (JPG, PNG, GIF)</p>
-                            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
-                        </div>
-                        <div class="uploaded-images" id="uploadedImages">
-                            <!-- ستظهر الصور المرفوعة هنا -->
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contactName"><i class="fas fa-user"></i> اسم جهة الاتصال</label>
-                        <input type="text" id="contactName" placeholder="اسمك أو اسم الوكالة" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactPhone"><i class="fas fa-phone"></i> رقم الهاتف</label>
-                            <input type="tel" id="contactPhone" placeholder="رقم الهاتف للتواصل" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contactEmail"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
-                            <input type="email" id="contactEmail" placeholder="البريد الإلكتروني">
-                        </div>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-save"></i> حفظ العقار
-                        </button>
-                        <button type="button" class="cancel-btn" onclick="window.location.href='index.html'">
-                            <i class="fas fa-times"></i> إلغاء
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="form-note">
-                    <p><i class="fas fa-info-circle"></i> ملاحظة: بعد إرسال النموذج، ستتم مراجعة عقارك قبل نشره على المنصة.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- مساحة إعلانية سفلية -->
-    <div class="ad-container bottom-ad">
-        <div class="ad-placeholder">
-            <div class="ad-label">إعلان</div>
-            <p>مساحة إعلانية - 728×90</p>
-            <p class="ad-info">(هذه مساحة للإعلانات، يمكنك استبدال هذا المحتوى بكود الإعلان الخاص بك)</p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-home"></i> DarMarket</h3>
-                    <p>منصة عقارية متكاملة تهدف لتسهيل عملية البحث عن العقارات.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>روابط سريعة</h3>
-                    <ul>
-                        <li><a href="index.html">الرئيسية</a></li>
-                        <li><a href="index.html#properties">العقارات</a></li>
-                        <li><a href="add-property.html">أضف عقار</a></li>
-                        <li><a href="index.html#contact">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>اتصل بنا</h3>
-                    <ul class="contact-info">
-                        <li><i class="fas fa-phone"></i> +966 500 000 000</li>
-                        <li><i class="fas fa-envelope"></i> info@darmarket.com</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; DarMarket 2023</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- نموذج التأكيد -->
-    <div class="modal" id="confirmationModal">
-        <div class="modal-content confirmation-modal">
-            <div class="modal-body">
-                <i class="fas fa-check-circle success-icon"></i>
-                <h3>تم إضافة العقار بنجاح!</h3>
-                <p>سيتم مراجعة عقارك من قبل إدارة المنصة وسيتم نشره خلال 24 ساعة.</p>
-                <div class="modal-actions">
-                    <button class="submit-btn" onclick="window.location.href='index.html'">
-                        <i class="fas fa-home"></i> العودة للرئيسية
-                    </button>
-                    <button class="cancel-btn" onclick="document.getElementById('confirmationModal').style.display='none'">
-                        <i class="fas fa-plus"></i> إضافة عقار آخر
-                    </button>
-                </div>
+                <!-- سيتم ملء محتوى العقار هنا -->
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // كود خاص بصفحة إضافة العقار
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadArea = document.getElementById('uploadArea');
-            const imageUpload = document.getElementById('imageUpload');
-            const uploadedImages = document.getElementById('uploadedImages');
-            const propertyForm = document.getElementById('propertyForm');
-            const confirmationModal = document.getElementById('confirmationModal');
-            
-            // التعامل مع رفع الصور
-            uploadArea.addEventListener('click', () => {
-                imageUpload.click();
-            });
-            
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = '#4a6fa5';
-                uploadArea.style.backgroundColor = '#f0f5ff';
-            });
-            
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.style.borderColor = '#ddd';
-                uploadArea.style.backgroundColor = '#f9f9f9';
-            });
-            
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = '#ddd';
-                uploadArea.style.backgroundColor = '#f9f9f9';
-                
-                const files = e.dataTransfer.files;
-                handleImageFiles(files);
-            });
-            
-            imageUpload.addEventListener('change', (e) => {
-                const files = e.target.files;
-                handleImageFiles(files);
-            });
-            
-            function handleImageFiles(files) {
-                const maxFiles = 5;
-                const currentCount = uploadedImages.children.length;
-                
-                if (files.length + currentCount > maxFiles) {
-                    alert(`يمكنك رفع ${maxFiles} صور كحد أقصى. لقد رفعت ${currentCount} صورة بالفعل.`);
-                    return;
-                }
-                
-                for (let i = 0; i < Math.min(files.length, maxFiles - currentCount); i++) {
-                    const file = files[i];
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const imgContainer = document.createElement('div');
-                            imgContainer.className = 'uploaded-image';
-                            
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            
-                            const removeBtn = document.createElement('button');
-                            removeBtn.className = 'remove-image';
-                            removeBtn.innerHTML = '&times;';
-                            removeBtn.onclick = function() {
-                                imgContainer.remove();
-                            };
-                            
-                            imgContainer.appendChild(img);
-                            imgContainer.appendChild(removeBtn);
-                            uploadedImages.appendChild(imgContainer);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                }
-            }
-            
-            // التعامل مع إرسال النموذج
-            propertyForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // في تطبيق حقيقي، هنا سترسل البيانات إلى الخادم
-                // الآن، سنعرض رسالة تأكيد فقط
-                confirmationModal.style.display = 'flex';
-                propertyForm.reset();
-                uploadedImages.innerHTML = '';
-            });
-        });
-    </script>
 </body>
-                        </html>
+                    </html>
