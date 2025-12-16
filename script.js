@@ -72,7 +72,7 @@ const propertiesData = [
     },
     {
         id: 6,
-        name: "شاطئ خاص في أكادير",
+        name: "شقة بحرية في أكادير",
         city: "أكادير",
         district: "تالبورجت",
         price: "18,000",
@@ -82,118 +82,387 @@ const propertiesData = [
         rooms: "3",
         bathrooms: "2",
         description: "شقة للكراء الشهري في أكادير، إطلالة مباشرة على البحر، مجهزة بالكامل، خدمات فندقية.",
-        image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     }
 ];
 
 let displayedProperties = 3;
 let currentFilter = 'all';
 
-// تهيئة التطبيق
+// تهيئة التطبيق عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DarMarket المغربي جاهز للعمل!');
+    
     // عرض العقارات
     displayProperties();
     
-    // زر البحث
-    const searchBtn = document.getElementById('searchBtn');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const city = document.getElementById('citySelect').value;
-            if (city) {
-                alert(`🔍 سيتم البحث عن عقارات في مدينة: ${city}`);
-            } else {
-                alert('⚠️ الرجاء اختيار مدينة للبحث');
-            }
-        });
-    }
+    // إعداد البحث
+    setupSearch();
     
-    // قائمة الجوال
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-    }
+    // إعداد القائمة المتنقلة
+    setupMobileMenu();
     
-    // الفلاتر
-    document.querySelectorAll('.filter-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            alert(`✅ تم تطبيق الفلتر: ${this.textContent}`);
-        });
-    });
+    // إعداد الفلاتر
+    setupFilters();
     
-    // زر تحميل المزيد
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            displayedProperties += 3;
-            displayProperties();
-            if (displayedProperties >= propertiesData.length) {
-                this.style.display = 'none';
-            }
-        });
-    }
+    // إعداد زر تحميل المزيد
+    setupLoadMore();
     
-    // PWA
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/Darmarket/service-worker.js');
-    }
-    
-    console.log('🚀 DarMarket المغربي جاهز للعمل!');
+    // إعداد PWA
+    setupPWA();
 });
 
-// عرض العقارات
+// دالة لعرض العقارات
 function displayProperties() {
     const propertiesList = document.getElementById('propertiesList');
-    if (!propertiesList) return;
+    if (!propertiesList) {
+        console.error('❌ عنصر propertiesList غير موجود في الصفحة');
+        return;
+    }
     
+    // تفريغ القائمة أولاً
     propertiesList.innerHTML = '';
     
-    const propertiesToShow = propertiesData.slice(0, displayedProperties);
+    // تحديد العقارات التي يجب عرضها
+    let filteredProperties = propertiesData;
+    if (currentFilter !== 'all') {
+        if (currentFilter === 'rent') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'كراء');
+        } else if (currentFilter === 'sale') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'بيع');
+        } else if (currentFilter === 'villa') {
+            filteredProperties = propertiesData.filter(property => property.type === 'فيلا');
+        } else if (currentFilter === 'apartment') {
+            filteredProperties = propertiesData.filter(property => property.type === 'شقة');
+        } else if (currentFilter === 'riad') {
+            filteredProperties = propertiesData.filter(property => property.type === 'رياض');
+        }
+    }
     
+    // عرض العدد المطلوب من العقارات
+    const propertiesToShow = filteredProperties.slice(0, displayedProperties);
+    
+    if (propertiesToShow.length === 0) {
+        propertiesList.innerHTML = '<div class="no-properties"><p>لا توجد عقارات متاحة حالياً</p></div>';
+        return;
+    }
+    
+    // إنشاء بطاقات العقارات
     propertiesToShow.forEach(property => {
-        const card = document.createElement('div');
-        card.className = 'property-card';
-        
-        const typeClass = property.transaction === 'كراء' ? 'rent' : 'sale';
-        const priceText = property.transaction === 'كراء' ? 'درهم/شهرياً' : 'درهم';
-        
-        card.innerHTML = `
-            <div class="property-image">
-                <img src="${property.image}" alt="${property.name}" loading="lazy">
-            </div>
-            <div class="property-info">
-                <h3>${property.name}</h3>
-                <div class="property-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>${property.district} - ${property.city}</span>
-                </div>
-                <div class="property-price">${property.price} <span class="price-dh">${priceText}</span></div>
-                <div class="property-features">
-                    <span><i class="fas fa-ruler-combined"></i> ${property.area} م²</span>
-                    <span><i class="fas fa-bed"></i> ${property.rooms} غرف</span>
-                    <span><i class="fas fa-bath"></i> ${property.bathrooms} حمام</span>
-                </div>
-                <div class="property-type ${typeClass}">${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}</div>
-                <button class="details-btn" onclick="showPropertyDetails(${property.id})">
-                    <i class="fas fa-info-circle"></i> التفاصيل
-                </button>
-            </div>
-        `;
-        
-        propertiesList.appendChild(card);
+        const propertyCard = createPropertyCard(property);
+        propertiesList.appendChild(propertyCard);
     });
+    
+    console.log(`✅ تم عرض ${propertiesToShow.length} عقار`);
 }
 
-// عرض تفاصيل العقار
-function showPropertyDetails(id) {
-    const property = propertiesData.find(p => p.id === id);
+// دالة لإنشاء بطاقة عقار
+function createPropertyCard(property) {
+    const card = document.createElement('div');
+    card.className = 'property-card';
+    card.dataset.id = property.id;
+    
+    const typeClass = property.transaction === 'كراء' ? 'rent' : 'sale';
+    const priceText = property.transaction === 'كراء' ? 'درهم/شهرياً' : 'درهم';
+    
+    card.innerHTML = `
+        <div class="property-image">
+            <img src="${property.image}" alt="${property.name}" loading="lazy">
+        </div>
+        <div class="property-info">
+            <h3>${property.name}</h3>
+            <div class="property-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>${property.district} - ${property.city}</span>
+            </div>
+            <div class="property-price">${property.price} <span class="price-dh">${priceText}</span></div>
+            <div class="property-features">
+                <span><i class="fas fa-ruler-combined"></i> ${property.area} م²</span>
+                <span><i class="fas fa-bed"></i> ${property.rooms} غرف</span>
+                <span><i class="fas fa-bath"></i> ${property.bathrooms} حمام</span>
+            </div>
+            <div class="property-type ${typeClass}">${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}</div>
+            <button class="details-btn" data-id="${property.id}">
+                <i class="fas fa-info-circle"></i> التفاصيل
+            </button>
+        </div>
+    `;
+    
+    // إضافة حدث النقر لزر التفاصيل
+    const detailsBtn = card.querySelector('.details-btn');
+    detailsBtn.addEventListener('click', function() {
+        showPropertyDetails(property.id);
+    });
+    
+    return card;
+}
+
+// دالة لعرض تفاصيل العقار
+function showPropertyDetails(propertyId) {
+    const property = propertiesData.find(p => p.id === propertyId);
     if (!property) return;
     
     const priceText = property.transaction === 'كراء' ? 'درهم/شهرياً' : 'درهم';
     
-    alert(`🏠 ${property.name}\n\n📍 الموقع: ${property.district} - ${property.city}\n💰 السعر: ${property.price} ${priceText}\n📐 المساحة: ${property.area} م²\n🚪 الغرف: ${property.rooms}\n🛁 الحمامات: ${property.bathrooms}\n\n📝 الوصف:\n${property.description}\n\n📞 للتواصل: +212 600 000 000`);
-                }
+    alert(`🏠 **${property.name}**\n\n📍 **الموقع:** ${property.district} - ${property.city}\n💰 **السعر:** ${property.price} ${priceText}\n📐 **المساحة:** ${property.area} م²\n🚪 **الغرف:** ${property.rooms}\n🛁 **الحمامات:** ${property.bathrooms}\n\n📝 **الوصف:**\n${property.description}\n\n📞 **للتواصل:** +212 600 000 000`);
+}
+
+// دالة لإعداد البحث
+function setupSearch() {
+    const searchBtn = document.getElementById('searchBtn');
+    if (!searchBtn) {
+        console.error('❌ زر البحث غير موجود');
+        return;
+    }
+    
+    searchBtn.addEventListener('click', function() {
+        const citySelect = document.getElementById('citySelect');
+        if (!citySelect) {
+            console.error('❌ قائمة المدن غير موجودة');
+            return;
+        }
+        
+        const selectedCity = citySelect.value;
+        
+        if (!selectedCity) {
+            alert('⚠️ الرجاء اختيار مدينة للبحث');
+            return;
+        }
+        
+        // في تطبيق حقيقي، هنا نرسل طلب بحث للخادم
+        // لكن الآن نعرض رسالة تأكيد
+        alert(`🔍 سيتم البحث عن عقارات في مدينة: ${selectedCity}\n\n(في التطبيق الكامل، ستظهر نتائج البحث هنا)`);
+        
+        // حفظ آخر بحث في التخزين المحلي
+        try {
+            localStorage.setItem('lastSearchCity', selectedCity);
+        } catch (e) {
+            console.log('لا يمكن حفظ البحث في التخزين المحلي');
+        }
+    });
+}
+
+// دالة لإعداد القائمة المتنقلة
+function setupMobileMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (!menuToggle || !navMenu) {
+        console.error('❌ عناصر القائمة المتنقلة غير موجودة');
+        return;
+    }
+    
+    menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        menuToggle.innerHTML = navMenu.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : 
+            '<i class="fas fa-bars"></i>';
+    });
+    
+    // إغلاق القائمة عند النقر على رابط
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+}
+
+// دالة لإعداد الفلاتر
+function setupFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    if (filterButtons.length === 0) {
+        console.error('❌ أزرار الفلاتر غير موجودة');
+        return;
+    }
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // إزالة النشاط من جميع الأزرار
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // إضافة النشاط للزر المحدد
+            this.classList.add('active');
+            
+            // تحديث الفلتر الحالي
+            currentFilter = this.dataset.filter;
+            
+            // إعادة تعيين عدد العقارات المعروضة
+            displayedProperties = 3;
+            
+            // عرض العقارات المصفاة
+            displayProperties();
+            
+            // تحديث زر تحميل المزيد
+            updateLoadMoreButton();
+            
+            console.log(`✅ تم تطبيق الفلتر: ${this.textContent}`);
+        });
+    });
+}
+
+// دالة لإعداد زر تحميل المزيد
+function setupLoadMore() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    
+    if (!loadMoreBtn) {
+        console.error('❌ زر تحميل المزيد غير موجود');
+        return;
+    }
+    
+    loadMoreBtn.addEventListener('click', function() {
+        // زيادة عدد العقارات المعروضة
+        displayedProperties += 3;
+        
+        // عرض العقارات الجديدة
+        displayProperties();
+        
+        // تحديث حالة الزر
+        updateLoadMoreButton();
+        
+        console.log(`✅ تم تحميل المزيد، الآن يتم عرض ${displayedProperties} عقار`);
+    });
+}
+
+// دالة لتحديث زر تحميل المزيد
+function updateLoadMoreButton() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (!loadMoreBtn) return;
+    
+    // تصفية العقارات حسب الفلتر الحالي
+    let filteredProperties = propertiesData;
+    if (currentFilter !== 'all') {
+        if (currentFilter === 'rent') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'كراء');
+        } else if (currentFilter === 'sale') {
+            filteredProperties = propertiesData.filter(property => property.transaction === 'بيع');
+        } else if (currentFilter === 'villa') {
+            filteredProperties = propertiesData.filter(property => property.type === 'فيلا');
+        } else if (currentFilter === 'apartment') {
+            filteredProperties = propertiesData.filter(property => property.type === 'شقة');
+        } else if (currentFilter === 'riad') {
+            filteredProperties = propertiesData.filter(property => property.type === 'رياض');
+        }
+    }
+    
+    // إخفاء الزر إذا تم عرض جميع العقارات
+    if (displayedProperties >= filteredProperties.length) {
+        loadMoreBtn.style.display = 'none';
+        loadMoreBtn.textContent = 'تم عرض جميع العقارات';
+    } else {
+        loadMoreBtn.style.display = 'block';
+        loadMoreBtn.textContent = 'تحميل المزيد من العقارات';
+    }
+}
+
+// دالة لإعداد PWA
+function setupPWA() {
+    const installBtn = document.getElementById('installBtn');
+    const installLink = document.getElementById('installLink');
+    const pwaStatus = document.getElementById('pwaStatus');
+    
+    // كشف إذا كان التطبيق مثبتاً كـ PWA
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        if (pwaStatus) {
+            pwaStatus.innerHTML = '✅ التطبيق مثبت كـ PWA';
+        }
+        if (installBtn) {
+            installBtn.style.display = 'none';
+        }
+        return;
+    }
+    
+    // كشف حدث beforeinstallprompt
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        if (installBtn) {
+            installBtn.style.display = 'flex';
+        }
+        
+        if (pwaStatus) {
+            pwaStatus.innerHTML = '📱 جاهز للتثبيت - <a href="#" id="installLinkText">تثبيت التطبيق</a>';
+            
+            const installLinkText = document.getElementById('installLinkText');
+            if (installLinkText) {
+                installLinkText.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showInstallPrompt();
+                });
+            }
+        }
+    });
+    
+    // دالة لعرض رسالة التثبيت
+    function showInstallPrompt() {
+        if (!deferredPrompt) return;
+        
+        deferredPrompt.prompt();
+        
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('✅ وافق المستخدم على تثبيت التطبيق');
+                if (installBtn) installBtn.style.display = 'none';
+                if (pwaStatus) pwaStatus.innerHTML = '✅ تم تثبيت التطبيق بنجاح';
+            } else {
+                console.log('❌ رفض المستخدم تثبيت التطبيق');
+            }
+            deferredPrompt = null;
+        });
+    }
+    
+    // إضافة مستمع الأحداث لزر التثبيت
+    if (installBtn) {
+        installBtn.addEventListener('click', showInstallPrompt);
+    }
+    
+    if (installLink) {
+        installLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showInstallPrompt();
+        });
+    }
+    
+    // تسجيل Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/Darmarket/service-worker.js')
+                .then(registration => {
+                    console.log('✅ Service Worker مسجل بنجاح:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('❌ فشل تسجيل Service Worker:', error);
+                });
+        });
+    }
+}
+
+// تحميل العقارات عند التمرير لأسفل
+window.addEventListener('scroll', function() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn && loadMoreBtn.style.display !== 'none') {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+            loadMoreBtn.click();
+        }
+    }
+});
+
+// تحميل آخر بحث من التخزين المحلي
+window.addEventListener('load', function() {
+    try {
+        const lastSearchCity = localStorage.getItem('lastSearchCity');
+        if (lastSearchCity) {
+            const citySelect = document.getElementById('citySelect');
+            if (citySelect) {
+                citySelect.value = lastSearchCity;
+            }
+        }
+    } catch (e) {
+        // تجاهل الخطأ
+    }
+});
