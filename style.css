@@ -25,7 +25,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     line-height: 1.6;
     color: var(--dark-color);
-    background-color: #f8fafc;
+    background-color: #fff;
     direction: rtl;
     text-align: right;
 }
@@ -61,7 +61,7 @@ body {
     font-weight: bold;
 }
 
-/* Header - تصميم أنيق */
+/* Header */
 .header {
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -136,7 +136,530 @@ body {
     color: var(--primary-color);
 }
 
-/* مساحة إعلانية */
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, rgba(44, 82, 130, 0.9) 0%, rgba(74, 111, 165, 0.8) 100%), 
+                url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 90px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #C1272D, #006233, #C1272D);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 35px;
+    opacity: 0.95;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* شريط البحث المحسن مع أيقونات احترافية */
+.search-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.search-bar:before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: linear-gradient(45deg, #C1272D, #006233, #4a6fa5);
+    border-radius: calc(var(--border-radius) + 2px);
+    z-index: -1;
+}
+
+.search-input {
+    flex: 1;
+    position: relative;
+    min-width: 200px;
+}
+
+.search-icon-wrapper {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    padding: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-input select {
+    width: 100%;
+    padding: 16px 50px 16px 25px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: white;
+    appearance: none;
+    transition: var(--transition);
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--dark-color);
+    cursor: pointer;
+}
+
+.search-input select:hover {
+    border-color: var(--primary-light);
+}
+
+.search-input select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(74, 111, 165, 0.2);
+}
+
+.select-arrow {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+/* زر البحث مع أيقونات متحركة */
+.search-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 16px 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 20px rgba(74, 111, 165, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.search-btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.search-btn:hover:before {
+    left: 100%;
+}
+
+.search-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(74, 111, 165, 0.4);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+}
+
+.search-icon {
+    font-size: 1.2rem;
+    animation: searchPulse 2s infinite;
+}
+
+@keyframes searchPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* إحصائيات Hero */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.stat {
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+    min-width: 140px;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.stat h3 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stat p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.stat:not(:last-child):after {
+    content: "";
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* قسم العقارات */
+.properties-section {
+    padding: 60px 0;
+    background-color: #f8fafc;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: var(--dark-color);
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    color: var(--gray-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* فلاتر البحث */
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn i {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 20px rgba(74, 111, 165, 0.2);
+}
+
+.filter-btn:hover i,
+.filter-btn.active i {
+    color: white;
+}
+
+/* بطاقات العقارات */
+.properties-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.property-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: 1px solid #f1f5f9;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    border-color: #e2e8f0;
+}
+
+/* صورة العقار */
+.property-image {
+    height: 220px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.property-image:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+    pointer-events: none;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.property-card:hover .property-image img {
+    transform: scale(1.08);
+}
+
+/* شارة نوع العقار */
+.property-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--dark-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.property-badge i {
+    font-size: 0.9rem;
+}
+
+.property-badge.sale {
+    background-color: rgba(56, 161, 105, 0.95);
+    color: white;
+}
+
+.property-badge.rent {
+    background-color: rgba(74, 111, 165, 0.95);
+    color: white;
+}
+
+/* محتوى بطاقة العقار */
+.property-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.property-location {
+    color: var(--gray-color);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.location-icon {
+    color: #e53e3e;
+    font-size: 1rem;
+}
+
+.property-price {
+    color: #2d3748;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.price-icon {
+    color: var(--success-color);
+    font-size: 1.2rem;
+}
+
+/* ميزات العقار */
+.property-features {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 16px 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+    gap: 6px;
+    flex: 1;
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(74, 111, 165, 0.1), rgba(44, 82, 130, 0.05));
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.feature-icon i {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.feature-label {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+}
+
+/* زر التفاصيل */
+.property-actions {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.details-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.details-btn i {
+    font-size: 1.1rem;
+}
+
+.details-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 111, 165, 0.2);
+}
+
+/* مساحات الإعلانات */
 .ad-container {
     margin: 30px 0;
     text-align: center;
@@ -173,7 +696,35 @@ body {
     color: #a0aec0;
 }
 
-/* صفحة إضافة عقار - تصميم احترافي */
+/* زر تحميل المزيد */
+.load-more-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.load-more-btn {
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 14px 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.load-more-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 111, 165, 0.2);
+}
+
+/* صفحة إضافة عقار */
 .add-property-section {
     padding: 60px 0;
     background: linear-gradient(135deg, #f8fafc 0%, #e6fffa 100%);
@@ -198,23 +749,6 @@ body {
     border-radius: 2px;
 }
 
-.section-title {
-    font-size: 2.2rem;
-    color: var(--dark-color);
-    margin-bottom: 12px;
-    font-weight: 700;
-    position: relative;
-}
-
-.section-subtitle {
-    color: var(--gray-color);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
-
-/* حاوية النموذج - تصميم بطاقة أنيقة */
 .form-container {
     max-width: 850px;
     margin: 0 auto;
@@ -237,7 +771,6 @@ body {
     background: linear-gradient(90deg, #C1272D, #006233, #C1272D);
 }
 
-/* تصميم الحقول */
 .form-group {
     margin-bottom: 28px;
     position: relative;
@@ -284,13 +817,6 @@ body {
     background-color: #f8fafc;
 }
 
-.form-group input:hover,
-.form-group select:hover,
-.form-group textarea:hover {
-    border-color: #cbd5e0;
-}
-
-/* صفوف النموذج */
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -298,7 +824,6 @@ body {
     margin-bottom: 28px;
 }
 
-/* منطقة رفع الصور - تصميم حديث */
 .upload-area {
     border: 3px dashed #cbd5e0;
     border-radius: 12px;
@@ -318,12 +843,6 @@ body {
     box-shadow: 0 10px 25px rgba(74, 111, 165, 0.1);
 }
 
-.upload-area.dragover {
-    border-color: var(--primary-color);
-    background-color: rgba(74, 111, 165, 0.05);
-    transform: scale(1.01);
-}
-
 .upload-area i {
     font-size: 3.5rem;
     color: var(--primary-color);
@@ -332,35 +851,6 @@ body {
     transition: var(--transition);
 }
 
-.upload-area:hover i {
-    transform: scale(1.1);
-    color: var(--secondary-color);
-}
-
-.upload-area p {
-    color: var(--dark-color);
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.upload-info {
-    font-size: 0.9rem;
-    color: var(--gray-color);
-    margin-top: 10px;
-}
-
-.upload-area input[type="file"] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
-/* الصور المرفوعة */
 .uploaded-images {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -376,17 +866,6 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
-}
-
-.uploaded-image:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.uploaded-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .remove-image {
@@ -412,12 +891,6 @@ body {
     opacity: 1;
 }
 
-.remove-image:hover {
-    background-color: #c53030;
-    transform: scale(1.1);
-}
-
-/* أزرار النموذج */
 .form-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -447,26 +920,12 @@ body {
     box-shadow: 0 6px 15px rgba(74, 111, 165, 0.25);
 }
 
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(74, 111, 165, 0.35);
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
-}
-
 .cancel-btn {
     background: white;
     color: var(--gray-color);
     border: 2px solid #e2e8f0;
 }
 
-.cancel-btn:hover {
-    background-color: #f8fafc;
-    border-color: #cbd5e0;
-    color: var(--dark-color);
-    transform: translateY(-2px);
-}
-
-/* ملاحظة النموذج */
 .form-note {
     margin-top: 35px;
     padding: 20px;
@@ -480,18 +939,6 @@ body {
     border-right: 4px solid #f0ad4e;
 }
 
-.form-note i {
-    font-size: 1.5rem;
-    color: #f0ad4e;
-}
-
-.form-note p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* نموذج التأكيد */
 .modal {
     display: none;
     position: fixed;
@@ -504,27 +951,6 @@ body {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background-color: white;
-    border-radius: var(--border-radius);
-    width: 90%;
-    max-width: 500px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    animation: modalAppear 0.4s ease-out;
-}
-
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: translateY(-30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 .confirmation-modal .modal-body {
@@ -619,6 +1045,28 @@ body {
     color: #cbd5e0;
 }
 
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 30px;
@@ -660,8 +1108,26 @@ body {
         padding: 14px 18px;
     }
     
-    .section-title {
-        font-size: 1.8rem;
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .hero-stats {
+        gap: 30px;
+    }
+    
+    .stat:not(:last-child):after {
+        display: none;
+    }
+    
+    .properties-list {
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
     
     .form-container {
@@ -678,10 +1144,6 @@ body {
         gap: 15px;
     }
     
-    .uploaded-images {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-    
     .footer-content {
         grid-template-columns: 1fr;
         gap: 35px;
@@ -689,24 +1151,25 @@ body {
 }
 
 @media (max-width: 480px) {
-    .add-property-section {
-        padding: 40px 0;
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 1.7rem;
     }
     
     .section-title {
         font-size: 1.6rem;
     }
     
-    .form-container {
-        padding: 25px 20px;
+    .property-features {
+        flex-wrap: wrap;
     }
     
-    .upload-area {
-        padding: 40px 20px;
-    }
-    
-    .upload-area i {
-        font-size: 2.5rem;
+    .feature-item {
+        flex: 0 0 33.333%;
+        margin-bottom: 10px;
     }
     
     .modal-actions {
@@ -714,23 +1177,26 @@ body {
     }
 }
 
-/* تحسينات إضافية للأناقة */
+/* تحسينات إضافية */
 ::selection {
     background-color: rgba(74, 111, 165, 0.2);
     color: var(--dark-color);
 }
 
-/* تأثيرات الظلال الدقيقة */
-.header, .form-container, .ad-placeholder, .uploaded-image {
+html {
+    scroll-behavior: smooth;
+}
+
+.header, .search-bar, .property-card, .ad-placeholder {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-/* تدرجات لونية متناسقة */
-.form-group select option {
-    padding: 10px;
+.property-type.riad {
+    background: linear-gradient(135deg, #d4a574, #b08d57);
+    color: white;
 }
 
-/* تحسينات للتحميل */
+/* مؤشر التحميل */
 .loading-spinner {
     display: none;
     position: fixed;
@@ -756,24 +1222,4 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* رسائل التنبيه */
-.alert {
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: none;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
     }
