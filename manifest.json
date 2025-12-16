@@ -1,12 +1,14 @@
 {
-  "name": "دار ماركت - السوق العقاري المغربي",
-  "short_name": "دار ماركت",
-  "description": "أكبر سوق عقاري مغربي يربط البائعين والمشترين في مكان واحد",
+  "name": "DarMarket - منصة العقارات",
+  "short_name": "DarMarket",
+  "description": "منصة عقارية متكاملة للبحث عن العقارات للبيع والكراء",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#2c3e50",
-  "theme_color": "#3498db",
-  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#4a6fa5",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -49,33 +51,12 @@
       "type": "image/png"
     }
   ],
-  "lang": "ar",
-  "dir": "rtl",
-  "categories": ["business", "real estate", "shopping"],
+  "categories": ["business", "lifestyle", "shopping"],
   "screenshots": [
     {
-      "src": "screenshots/home.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "label": "الصفحة الرئيسية لدار ماركت"
+      "src": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+      "sizes": "500x800",
+      "type": "image/png"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "البحث عن عقار",
-      "short_name": "بحث",
-      "description": "ابحث عن عقارك المثالي",
-      "url": "/#search",
-      "icons": [{ "src": "icons/search-icon.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "أضف عقار",
-      "short_name": "إضافة",
-      "description": "أضف عقارك للبيع أو الإيجار",
-      "url": "/add-property.html",
-      "icons": [{ "src": "icons/add-icon.png", "sizes": "96x96" }]
-    }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  ]
 }
