@@ -1,15 +1,53 @@
-/* أضف هذا في نهاية ملف style.css الحالي */
+/* Reset وتنسيقات عامة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* علم المغرب */
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #2c5282;
+    --accent-color: #2d3748;
+    --light-color: #f8f9fa;
+    --dark-color: #2d3748;
+    --gray-color: #718096;
+    --light-gray: #edf2f7;
+    --success-color: #38a169;
+    --danger-color: #e53e3e;
+    --border-radius: 12px;
+    --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #fff;
+    direction: rtl;
+    text-align: right;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* علم المغرب الصحيح 🇲🇦 */
 .morocco-flag {
     display: inline-block;
-    width: 20px;
-    height: 15px;
-    background: linear-gradient(to right, #c1272d 33%, #006233 33%, #006233 66%);
+    width: 22px;
+    height: 16px;
+    background-color: #C1272D;
     border-radius: 2px;
-    margin-right: 5px;
+    margin-right: 8px;
     vertical-align: middle;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .morocco-flag:after {
@@ -18,27 +56,765 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #c1272d;
-    font-size: 8px;
+    color: #006233;
+    font-size: 9px;
+    font-weight: bold;
 }
 
 /* تنسيقات للعملة المغربية */
 .price-dh {
-    color: #006233;
-    font-weight: bold;
+    color: #2d3748;
+    font-weight: 600;
     font-size: 0.9em;
 }
 
-/* تحسينات للعقارات المغربية */
-.property-type.riad {
-    background-color: #f0e6d2;
-    color: #8b4513;
+/* Header - تصميم أكثر احترافية */
+.header {
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 18px 0;
+    border-bottom: 1px solid #e2e8f0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* خلفية خاصة للمغرب */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    color: var(--dark-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.5px;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.menu-toggle:hover {
+    background-color: var(--light-gray);
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+}
+
+/* Hero Section - تصميم أنيق */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+    background: linear-gradient(135deg, rgba(44, 82, 130, 0.9) 0%, rgba(74, 111, 165, 0.8) 100%), 
+                url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
+    color: white;
+    padding: 90px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
 }
+
+.hero:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #C1272D, #006233, #C1272D);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 35px;
+    opacity: 0.95;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* شريط البحث المحسن */
+.search-bar {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-input {
+    flex: 1;
+    position: relative;
+    min-width: 200px;
+}
+
+.search-input i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-color);
+    font-size: 1.1rem;
+}
+
+.search-input select {
+    width: 100%;
+    padding: 14px 45px 14px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    appearance: none;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.search-input select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+}
+
+.search-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(74, 111, 165, 0.2);
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(74, 111, 165, 0.3);
+}
+
+/* إحصائيات Hero */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.stat {
+    text-align: center;
+    position: relative;
+}
+
+.stat h3 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stat p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.stat:not(:last-child):after {
+    content: "";
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* قسم العقارات المحسن */
+.properties-section {
+    padding: 60px 0;
+    background-color: #f8fafc;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: var(--dark-color);
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    color: var(--gray-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* فلاتر البحث */
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(74, 111, 165, 0.15);
+}
+
+/* بطاقات العقارات المحسنة */
+.properties-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.property-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: 1px solid #f1f5f9;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    border-color: #e2e8f0;
+}
+
+/* صورة العقار مع تأثير gradient */
+.property-image {
+    height: 220px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.property-image:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+    pointer-events: none;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.property-card:hover .property-image img {
+    transform: scale(1.08);
+}
+
+/* شارة نوع العقار (بيع/كراء) */
+.property-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--dark-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-badge.sale {
+    background-color: rgba(56, 161, 105, 0.95);
+    color: white;
+}
+
+.property-badge.rent {
+    background-color: rgba(74, 111, 165, 0.95);
+    color: white;
+}
+
+/* محتوى بطاقة العقار */
+.property-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.property-location {
+    color: var(--gray-color);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.property-price {
+    color: #2d3748;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ميزات العقار (المساحة، الغرف، الحمامات) */
+.property-features {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 16px 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+    gap: 6px;
+    flex: 1;
+}
+
+.feature-icon {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.feature-label {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+}
+
+/* زر التفاصيل المحسن */
+.property-actions {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.details-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.details-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 111, 165, 0.2);
+}
+
+/* مساحات الإعلانات */
+.ad-container {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.ad-placeholder {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 2px dashed #cbd5e0;
+    border-radius: var(--border-radius);
+    padding: 40px 20px;
+    color: var(--gray-color);
+    transition: var(--transition);
+}
+
+.ad-placeholder:hover {
+    border-color: var(--primary-color);
+    background-color: #f0f5ff;
+}
+
+.ad-label {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.ad-info {
+    font-size: 0.85rem;
+    margin-top: 15px;
+    color: #a0aec0;
+}
+
+/* زر تحميل المزيد */
+.load-more-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.load-more-btn {
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 14px 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.load-more-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(74, 111, 165, 0.2);
+}
+
+/* Footer - تذييل أنيق */
+.footer {
+    background: linear-gradient(135deg, #2d3748, #1a202c);
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 60px;
+    position: relative;
+}
+
+.footer:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #C1272D, #006233, #C1272D);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.footer-section p {
+    color: #cbd5e0;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section li {
+    margin-bottom: 12px;
+}
+
+.footer-section a {
+    color: #cbd5e0;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-section a:hover {
+    color: white;
+    padding-right: 5px;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: #cbd5e0;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin-bottom: 10px;
+}
+
+.pwa-status a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* تصميم للجوال */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 80px);
+        background-color: white;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 999;
+        padding: 20px;
+        border-radius: 0 0 0 var(--border-radius);
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .nav-menu a {
+        padding: 14px 18px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .hero-stats {
+        gap: 30px;
+    }
+    
+    .stat:not(:last-child):after {
+        display: none;
+    }
+    
+    .properties-list {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    
+    .install-btn {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 1.7rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .property-features {
+        flex-wrap: wrap;
+    }
+    
+    .feature-item {
+        flex: 0 0 33.333%;
+        margin-bottom: 10px;
+    }
+}
+
+/* تحسينات إضافية للأناقة */
+::selection {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--dark-color);
+}
+
+/* تحسين التمرير السلس */
+html {
+    scroll-behavior: smooth;
+}
+
+/* تأثيرات الظلال الدقيقة */
+.header, .search-bar, .property-card, .ad-placeholder {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* تدرجات لونية متناسقة */
+.property-type.riad {
+    background: linear-gradient(135deg, #d4a574, #b08d57);
+    color: white;
+    }
