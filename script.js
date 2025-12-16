@@ -83,10 +83,39 @@ const propertiesData = [
         bathrooms: "2",
         description: "شقة للكراء الشهري في أكادير، إطلالة مباشرة على البحر، مجهزة بالكامل، خدمات فندقية.",
         image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 7,
+        name: "أرض سكنية في بني ملال",
+        city: "بني ملال",
+        district: "وسط المدينة",
+        price: "450,000",
+        type: "أرض",
+        transaction: "بيع",
+        area: "300",
+        rooms: "-",
+        bathrooms: "-",
+        description: "أرض سكنية في موقع استراتيجي ببني ملال، صالحة للبناء الفوري، جميع الخدمات متوفرة.",
+        image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 8,
+        name: "فيلا حديثة في تطوان",
+        city: "تطوان",
+        district: "حي الرماني",
+        price: "1,800,000",
+        type: "فيلا",
+        transaction: "بيع",
+        area: "280",
+        rooms: "5",
+        bathrooms: "3",
+        description: "فيلا حديثة في تطوان، تصميم عصري، حديقة خاصة، مواقف داخلية، قريبة من المرافق.",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     }
 ];
 
-let displayedProperties = 3;
+// متغيرات عامة
+let displayedProperties = 6;
 let currentFilter = 'all';
 
 // تهيئة التطبيق عند تحميل الصفحة
@@ -154,6 +183,9 @@ function displayProperties() {
     });
     
     console.log(`✅ تم عرض ${propertiesToShow.length} عقار`);
+    
+    // تحديث زر تحميل المزيد
+    updateLoadMoreButton();
 }
 
 // دالة لإنشاء بطاقة عقار
@@ -168,23 +200,49 @@ function createPropertyCard(property) {
     card.innerHTML = `
         <div class="property-image">
             <img src="${property.image}" alt="${property.name}" loading="lazy">
+            <div class="property-badge ${typeClass}">
+                <i class="fas ${property.transaction === 'كراء' ? 'fa-handshake' : 'fa-tag'}"></i>
+                ${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}
+            </div>
         </div>
-        <div class="property-info">
+        <div class="property-content">
             <h3>${property.name}</h3>
             <div class="property-location">
-                <i class="fas fa-map-marker-alt"></i>
+                <i class="fas fa-map-marker-alt location-icon"></i>
                 <span>${property.district} - ${property.city}</span>
             </div>
-            <div class="property-price">${property.price} <span class="price-dh">${priceText}</span></div>
-            <div class="property-features">
-                <span><i class="fas fa-ruler-combined"></i> ${property.area} م²</span>
-                <span><i class="fas fa-bed"></i> ${property.rooms} غرف</span>
-                <span><i class="fas fa-bath"></i> ${property.bathrooms} حمام</span>
+            <div class="property-price">
+                <i class="fas fa-money-bill-wave price-icon"></i>
+                ${property.price} <span class="price-dh">${priceText}</span>
             </div>
-            <div class="property-type ${typeClass}">${property.transaction === 'كراء' ? 'للإيجار' : 'للبيع'}</div>
-            <button class="details-btn" data-id="${property.id}">
-                <i class="fas fa-info-circle"></i> التفاصيل
-            </button>
+            <div class="property-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <span class="feature-value">${property.area}</span>
+                    <span class="feature-label">م²</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <span class="feature-value">${property.rooms}</span>
+                    <span class="feature-label">غرف</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bath"></i>
+                    </div>
+                    <span class="feature-value">${property.bathrooms}</span>
+                    <span class="feature-label">حمام</span>
+                </div>
+            </div>
+            <div class="property-actions">
+                <button class="details-btn" data-id="${property.id}">
+                    <i class="fas fa-info-circle"></i> التفاصيل
+                </button>
+            </div>
         </div>
     `;
     
@@ -290,15 +348,12 @@ function setupFilters() {
             currentFilter = this.dataset.filter;
             
             // إعادة تعيين عدد العقارات المعروضة
-            displayedProperties = 3;
+            displayedProperties = 6;
             
             // عرض العقارات المصفاة
             displayProperties();
             
-            // تحديث زر تحميل المزيد
-            updateLoadMoreButton();
-            
-            console.log(`✅ تم تطبيق الفلتر: ${this.textContent}`);
+            console.log(`✅ تم تطبيق الفلتر: ${this.textContent.trim()}`);
         });
     });
 }
@@ -318,9 +373,6 @@ function setupLoadMore() {
         
         // عرض العقارات الجديدة
         displayProperties();
-        
-        // تحديث حالة الزر
-        updateLoadMoreButton();
         
         console.log(`✅ تم تحميل المزيد، الآن يتم عرض ${displayedProperties} عقار`);
     });
@@ -354,6 +406,7 @@ function updateLoadMoreButton() {
     } else {
         loadMoreBtn.style.display = 'block';
         loadMoreBtn.textContent = 'تحميل المزيد من العقارات';
+        loadMoreBtn.innerHTML = '<i class="fas fa-sync-alt"></i> تحميل المزيد من العقارات';
     }
 }
 
