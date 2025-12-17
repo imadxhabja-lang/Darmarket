@@ -519,3 +519,175 @@ window.addEventListener('load', function() {
         // تجاهل الخطأ
     }
 });
+// ======== كود رفع الصور لصفحة إضافة عقار ========
+// هذا الكود يعمل فقط في صفحة add-property.html
+
+function initializeImageUpload() {
+    // تحقق إذا كنا في صفحة إضافة عقار
+    if (!document.getElementById('uploadArea')) {
+        console.log('لست في صفحة إضافة عقار، كود رفع الصور غير مفعل');
+        return;
+    }
+    
+    console.log('✅ تحميل نظام رفع الصور...');
+    
+    const uploadArea = document.getElementById('uploadArea');
+    const imageUpload = document.getElementById('imageUpload');
+    const uploadedImagesContainer = document.getElementById('uploadedImages');
+    let uploadedFiles = [];
+    
+    // 1. تفعيل النقر على منطقة الرفع
+    uploadArea.addEventListener('click', function() {
+        console.log('تم النقر على منطقة الرفع');
+        imageUpload.click();
+    });
+    
+    // 2. تأثيرات السحب
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.borderColor = '#4a6fa5';
+        this.style.backgroundColor = '#f0f5ff';
+    });
+    
+    uploadArea.addEventListener('dragleave', function() {
+        this.style.borderColor = '#ddd';
+        this.style.backgroundColor = '#f9f9f9';
+    });
+    
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.borderColor = '#ddd';
+        this.style.backgroundColor = '#f9f9f9';
+        handleImageFiles(e.dataTransfer.files);
+    });
+    
+    // 3. عند اختيار الملفات
+    imageUpload.addEventListener('change', function(e) {
+        console.log('تم اختيار ' + e.target.files.length + ' ملف');
+        handleImageFiles(e.target.files);
+    });
+    
+    // 4. دالة معالجة الملفات
+    function handleImageFiles(files) {
+        const maxFiles = 5;
+        
+        if (uploadedFiles.length + files.length > maxFiles) {
+            alert(`❌ الحد الأقصى 5 صور. لديك ${uploadedFiles.length} صور بالفعل.`);
+            return;
+        }
+        
+        for (let i = 0; i < Math.min(files.length, maxFiles - uploadedFiles.length); i++) {
+            const file = files[i];
+            
+            if (!file.type.startsWith('image/')) {
+                alert(`⚠️ الملف "${file.name}" ليس صورة. سيتم تخطيه.`);
+                continue;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                alert(`⚠️ الصورة "${file.name}" كبيرة جداً (الحد الأقصى 5MB).`);
+                continue;
+            }
+            
+            uploadedFiles.push(file);
+            displayImagePreview(file);
+        }
+        
+        updateUploadCount();
+        imageUpload.value = '';
+    }
+    
+    // 5. عرض معاينة الصورة
+    function displayImagePreview(file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const imageId = 'img_' + Date.now();
+            
+            const imageItem = document.createElement('div');
+            imageItem.className = 'uploaded-image-item';
+            imageItem.id = imageId;
+            
+            imageItem.innerHTML = `
+                <div class="image-container">
+                    <img src="${e.target.result}" alt="معاينة">
+                    <button type="button" class="remove-image-btn" data-id="${imageId}" data-name="${file.name}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="image-info">
+                    <span class="image-name">${file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name}</span>
+                    <span class="image-size">${formatFileSize(file.size)}</span>
+                </div>
+            `;
+            
+            uploadedImagesContainer.appendChild(imageItem);
+            
+            // إضافة حدث للحذف
+            const removeBtn = imageItem.querySelector('.remove-image-btn');
+            removeBtn.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-name');
+                uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+                this.closest('.uploaded-image-item').remove();
+                updateUploadCount();
+                console.log('تم حذف الصورة:', fileName);
+            });
+        };
+        
+        reader.readAsDataURL(file);
+    }
+    
+    // 6. تحديث العداد
+    function updateUploadCount() {
+        const countElement = document.querySelector('.upload-info');
+        if (countElement) {
+            countElement.textContent = `تم رفع ${uploadedFiles.length} من 5 صور (JPG, PNG, GIF)`;
+            countElement.style.color = uploadedFiles.length > 0 ? '#4a6fa5' : '#888';
+        }
+    }
+    
+    // 7. تنسيق حجم الملف
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' بايت';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' كيلوبايت';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' ميجابايت';
+    }
+    
+    // 8. ربط مع إرسال النموذج
+    const propertyForm = document.getElementById('propertyForm');
+    if (propertyForm) {
+        // حفظ الإرسال الأصلي إذا كان موجوداً
+        const originalSubmit = propertyForm.onsubmit;
+        
+        propertyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // يمكنك هنا إضافة الصور إلى البيانات المرسلة
+            console.log('📤 إرسال النموذج مع', uploadedFiles.length, 'صور');
+            
+            // عرض رسالة نجاح
+            alert(`✅ تم حفظ العقار مع ${uploadedFiles.length} صورة`);
+            
+            // إعادة تعيين النموذج
+            this.reset();
+            uploadedFiles = [];
+            uploadedImagesContainer.innerHTML = '';
+            updateUploadCount();
+            
+            // عرض نافذة التأكيد إذا كانت موجودة
+            const confirmationModal = document.getElementById('confirmationModal');
+            if (confirmationModal) {
+                confirmationModal.style.display = 'flex';
+            }
+        });
+    }
+    
+    console.log('✅ نظام رفع الصور جاهز!');
+}
+
+// تشغيل النظام عندما تكون الصفحة جاهزة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeImageUpload);
+} else {
+    initializeImageUpload();
+                }
