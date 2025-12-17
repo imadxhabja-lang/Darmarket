@@ -1223,3 +1223,177 @@ html {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+/* تنسيقات رفع الصور المعدلة */
+.upload-area {
+    border: 3px dashed #ddd;
+    border-radius: 12px;
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-area:hover {
+    border-color: #4a6fa5;
+    background-color: #f0f8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 111, 165, 0.1);
+}
+
+.upload-area i {
+    font-size: 60px;
+    color: #aaa;
+    margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.upload-area:hover i {
+    color: #4a6fa5;
+}
+
+.upload-area p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.upload-info {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+}
+
+/* تنسيقات الصور المرفوعة */
+.uploaded-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    min-height: 80px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+.uploaded-image-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.uploaded-image-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.uploaded-image-item .image-container {
+    position: relative;
+    height: 100px;
+    overflow: hidden;
+}
+
+.uploaded-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(220, 53, 69, 0.85);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s;
+    opacity: 0.8;
+}
+
+.remove-image-btn:hover {
+    background: #dc3545;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.image-info {
+    padding: 8px;
+    background: #f8f9fa;
+}
+
+.image-name {
+    display: block;
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+}
+
+.image-size {
+    display: block;
+    font-size: 11px;
+    color: #666;
+}
+
+/* رسالة عندما لا توجد صور */
+.uploaded-images:empty::before {
+    content: "لم يتم رفع أي صور بعد";
+    display: block;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* تأثيرات حركية */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.uploaded-image-item {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* استجابة للجوال */
+@media (max-width: 768px) {
+    .upload-area {
+        padding: 30px 15px;
+    }
+    
+    .upload-area i {
+        font-size: 45px;
+    }
+    
+    .upload-area p {
+        font-size: 14px;
+    }
+    
+    .uploaded-images {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    
+    .uploaded-image-item .image-container {
+        height: 80px;
+    }
+    }
