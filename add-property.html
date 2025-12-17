@@ -73,6 +73,9 @@
                                 <option value="منزل">منزل</option>
                                 <option value="أرض">أرض</option>
                                 <option value="محل تجاري">محل تجاري</option>
+                                <option value="مكتب">مكتب</option>
+                                <option value="فندق">فندق</option>
+                                <option value="مزرعة">مزرعة</option>
                             </select>
                         </div>
                         
@@ -82,6 +85,7 @@
                                 <option value="">نوع العملية</option>
                                 <option value="بيع">بيع</option>
                                 <option value="كراء">كراء</option>
+                                <option value="استثمار">استثمار</option>
                             </select>
                         </div>
                     </div>
@@ -140,6 +144,7 @@
                                 <option value="الفنيدق">الفنيدق</option>
                                 <option value="المضيق">المضيق</option>
                                 <option value="أصيلة">أصيلة</option>
+                                <option value="الشاون">الشاون</option>
                                 <option value="وادي زم">وادي زم</option>
                                 <option value="جرسيف">جرسيف</option>
                                 <option value="تاوريرت">تاوريرت</option>
@@ -152,20 +157,20 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="district"><i class="fas fa-map-marker-alt"></i> الحي</label>
-                            <input type="text" id="district" placeholder="اسم الحي" required>
+                            <label for="district"><i class="fas fa-map-marker-alt"></i> الحي/المنطقة</label>
+                            <input type="text" id="district" placeholder="اسم الحي أو المنطقة" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="price"><i class="fas fa-money-bill-wave"></i> السعر (درهم)</label>
-                            <input type="number" id="price" placeholder="أدخل السعر بالدرهم" required>
+                            <input type="number" id="price" placeholder="أدخل السعر بالدرهم" required min="0">
                         </div>
                         
                         <div class="form-group">
                             <label for="area"><i class="fas fa-ruler-combined"></i> المساحة (م²)</label>
-                            <input type="number" id="area" placeholder="المساحة بالمتر المربع">
+                            <input type="number" id="area" placeholder="المساحة بالمتر المربع" min="0">
                         </div>
                     </div>
                     
@@ -173,17 +178,19 @@
                         <label for="rooms"><i class="fas fa-bed"></i> عدد الغرف</label>
                         <select id="rooms">
                             <option value="غير محدد">غير محدد</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5+">5+</option>
+                            <option value="1">1 غرفة</option>
+                            <option value="2">2 غرف</option>
+                            <option value="3">3 غرف</option>
+                            <option value="4">4 غرف</option>
+                            <option value="5">5 غرف</option>
+                            <option value="6+">6+ غرف</option>
+                            <option value="استوديو">استوديو</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="description"><i class="fas fa-file-alt"></i> وصف العقار</label>
-                        <textarea id="description" rows="4" placeholder="أدخل وصفاً مفصلاً للعقار"></textarea>
+                        <textarea id="description" rows="5" placeholder="أدخل وصفاً مفصلاً للعقار (الميزات، الموقع، الحالة، الخدمات القريبة...)"></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -191,7 +198,7 @@
                         <div class="upload-area" id="uploadArea">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>انقر لرفع الصور أو اسحبها هنا</p>
-                            <p class="upload-info">الحد الأقصى 5 صور (JPG, PNG, GIF)</p>
+                            <p class="upload-info">الحد الأقصى 10 صور (JPG, PNG, GIF) - حجم الصورة 5MB كحد أقصى</p>
                             <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
                         </div>
                         <div class="uploaded-images" id="uploadedImages">
@@ -201,13 +208,14 @@
                     
                     <div class="form-group">
                         <label for="contactName"><i class="fas fa-user"></i> اسم جهة الاتصال</label>
-                        <input type="text" id="contactName" placeholder="اسمك أو اسم الوكالة" required>
+                        <input type="text" id="contactName" placeholder="اسمك أو اسم الوكالة العقارية" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="contactPhone"><i class="fas fa-phone"></i> رقم الهاتف</label>
-                            <input type="tel" id="contactPhone" placeholder="رقم الهاتف للتواصل" required>
+                            <input type="tel" id="contactPhone" placeholder="رقم الهاتف للتواصل" required pattern="[0-9]{10}">
+                            <small style="color: #718096; font-size: 0.85rem; margin-top: 5px; display: block;">مثال: 0612345678</small>
                         </div>
                         
                         <div class="form-group">
@@ -227,7 +235,7 @@
                 </form>
                 
                 <div class="form-note">
-                    <p><i class="fas fa-info-circle"></i> ملاحظة: بعد إرسال النموذج، ستتم مراجعة عقارك قبل نشره على المنصة.</p>
+                    <p><i class="fas fa-info-circle"></i> ملاحظة: بعد إرسال النموذج، ستتم مراجعة عقارك من قبل إدارة المنصة للتأكد من صحته وسيتم نشره خلال 24 ساعة. تأكد من صحة جميع المعلومات المدخلة.</p>
                 </div>
             </div>
         </div>
@@ -248,16 +256,16 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3><i class="fas fa-home"></i> DarMarket</h3>
-                    <p>منصة عقارية متكاملة تهدف لتسهيل عملية البحث عن العقارات.</p>
+                    <p>منصة عقارية متكاملة تهدف لتسهيل عملية البحث عن العقارات في جميع أنحاء المغرب.</p>
                 </div>
                 
                 <div class="footer-section">
                     <h3>روابط سريعة</h3>
                     <ul>
-                        <li><a href="index.html">الرئيسية</a></li>
-                        <li><a href="index.html#properties">العقارات</a></li>
-                        <li><a href="add-property.html">أضف عقار</a></li>
-                        <li><a href="index.html#contact">اتصل بنا</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="index.html#properties"><i class="fas fa-chevron-left"></i> العقارات</a></li>
+                        <li><a href="add-property.html"><i class="fas fa-chevron-left"></i> أضف عقار</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
                     </ul>
                 </div>
                 
@@ -266,12 +274,13 @@
                     <ul class="contact-info">
                         <li><i class="fas fa-phone"></i> +212 600 000 000</li>
                         <li><i class="fas fa-envelope"></i> info@darmarket.ma</li>
+                        <li><i class="fas fa-clock"></i> الأحد - الخميس: 9:00 - 18:00</li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; DarMarket 2023</p>
+                <p>جميع الحقوق محفوظة &copy; DarMarket 2023 | منصة عقارية مغربية</p>
             </div>
         </div>
     </footer>
@@ -281,13 +290,13 @@
         <div class="modal-content confirmation-modal">
             <div class="modal-body">
                 <i class="fas fa-check-circle success-icon"></i>
-                <h3>تم إضافة العقار بنجاح!</h3>
-                <p>سيتم مراجعة عقارك من قبل إدارة المنصة وسيتم نشره خلال 24 ساعة.</p>
+                <h3>تم إضافة العقار بنجاح! ✅</h3>
+                <p>شكراً لك! تم استلام طلب إضافة العقار بنجاح. سيتم مراجعته من قبل إدارة المنصة والتأكد من صحته، وسيتم نشره على الموقع خلال 24 ساعة.</p>
                 <div class="modal-actions">
                     <button class="submit-btn" onclick="window.location.href='index.html'">
                         <i class="fas fa-home"></i> العودة للرئيسية
                     </button>
-                    <button class="cancel-btn" id="addAnotherBtn">
+                    <button class="cancel-btn" onclick="document.getElementById('confirmationModal').style.display='none'">
                         <i class="fas fa-plus"></i> إضافة عقار آخر
                     </button>
                 </div>
@@ -300,7 +309,6 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- ربط ملف JavaScript المصحح -->
-    <script src="add-property-script.js"></script>
+    <script src="script.js"></script>
 </body>
-    </html>
+                                </html>
