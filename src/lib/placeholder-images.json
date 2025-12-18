@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "src": "https://picsum.photos/seed/hero/1200/400",
+    "data-ai-hint": "modern house exterior"
+  },
+  "properties": [
+    {
+      "src": "https://picsum.photos/seed/1/600/400",
+      "data-ai-hint": "luxury apartment interior"
+    },
+    {
+      "src": "https://picsum.photos/seed/2/600/400",
+      "data-ai-hint": "villa private pool"
+    },
+    {
+      "src": "https://picsum.photos/seed/3/600/400",
+      "data-ai-hint": "traditional moroccan riad"
+    },
+    {
+      "src": "https://picsum.photos/seed/4/600/400",
+      "data-ai-hint": "modern studio apartment"
+    },
+    {
+      "src": "https://picsum.photos/seed/5/600/400",
+      "data-ai-hint": "country house mountain"
+    },
+    {
+      "src": "https://picsum.photos/seed/6/600/400",
+      "data-ai-hint": "family apartment living"
+    }
+  ]
+}
